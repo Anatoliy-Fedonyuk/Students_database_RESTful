@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Convert and store data to the database"
+version = "1.0.0"
+authors = [{ name = "Fedonyuk Anatoliy", email = "dekorstyle0@gmail.com" }, ]
+description = """This version of our application, converting and storing the data to the data base."""
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = ["Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",]
+
+[project.urls]
+"Homepage" = "https://git.foxminded.ua/foxstudent105007/task-9-convert-and-store-data-to-the-database"
+"Bug Tracker" = "https://git.foxminded.ua/foxstudent105007/task-9-convert-and-store-data-to-the-database/-/issues"
