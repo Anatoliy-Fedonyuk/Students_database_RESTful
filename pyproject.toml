@@ -15,5 +15,5 @@ classifiers = ["Programming Language :: Python :: 3",
     "Operating System :: OS Independent",]
 
 [project.urls]
-"Homepage" = "https://git.foxminded.ua/foxstudent105007/task-9-convert-and-store-data-to-the-database"
-"Bug Tracker" = "https://git.foxminded.ua/foxstudent105007/task-9-convert-and-store-data-to-the-database/-/issues"
+"Homepage" = "https://git.foxminded.ua/foxstudent105007/task-10-sql"
+"Bug Tracker" = "https://git.foxminded.ua/foxstudent105007/task-10-sql/-/issues"
