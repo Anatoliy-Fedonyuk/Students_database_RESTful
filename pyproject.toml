@@ -6,7 +6,8 @@ build-backend = "setuptools.build_meta"
 name = "PostgreSQL + Docker"
 version = "1.0.0"
 authors = [{ name = "Fedonyuk Anatoliy", email = "dekorstyle0@gmail.com" }, ]
-description = """This version of our application, converting and storing the data to the data base."""
+description = """This application that inserts/select/updates/deletes data in the PostgreSQL database using sqlalchemy
+ and flask rest framework."""
 readme = "README.md"
 requires-python = ">=3.11"
 classifiers = ["Programming Language :: Python :: 3",
