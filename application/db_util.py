@@ -2,6 +2,7 @@
 from packaging_tutorial.report_FEDONYUK.models import db, DriverModel
 
 
+
 def get_report(asc: bool = True, driver: str = None) -> list[list]:
     """Building an overall or separate report on the Monaco race F1 2018 from monaco.db"""
     query = db.session.query(DriverModel).order_by(DriverModel.id)

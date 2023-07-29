@@ -56,6 +56,5 @@ class TestDriversResource(unittest.TestCase):
         self.assertEqual(response.json, {'error': 'Invalid format'})
 
 
-
 if __name__ == '__main__':
     unittest.main()
