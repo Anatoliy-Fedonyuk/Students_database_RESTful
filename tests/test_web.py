@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 from packaging_tutorial.report_FEDONYUK.report_web import app
 
+
 NUMBER_RIDERS = 19
 ONE_RIDER = 1
 
