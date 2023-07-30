@@ -7,6 +7,7 @@ from packaging_tutorial.report_FEDONYUK.models import db, Driver, DriverModel, m
     read_log_file, merged_laps, get_drivers_all, format_timedelta
 from packaging_tutorial.report_FEDONYUK.db_util import get_report, get_drivers
 
+
 ONE_DRIVER = [4, "KRF", "Kimi Räikkönen", "FERRARI", "1:12:639"]
 EXPECTED_LIST = [['Valtteri Bottas', 'VBM'], ['Stoffel Vandoorne', 'SVM'], ['Sergio Perez', 'SPF'],
                  ['Sergey Sirotkin', 'SSW'], ['Sebastian Vettel', 'SVF'], ['Romain Grosjean', 'RGH'],
@@ -15,6 +16,7 @@ EXPECTED_LIST = [['Valtteri Bottas', 'VBM'], ['Stoffel Vandoorne', 'SVM'], ['Ser
                  ['Kevin Magnussen', 'KMH'], ['Fernando Alonso', 'FAM'], ['Esteban Ocon', 'EOF'],
                  ['Daniel Ricciardo', 'DRR'], ['Charles Leclerc', 'CLS'], ['Carlos Sainz', 'CSR'],
                  ['Brendon Hartley', 'BHS']]
+
 
 
 class TestModels(unittest.TestCase):
@@ -52,11 +54,13 @@ class TestModels(unittest.TestCase):
             isinstance(abb, dict) and 'driver_id' in abb and 'name' in abb and 'team' in abb for abb in abbrev))
         self.assertTrue(len(abbrev) == 19)
 
+
     def test_read_log_file(self):
         log_data = read_log_file('start.log')
         self.assertIsInstance(log_data, dict)
         self.assertTrue(
             all(isinstance(driver_id, str) and isinstance(time, str) for driver_id, time in log_data.items()))
+
 
     def test_merged_laps(self):
         laps = merged_laps()
@@ -69,10 +73,12 @@ class TestModels(unittest.TestCase):
         self.assertTrue(all(isinstance(driver, Driver) for driver in drivers))
         self.assertGreater(len(drivers), 15)
 
+
     def test_format_timedelta(self):
         time_obj = timedelta(minutes=1, seconds=45, microseconds=500000)
         formatted_time = format_timedelta(time_obj)
         self.assertEqual(formatted_time, "1:45:500")
+
 
     def test_get_report(self):
         """Testing function get_report from module db_utils"""
@@ -82,6 +88,7 @@ class TestModels(unittest.TestCase):
             self.assertEqual(one_driver, [ONE_DRIVER])
             self.assertEqual(len(one_driver), 1)
 
+
     def test_get_drivers(self):
         """Testing function get_drivers from module db_utils"""
         with self.app.app_context():
@@ -90,11 +97,13 @@ class TestModels(unittest.TestCase):
             self.assertEqual(drivers_list, EXPECTED_LIST)
             self.assertEqual(len(drivers_list), 19)
 
+
     def test_model_creation(self):
         """Testing if the data is saved correctly in the database"""
         with self.app.app_context():
             drivers_count = DriverModel.query.count()
             self.assertEqual(drivers_count, 19)
+
 
     def test_single_driver_saved_correctly(self):
         driver_list = [1, "SVF", "Sebastian Vettel", "FERRARI", "1:04:415"]
@@ -106,6 +115,7 @@ class TestModels(unittest.TestCase):
             self.assertEqual(saved_driver.name, driver_list[2])
             self.assertEqual(saved_driver.team, driver_list[3])
             self.assertEqual(saved_driver.best_lap, driver_list[4])
+
 
     def test_model_unique_constraints(self):
         """Test uniqueness constraint for driver_id and name"""
@@ -119,6 +129,7 @@ class TestModels(unittest.TestCase):
                 db.session.add(driver_model2)
                 db.session.commit()
             self.assertTrue('UNIQUE constraint failed' in str(context.exception))
+
 
 
 if __name__ == '__main__':
