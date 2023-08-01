@@ -1,14 +1,14 @@
 import psycopg2
-from config import host, user, password, db_name, port
+
 
 try:
     # connect to exist database
     connection = psycopg2.connect(
-        host=host,
-        user=user,
-        password=password,
-        database=db_name,
-        port=port
+        # host="127.0.0.1",
+        user='postgres',
+        password='postgres',
+        database='postgres',
+        port='8000'
     )
     connection.autocommit = True
 
