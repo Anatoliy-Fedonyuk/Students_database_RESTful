@@ -1,7 +1,29 @@
-from datetime import datetime
+import psycopg2
+from config import host, user, password, db_name
 
-num = 1000000000000000001000
-now = datetime.now()
+try:
+    connection = psycopg2.connect(
+        host=host,
+        user=user,
+        password=password,
+        database=db_name
+    )
+    connection.autocommit = True
 
-print(f'{num = :_}')
-print(f'Now it`s - {now:%d.%m.%Y %H:%M:%S}')
+    with connection.cursor() as cursor:
+        cursor.execute(f"GRANT ALL PRIVILEGES ON DATABASE {db_name} TO {user};")
+        print(f"[INFO] User '{user}' rights set for the database '{db_name}'")
+
+        cursor.execute("SELECT version();")
+        print(f'Server version: {cursor.fetchone()}')
+
+        cursor.execute("SELECT * FROM users;")
+        [print(res) for res in cursor]
+
+
+except Exception as _ex:
+    if connection: connection.rollback()
+    print("[INFO] Error while working with PostgreSQL", _ex)
+finally:
+    if connection: connection.close()
+    print("[INFO] PostgreSQL connection closed")
