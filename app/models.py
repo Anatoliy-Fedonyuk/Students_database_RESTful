@@ -4,22 +4,24 @@ db = SQLAlchemy()
 
 
 class Groups(db.Model):
-    group_id = db.Column(db.Integer, primary_key=True)
+    group_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
 
 
 class Students(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     first_name = db.Column(db.String(50), nullable=False, unique=True)
     last_name = db.Column(db.String(50), nullable=False, unique=True)
     age = db.Column(db.Integer, nullable=False)
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'), nullable=False)
+    city = db.Column(db.String(50), nullable=False)
+    phone_number = db.Column(db.String(20), nullable=False, unique=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
     groups = db.relationship('Groups', backref='students')
     courses = db.relationship('Courses', secondary='student_course')
 
 
 class Courses(db.Model):
-    id_course = db.Column(db.Integer, primary_key=True)
+    id_course = db.Column(db.Integer, primary_key=True, autoincrement=True)
     course = db.Column(db.String(50), nullable=False, unique=True)
     description = db.Column(db.String(150), nullable=False)
     students = db.relationship('Students', secondary='student_course')
@@ -45,3 +47,7 @@ def main():
 
     except Exception as ex:
         print("[ERROR] Error while working with PostgreSQL:", ex)
+
+    finally:
+        db.session.close()
+        print("[INFO] PostgreSQL connection closed")
