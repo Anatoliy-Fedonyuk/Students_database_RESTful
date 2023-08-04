@@ -2,7 +2,7 @@ from flask import Flask
 from sqlalchemy import inspect
 
 from models import db, main
-from config import host, user, password, db_name
+from config_db import host, user, password, db_name
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{user}:{password}@{host}/{db_name}'
@@ -25,3 +25,5 @@ def check_tables():
 
 if __name__ == "__main__":
     check_tables()
+    app.run(debug=True)
+

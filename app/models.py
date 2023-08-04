@@ -14,14 +14,14 @@ class Students(db.Model):
     age = db.Column(db.Integer, nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'), nullable=False)
     group = db.relationship('Groups', backref='students')
-    courses = db.relationship('Courses', secondary='students_courses')
+    courses = db.relationship('Courses', secondary='student_course')
 
 
 class Courses(db.Model):
     id_course = db.Column(db.Integer, primary_key=True)
     course = db.Column(db.String(50), nullable=False, unique=True)
     description = db.Column(db.String(150), nullable=False)
-    students = db.relationship('Students', secondary='students_courses')
+    students = db.relationship('Students', secondary='student_course')
 
 
 class StudentCourse(db.Model):
@@ -39,10 +39,8 @@ def create_tables():
 
 def main():
     try:
-        with db.session.begin():
-            create_tables()
-            print("[INFO] PostgreSQL connection opened")
-            # Here we will further call the functions from generator.py to fill the tables with data
+        create_tables()
+        # Here we will further call the functions from generator.py to fill the tables with data
 
     except Exception as ex:
         print("[ERROR] Error while working with PostgreSQL:", ex)
