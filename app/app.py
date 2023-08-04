@@ -12,10 +12,8 @@ db.init_app(app)
 
 def check_tables():
     with app.app_context():
-        inspector = inspect(db.engine)
-        tables_exist = all(inspector.has_table(table) for table in ['group', 'student', 'course', 'student_course'])
-        print(tables_exist)
-
+        ins = inspect(db.engine)
+        tables_exist = all(ins.has_table(tab) for tab in ['groups', 'students', 'courses', 'student_course'])
         if not tables_exist:
             main()
 
@@ -26,4 +24,3 @@ def check_tables():
 if __name__ == "__main__":
     check_tables()
     app.run(debug=True)
-

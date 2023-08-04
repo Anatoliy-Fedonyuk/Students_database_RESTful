@@ -21,7 +21,7 @@ def main():
             print("[INFO] PostgreSQL connection opened")
 
             cursor.execute("SELECT version();")
-            print(cursor.fetchall())
+            print(f"Version DB: {cursor.fetchone()[0]}")
 
             cursor.execute(f"GRANT ALL PRIVILEGES ON DATABASE {db_name} TO {user};")
             print(f"[INFO] User '{user}' rights set for the database '{db_name}'")
