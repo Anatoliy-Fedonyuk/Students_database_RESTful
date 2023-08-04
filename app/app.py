@@ -1,4 +1,5 @@
 from flask import Flask
+from sqlalchemy import inspect
 
 from models import db, main
 from config import host, user, password, db_name
@@ -10,14 +11,16 @@ db.init_app(app)
 
 
 def check_tables():
-    # Проверим, существуют ли таблицы
-    tables_exist = db.engine.dialect.has_table(db.engine, 'group') and \
-                   db.engine.dialect.has_table(db.engine, 'student') and \
-                   db.engine.dialect.has_table(db.engine, 'course') and \
-                   db.engine.dialect.has_table(db.engine, 'student_course')
+    with app.app_context():
+        inspector = inspect(db.engine)
+        tables_exist = all(inspector.has_table(table) for table in ['group', 'student', 'course', 'student_course'])
+        print(tables_exist)
 
-    if not tables_exist:
-        main()
+        if not tables_exist:
+            main()
+
+
+# Далее тут будет описано взаимодействие с енд-поинтами по RESTfull api
 
 
 if __name__ == "__main__":

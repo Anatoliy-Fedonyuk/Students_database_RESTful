@@ -2,34 +2,33 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-
-class Group(db.Model):
+class Groups(db.Model):
     group_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
 
 
-class Student(db.Model):
+class Students(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False, unique=True)
     last_name = db.Column(db.String(50), nullable=False, unique=True)
     age = db.Column(db.Integer, nullable=False)
-    group_id = db.Column(db.Integer, db.ForeignKey('group.group_id'), nullable=False)
-    group = db.relationship('Group', backref='students')
-    courses = db.relationship('Course', secondary='student_course')
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'), nullable=False)
+    group = db.relationship('Groups', backref='students')
+    courses = db.relationship('Courses', secondary='students_courses')
 
 
-class Course(db.Model):
+class Courses(db.Model):
     id_course = db.Column(db.Integer, primary_key=True)
     course = db.Column(db.String(50), nullable=False, unique=True)
     description = db.Column(db.String(150), nullable=False)
-    students = db.relationship('Student', secondary='student_course')
+    students = db.relationship('Students', secondary='students_courses')
 
 
 class StudentCourse(db.Model):
-    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('students.id'), primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id_course'), primary_key=True)
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id_course'), primary_key=True)
 
 
 def create_tables():
@@ -38,13 +37,12 @@ def create_tables():
     print("[INFO] Tables created successfully")
 
 
-def main(user):
+def main():
     try:
         with db.session.begin():
             create_tables()
             print("[INFO] PostgreSQL connection opened")
-
-            # Здесь можно вызвать функции из generator.py для заполнения таблиц данными
+            # Here we will further call the functions from generator.py to fill the tables with data
 
     except Exception as ex:
         print("[ERROR] Error while working with PostgreSQL:", ex)
