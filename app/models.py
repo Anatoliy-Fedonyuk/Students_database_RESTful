@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 class Groups(db.Model):
     group_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
@@ -13,7 +14,7 @@ class Students(db.Model):
     last_name = db.Column(db.String(50), nullable=False, unique=True)
     age = db.Column(db.Integer, nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'), nullable=False)
-    group = db.relationship('Groups', backref='students')
+    groups = db.relationship('Groups', backref='students')
     courses = db.relationship('Courses', secondary='student_course')
 
 
@@ -44,6 +45,3 @@ def main():
 
     except Exception as ex:
         print("[ERROR] Error while working with PostgreSQL:", ex)
-
-    finally:
-        print("[INFO] PostgreSQL connection closed")

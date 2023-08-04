@@ -1,7 +1,7 @@
 from flask import Flask
 from sqlalchemy import inspect
-
 from models import db, main
+
 from config_db import host, user, password, db_name
 
 app = Flask(__name__)
