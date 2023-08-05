@@ -13,29 +13,24 @@ class Students(db.Model):
     first_name = db.Column(db.String(50), nullable=False, unique=True)
     last_name = db.Column(db.String(50), nullable=False, unique=True)
     age = db.Column(db.Integer, nullable=False)
-    city = db.Column(db.String(50), nullable=False)
-    phone_number = db.Column(db.String(20), nullable=False, unique=True)
     group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
-    groups = db.relationship('Groups', backref='students')
-    courses = db.relationship('Courses', secondary='student_course')
 
 
 class Courses(db.Model):
     id_course = db.Column(db.Integer, primary_key=True, autoincrement=True)
     course = db.Column(db.String(50), nullable=False, unique=True)
     description = db.Column(db.String(150), nullable=False)
-    students = db.relationship('Students', secondary='student_course')
 
 
 class StudentCourse(db.Model):
-    student_id = db.Column(db.Integer, db.ForeignKey('students.id'), primary_key=True)
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
-    course_id = db.Column(db.Integer, db.ForeignKey('courses.id_course'), primary_key=True)
+    id_sc = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id_student = db.Column(db.Integer, db.ForeignKey('students.id'))
+    id_course = db.Column(db.Integer, db.ForeignKey('courses.id_course'))
 
 
 def create_tables():
     with db.session.begin():
+        print("[INFO] PostgreSQL connection opened")
         db.create_all()
     print("[INFO] Tables created successfully")
 

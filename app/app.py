@@ -20,7 +20,6 @@ def check_tables():
 
 # Далее тут будет описано взаимодействие с енд-поинтами по RESTFull api
 
-
 if __name__ == "__main__":
     check_tables()
     app.run(debug=True)
