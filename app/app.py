@@ -17,10 +17,12 @@ def check_tables():
         tables_exist = all(ins.has_table(tab) for tab in ['groups', 'students', 'courses', 'student_course'])
         if not tables_exist:
             main_models()
+            print("[INFO] PostgreSQL connection opened")
             generate_groups()
-            # generate_students()
-            # generate_courses()
-            # generate_student_course()
+            generate_students()
+            generate_courses()
+            generate_student_course()
+            print("[INFO] PostgreSQL connection closed")
 
 
 # Далее тут будет описано взаимодействие с енд-поинтами по RESTFull api

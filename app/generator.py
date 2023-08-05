@@ -1,5 +1,5 @@
 from faker import Faker
-from app import app
+# from app import app
 from models import db, Groups, Students, Courses, StudentCourse
 
 faker = Faker()
@@ -12,18 +12,20 @@ def generate_groups():
         groups = Groups(name=name)
         db.session.add(groups)
     db.session.commit()
+    print("[INFO] Table 'groups' generated successfully")
 
 
 def generate_students():
     for _ in range(200):
-        first_name = faker.first_name()
-        last_name = faker.last_name()
+        first_name = faker.unique.first_name()
+        last_name = faker.unique.last_name()
         age = faker.random.randint(15, 60)
         group_id = faker.random.randint(1, 10)  # Выбираем случайную группу
-        print(first_name, last_name, age, f"{group_id=}")
+        # print(first_name, last_name, age, f"{group_id=}")
         students = Students(first_name=first_name, last_name=last_name, age=age, group_id=group_id)
         db.session.add(students)
     db.session.commit()
+    print("[INFO] Table 'students' generated successfully")
 
 
 def generate_courses():
@@ -46,6 +48,7 @@ def generate_courses():
         courses = Courses(course=course, description=description)
         db.session.add(courses)
     db.session.commit()
+    print("[INFO] Table 'courses' generated successfully")
 
 
 def generate_student_course():
@@ -60,11 +63,11 @@ def generate_student_course():
             student_course = StudentCourse(id_student=student.id, id_course=course.id_course)
             db.session.add(student_course)
     db.session.commit()
+    print("[INFO] Table 'student_course' generated successfully")
 
-
-if __name__ == "__main__":
-    with app.app_context():
-        # generate_groups()
-        generate_students()
-        # generate_courses()
-        # generate_student_course()
+# if __name__ == "__main__":
+#     with app.app_context():
+#         generate_groups()
+#         generate_students()
+#         generate_courses()
+#         generate_student_course()

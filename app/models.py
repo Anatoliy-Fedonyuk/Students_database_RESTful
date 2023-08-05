@@ -38,7 +38,6 @@ def create_tables():
 def main_models():
     try:
         create_tables()
-        # Here we will further call the functions from generator.py to fill the tables with data
 
     except Exception as ex:
         print("[ERROR] Error while working with PostgreSQL:", ex)
