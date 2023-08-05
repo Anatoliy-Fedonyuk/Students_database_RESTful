@@ -18,9 +18,9 @@ def check_tables():
         if not tables_exist:
             main_models()
             generate_groups()
-            generate_students()
-            generate_courses()
-            generate_student_course()
+            # generate_students()
+            # generate_courses()
+            # generate_student_course()
 
 
 # Далее тут будет описано взаимодействие с енд-поинтами по RESTFull api

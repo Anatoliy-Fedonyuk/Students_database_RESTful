@@ -20,7 +20,7 @@ def generate_students():
         last_name = faker.last_name()
         age = faker.random.randint(15, 60)
         group_id = faker.random.randint(1, 10)  # Выбираем случайную группу
-        # print(first_name, last_name, age, group_id)
+        print(first_name, last_name, age, f"{group_id=}")
         students = Students(first_name=first_name, last_name=last_name, age=age, group_id=group_id)
         db.session.add(students)
     db.session.commit()
@@ -56,14 +56,15 @@ def generate_student_course():
         num_courses = faker.random.randint(1, 3)  # Случайное количество курсов от 1 до 3
         random_courses = faker.random.sample(courses, num_courses)
         for course in random_courses:
-            student_course = StudentCourse(student_id=student.id, course_id=course.id_course)
+            # print(f"{student.id:5}-", course.id_course)
+            student_course = StudentCourse(id_student=student.id, id_course=course.id_course)
             db.session.add(student_course)
     db.session.commit()
 
 
-# if __name__ == "__main__":
-#     with app.app_context():
+if __name__ == "__main__":
+    with app.app_context():
         # generate_groups()
-        # generate_students()
+        generate_students()
         # generate_courses()
         # generate_student_course()
