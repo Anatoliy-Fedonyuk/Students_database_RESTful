@@ -35,7 +35,7 @@ def create_tables():
     print("[INFO] Tables created successfully")
 
 
-def main():
+def main_models():
     try:
         create_tables()
         # Here we will further call the functions from generator.py to fill the tables with data

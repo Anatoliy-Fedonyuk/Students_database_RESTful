@@ -8,7 +8,7 @@ faker = Faker()
 def generate_groups():
     for _ in range(10):
         name = faker.bothify(text='??-##').upper()
-        print(name, type(name))
+        # print(name)
         groups = Groups(name=name)
         db.session.add(groups)
     db.session.commit()
@@ -20,7 +20,7 @@ def generate_students():
         last_name = faker.last_name()
         age = faker.random.randint(15, 60)
         group_id = faker.random.randint(1, 10)  # Выбираем случайную группу
-
+        # print(first_name, last_name, age, group_id)
         students = Students(first_name=first_name, last_name=last_name, age=age, group_id=group_id)
         db.session.add(students)
     db.session.commit()
@@ -42,6 +42,7 @@ def generate_courses():
                     "Study of production, distribution, and consumption"]
 
     for course, description in zip(course_names, descriptions):
+        # print(f"{course:15}-", description)
         courses = Courses(course=course, description=description)
         db.session.add(courses)
     db.session.commit()
@@ -60,9 +61,9 @@ def generate_student_course():
     db.session.commit()
 
 
-if __name__ == "__main__":
-    with app.app_context():
-        generate_groups()
-        generate_students()
-        generate_courses()
-        generate_student_course()
+# if __name__ == "__main__":
+#     with app.app_context():
+        # generate_groups()
+        # generate_students()
+        # generate_courses()
+        # generate_student_course()
