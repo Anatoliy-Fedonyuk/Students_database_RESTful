@@ -57,9 +57,9 @@ def sql_get():
                                 GROUP BY s.group_id
                                 ORDER BY count(s.id) ASC
                                 LIMIT 1);""")
-            # print(cursor.fetchall())
+
             headers = ["Group", "Count Students"]
-            print(tabulate(cursor.fetchall(), headers, tablefmt="rounded_outline"))
+            print(tabulate(cursor.fetchall(), headers, tablefmt="psql"))
 
             cursor.execute("""select c.course, s.first_name, s.last_name 
                             from student_course sc
@@ -67,8 +67,18 @@ def sql_get():
                             left join courses c on c.id_course=sc.id_course
                             where c.course = 'Art';""")
 
-            headers = ["Course", "First Name", "Last Name"]
-            print(tabulate(cursor.fetchall(), headers, tablefmt="rounded_outline"))
+            headers = ["№", "Course", "First Name", "Last Name"]
+            print(tabulate(cursor.fetchall(), headers, showindex=True, tablefmt="psql"))
+
+            # cursor.execute("""INSERT INTO students (first_name, last_name, age)
+            #                 VALUES ('Robot', 'Robot', 33);""")
+            cursor.execute("select * from students order by id desc;")
+            print(cursor.fetchall())
+
+            # cursor.execute("""DELETE FROM students WHERE id = 201;""")
+
+
+
 
 
 
