@@ -72,7 +72,7 @@ def sql_get():
 
             # cursor.execute("""INSERT INTO students (first_name, last_name, age)
             #                 VALUES ('Robot', 'Robot', 33);""")
-            cursor.execute("select * from students order by id desc;")
+            cursor.execute("select * from students where id>=190 order by id desc;")
             print(cursor.fetchall())
 
             # cursor.execute("""DELETE FROM students WHERE id = 201;""")
