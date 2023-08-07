@@ -1,4 +1,5 @@
 import psycopg2
+from tabulate import tabulate
 
 host = "127.0.0.1"
 user = "postgres"
@@ -35,5 +36,52 @@ def main():
             print("[INFO] PostgreSQL connection closed")
 
 
+def sql_get():
+    try:
+        connection = psycopg2.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=db_name
+        )
+        connection.autocommit = True
+
+        with connection.cursor() as cursor:
+            cursor.execute("""SELECT g.name, count(s.id)
+                            FROM groups g 
+                            LEFT JOIN students s ON g.group_id = s.group_id 
+                            GROUP BY g.name
+                            HAVING count(s.id) = (
+                                SELECT count(s.id)
+                                FROM students s 
+                                GROUP BY s.group_id
+                                ORDER BY count(s.id) ASC
+                                LIMIT 1);""")
+            # print(cursor.fetchall())
+            headers = ["Group", "Count Students"]
+            print(tabulate(cursor.fetchall(), headers, tablefmt="rounded_outline"))
+
+            cursor.execute("""select c.course, s.first_name, s.last_name 
+                            from student_course sc
+                            left join students s on s.id=sc.id_student
+                            left join courses c on c.id_course=sc.id_course
+                            where c.course = 'Art';""")
+
+            headers = ["Course", "First Name", "Last Name"]
+            print(tabulate(cursor.fetchall(), headers, tablefmt="rounded_outline"))
+
+
+
+
+    except Exception as ex:
+        print("[ERROR] Error while working with PostgreSQL:", ex)
+
+    finally:
+        if connection:
+            connection.close()
+            print("[INFO] PostgreSQL connection closed")
+
+
 if __name__ == "__main__":
-    main()
+    # main()
+    sql_get()

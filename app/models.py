@@ -44,4 +44,4 @@ def main_models():
 
     finally:
         db.session.close()
-        print("[INFO] PostgreSQL connection closed")
+        # print("[INFO] PostgreSQL connection closed")
