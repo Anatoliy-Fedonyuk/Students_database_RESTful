@@ -14,7 +14,6 @@ class Students(db.Model):
     last_name = db.Column(db.String(50), nullable=False, unique=True)
     age = db.Column(db.Integer, nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'), nullable=False)
-    courses = db.relationship('StudentCourse', backref='student', cascade='all, delete-orphan')
 
 
 class Courses(db.Model):
