@@ -8,7 +8,7 @@ db_name = "postgres"
 port = "5432"
 
 
-def main():
+def main_config():
     try:
         connection = psycopg2.connect(
             host=host,
@@ -61,21 +61,27 @@ def sql_get():
             headers = ["Group", "Count Students"]
             print(tabulate(cursor.fetchall(), headers, tablefmt="psql"))
 
-            cursor.execute("""select c.course, s.first_name, s.last_name 
+            cursor.execute("""select c.course, s.first_name, s.last_name
                             from student_course sc
                             left join students s on s.id=sc.id_student
                             left join courses c on c.id_course=sc.id_course
                             where c.course = 'Art';""")
 
             headers = ["№", "Course", "First Name", "Last Name"]
-            print(tabulate(cursor.fetchall(), headers, showindex=True, tablefmt="psql"))
+            print(tabulate(cursor.fetchall(), headers, showindex=True, tablefmt="mixed_outline"))
+
 
             # cursor.execute("""INSERT INTO students (first_name, last_name, age)
             #                 VALUES ('Robot', 'Robot', 33);""")
-            cursor.execute("select * from students where id>=190 order by id desc;")
-            print(cursor.fetchall())
+            # cursor.execute("select * from students where id>=190 order by id desc;")
+            # headers = ["№", "First Name", "Last Name", "Age", "Group"]
+            # print(tabulate(cursor.fetchall(), headers, tablefmt="mixed_outline"))
 
-            # cursor.execute("""DELETE FROM students WHERE id = 201;""")
+
+            # cursor.execute("DELETE FROM students WHERE id = 204;")
+            cursor.execute("select * from students where id>=190 order by id desc;")
+            headers = ["№", "First Name", "Last Name", "Age", "Group"]
+            print(tabulate(cursor.fetchall(), headers, tablefmt="mixed_outline"))
 
 
 
@@ -93,5 +99,5 @@ def sql_get():
 
 
 if __name__ == "__main__":
-    # main()
+    # main_config()
     sql_get()
