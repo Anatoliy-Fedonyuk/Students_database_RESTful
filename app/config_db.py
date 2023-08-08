@@ -1,3 +1,4 @@
+from random import randint
 import psycopg2
 from tabulate import tabulate
 
@@ -65,20 +66,32 @@ def sql_get():
                             from student_course sc
                             left join students s on s.id=sc.id_student
                             left join courses c on c.id_course=sc.id_course
-                            where c.course = 'Art';""")
+                            where c.course = 'History';""")
 
             headers = ["№", "Course", "First Name", "Last Name"]
             print(tabulate(cursor.fetchall(), headers, showindex=True, tablefmt="mixed_outline"))
 
-            cursor.execute("""INSERT INTO students (first_name, last_name, age)
-                            VALUES ('Robot', 'Robot', 33);""")
+            # cursor.execute(f"""INSERT INTO students (first_name, last_name, age, group_id)
+            #                 VALUES ('Robot', 'Robot', 33, {randint(1,10)});""")
             # cursor.execute("select * from students where id>=190 order by id desc;")
             # headers = ["№", "First Name", "Last Name", "Age", "Group"]
             # print(tabulate(cursor.fetchall(), headers, tablefmt="mixed_outline"))
 
             # cursor.execute("DELETE FROM students WHERE id = 204;")
-            cursor.execute("select * from students where id>=190 order by id desc;")
+            cursor.execute("select * from students where id>=190 order by id;")
             headers = ["№", "First Name", "Last Name", "Age", "Group"]
+            print(tabulate(cursor.fetchall(), headers, tablefmt="mixed_outline"))
+
+            num_student = 206
+            name_course = 'Physics'
+            # cursor.execute(f"""INSERT INTO student_course (id_student, id_course)
+            # VALUES ({num_student}, (select c.id_course from courses c where c.course='{name_course}'));""")
+            cursor.execute(f"""select s.first_name, s.last_name, c.course
+                                        from student_course sc
+                                        left join students s on s.id=sc.id_student
+                                        left join courses c on c.id_course=sc.id_course
+                                        where s.id='{num_student}';""")
+            headers = ["First Name", "Last Name", "Course"]
             print(tabulate(cursor.fetchall(), headers, tablefmt="mixed_outline"))
 
 

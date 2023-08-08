@@ -26,6 +26,7 @@ class StudentCourse(db.Model):
     id_sc = db.Column(db.Integer, primary_key=True, autoincrement=True)
     id_student = db.Column(db.Integer, db.ForeignKey('students.id'))
     id_course = db.Column(db.Integer, db.ForeignKey('courses.id_course'))
+    __table_args__ = (db.UniqueConstraint('id_student', 'id_course', name='_student_course_uc'),)
 
 
 def create_tables():
@@ -38,10 +39,7 @@ def create_tables():
 def main_models():
     try:
         create_tables()
-
     except Exception as ex:
         print("[ERROR] Error while working with PostgreSQL:", ex)
-
     finally:
         db.session.close()
-        # print("[INFO] PostgreSQL connection closed")
