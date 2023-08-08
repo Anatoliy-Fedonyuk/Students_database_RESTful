@@ -13,7 +13,8 @@ class Students(db.Model):
     first_name = db.Column(db.String(50), nullable=False, unique=True)
     last_name = db.Column(db.String(50), nullable=False, unique=True)
     age = db.Column(db.Integer, nullable=False)
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'), nullable=False)
+    courses = db.relationship('StudentCourse', backref='student', cascade='all, delete-orphan')
 
 
 class Courses(db.Model):
@@ -24,8 +25,8 @@ class Courses(db.Model):
 
 class StudentCourse(db.Model):
     id_sc = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    id_student = db.Column(db.Integer, db.ForeignKey('students.id'))
-    id_course = db.Column(db.Integer, db.ForeignKey('courses.id_course'))
+    id_student = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
+    id_course = db.Column(db.Integer, db.ForeignKey('courses.id_course'), nullable=False)
     __table_args__ = (db.UniqueConstraint('id_student', 'id_course', name='_student_course_uc'),)
 
 
