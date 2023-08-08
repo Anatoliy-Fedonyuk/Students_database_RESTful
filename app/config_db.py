@@ -70,22 +70,16 @@ def sql_get():
             headers = ["№", "Course", "First Name", "Last Name"]
             print(tabulate(cursor.fetchall(), headers, showindex=True, tablefmt="mixed_outline"))
 
-
-            # cursor.execute("""INSERT INTO students (first_name, last_name, age)
-            #                 VALUES ('Robot', 'Robot', 33);""")
+            cursor.execute("""INSERT INTO students (first_name, last_name, age)
+                            VALUES ('Robot', 'Robot', 33);""")
             # cursor.execute("select * from students where id>=190 order by id desc;")
             # headers = ["№", "First Name", "Last Name", "Age", "Group"]
             # print(tabulate(cursor.fetchall(), headers, tablefmt="mixed_outline"))
-
 
             # cursor.execute("DELETE FROM students WHERE id = 204;")
             cursor.execute("select * from students where id>=190 order by id desc;")
             headers = ["№", "First Name", "Last Name", "Age", "Group"]
             print(tabulate(cursor.fetchall(), headers, tablefmt="mixed_outline"))
-
-
-
-
 
 
 
