@@ -124,5 +124,5 @@ def sql_get():
 
 
 if __name__ == "__main__":
-    # main_config()
-    sql_get()
+    main_config()
+    # sql_get()

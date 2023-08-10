@@ -27,9 +27,6 @@ def check_tables():
             print("[INFO] PostgreSQL connection closed")
 
 
-
-
-
 # Далее тут будет описано взаимодействие с енд-поинтами по RESTFull api
 
 if __name__ == "__main__":
