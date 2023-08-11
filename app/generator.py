@@ -1,5 +1,4 @@
 from faker import Faker
-# from app import app
 from models import db, Groups, Students, Courses, StudentCourse
 
 faker = Faker()

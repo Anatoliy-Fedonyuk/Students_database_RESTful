@@ -26,8 +26,10 @@ def check_tables():
             generate_courses()
             generate_student_course()
             print("[INFO] PostgreSQL connection closed")
-
             print(db.session.query(Students).all())
+
+
+# Далее тут пропишем все ендпоинты!
 
 
 if __name__ == "__main__":
