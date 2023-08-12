@@ -1,5 +1,5 @@
 import psycopg2
-from config_db import host, user, password, db_name
+from app.config_db import host, user, password, db_name
 
 
 def grant_user_privileges(conn, db, superuser):
