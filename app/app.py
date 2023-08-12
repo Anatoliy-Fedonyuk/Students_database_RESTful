@@ -1,4 +1,4 @@
-from app import create_app, db, main_models, Students
+from app import create_app, db, main_models
 from sqlalchemy import inspect
 
 from app.config_db import main_config
@@ -19,7 +19,7 @@ def check_tables():
             generate_courses()
             generate_student_course()
             print("[INFO] PostgreSQL connection closed")
-            print(db.session.query(Students).all())
+            # print(db.session.query(Students).all())
 
 
 # Далее тут пропишем все ендпоинты!
