@@ -1,12 +1,14 @@
 from init import create_app
 from sqlalchemy import inspect
-from models import db, main_models
+from flask_migrate import Migrate
+
+from models import db, main_models, Students
 from config_db import main_config
 from generator import generate_groups, generate_students, generate_courses, generate_student_course
 
 app = create_app('development')
-# db.init_app(app)
-# migrate = Migrate(app, db)
+db.init_app(app)
+migrate = Migrate(app, db)
 
 
 def check_tables():
@@ -21,7 +23,6 @@ def check_tables():
             generate_courses()
             generate_student_course()
             print("[INFO] PostgreSQL connection closed")
-            # print(db.session.query(Students).all())
 
 
 if __name__ == "__main__":
