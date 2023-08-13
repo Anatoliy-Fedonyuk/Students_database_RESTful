@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-from .config_db import host, user, password, db_name
 
 db = SQLAlchemy()
 

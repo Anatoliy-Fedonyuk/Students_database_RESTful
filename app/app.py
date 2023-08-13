@@ -1,10 +1,10 @@
-from app import create_app, db, main_models
+from init import create_app, db, main_models
 from sqlalchemy import inspect
 
-from app.config_db import main_config
-from app.generator import generate_groups, generate_students, generate_courses, generate_student_course
+from .config_db import main_config
+from .generator import generate_groups, generate_students, generate_courses, generate_student_course
 
-app = create_app('config.development')
+app = create_app('development')
 
 
 def check_tables():
@@ -20,9 +20,6 @@ def check_tables():
             generate_student_course()
             print("[INFO] PostgreSQL connection closed")
             # print(db.session.query(Students).all())
-
-
-# Далее тут пропишем все ендпоинты!
 
 
 if __name__ == "__main__":

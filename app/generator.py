@@ -1,6 +1,6 @@
 from faker import Faker
 
-from app.models import db, Groups, Students, Courses, StudentCourse
+from .models import db, Groups, Students, Courses, StudentCourse
 
 faker = Faker()
 
