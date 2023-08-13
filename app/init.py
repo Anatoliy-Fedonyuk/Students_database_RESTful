@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_migrate import Migrate
-# from .models import db, main_models
+from .models import db
 # from app.views import groups_bp, students_bp, courses_bp, student_course_bp
 # from config_db import host, user, password, db_name
 
