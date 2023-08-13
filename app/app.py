@@ -1,10 +1,12 @@
-from init import create_app, db, main_models
+from init import create_app
 from sqlalchemy import inspect
 
 from .config_db import main_config
 from .generator import generate_groups, generate_students, generate_courses, generate_student_course
 
 app = create_app('development')
+db.init_app(app)
+migrate = Migrate(app, db)
 
 
 def check_tables():
