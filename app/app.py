@@ -3,7 +3,6 @@ from sqlalchemy import inspect, func
 from flask_migrate import Migrate
 
 from models import db, main_models
-# from config_db import main_config
 from generator import generate_groups, generate_students, generate_courses, generate_student_course
 
 app = create_app('development')
