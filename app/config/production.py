@@ -1,5 +1,3 @@
-from ..config_db import host, user, password, db_name
-
 DEBUG = True
-SQLALCHEMY_DATABASE_URI = f'postgresql://{user}:{password}@{host}/{db_name}'
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@127.0.0.1/postgres'
 SQLALCHEMY_TRACK_MODIFICATIONS = False

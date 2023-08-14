@@ -1,5 +1,5 @@
 from init import create_app
-from sqlalchemy import inspect
+from sqlalchemy import inspect, func
 from flask_migrate import Migrate
 
 from models import db, main_models, Students
@@ -23,6 +23,8 @@ def check_tables():
             generate_courses()
             generate_student_course()
             print("[INFO] PostgreSQL connection closed")
+        print("PostgreSQL version:", db.session.query(func.version()).scalar())
+
 
 
 if __name__ == "__main__":
