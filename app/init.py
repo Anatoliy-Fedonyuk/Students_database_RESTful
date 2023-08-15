@@ -11,7 +11,7 @@ def create_app(config_name):
 
     api = Api(app, prefix='/api/v1')
 
-    from views.students import StudentsListResource, StudentResource, StudentExistenceResource, CreateStudentResource
+    from app.views.students import StudentsListResource, StudentResource, StudentExistenceResource, CreateStudentResource
 
     api.add_resource(StudentsListResource, '/students')
     api.add_resource(StudentResource, '/students/<int:id>')
