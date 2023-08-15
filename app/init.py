@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_restful import Api
 from importlib import import_module
 
 
@@ -8,13 +9,14 @@ def create_app(config_name):
     config_module = import_module(f'config.{config_name}')
     app.config.from_object(config_module)
 
-    # app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://postgres:postgres@127.0.0.1/postgres'
-    # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    api = Api(app, prefix='/api/v1')
 
-    # app.register_blueprint(groups_bp)
-    # app.register_blueprint(students_bp)
-    # app.register_blueprint(courses_bp)
-    # app.register_blueprint(student_course_bp)
+    from views.students import StudentsListResource, StudentResource, StudentExistenceResource, CreateStudentResource
+
+    api.add_resource(StudentsListResource, '/students')
+    api.add_resource(StudentResource, '/students/<int:id>')
+    api.add_resource(StudentExistenceResource, '/students/<int:id>/existence')
+    api.add_resource(CreateStudentResource, '/students')
 
     return app
 

@@ -1,16 +1,15 @@
 from flask import request, jsonify
-from flask_restful import Resource, Api
+from flask_restful import Resource
 from app.models import db, Students
-
-api = Api(prefix='/api/v1')
+from random import randint
 
 
 class StudentsListResource(Resource):
     def get(self):
         students = Students.query.all()
-        students_data = [
-            {'id': student.id, 'first_name': student.first_name, 'last_name': student.last_name, 'age': student.age} for
-            student in students]
+        students_data = [{'id': student.id, 'first_name': student.first_name,
+                          'last_name': student.last_name, 'age': student.age,
+                          'group_id': student.group_id} for student in students]
         return jsonify(students_data)
 
 
@@ -18,8 +17,9 @@ class StudentResource(Resource):
     def get(self, id):
         student = Students.query.get(id)
         if student:
-            return jsonify({'id': student.id, 'first_name': student.first_name, 'last_name': student.last_name,
-                            'age': student.age})
+            return jsonify({'id': student.id, 'first_name': student.first_name,
+                            'last_name': student.last_name, 'age': student.age,
+                            'group_id': student.group_id})
         else:
             return {'error': 'Student not found'}, 404
 
@@ -59,13 +59,9 @@ class CreateStudentResource(Resource):
         if student:
             return {'error': 'Student already exists'}, 400
 
-        new_student = Students(first_name=first_name, last_name=last_name, age=age)
+        group_id = randint(1, 10)  # Выбираем случайный номер группы
+        new_student = Students(first_name=first_name, last_name=last_name, age=age, group_id=group_id)
         db.session.add(new_student)
         db.session.commit()
         return {'message': 'Student created successfully'}, 201
 
-
-api.add_resource(StudentsListResource, '/students')
-api.add_resource(StudentResource, '/students/<int:id>')
-api.add_resource(StudentExistenceResource, '/students/<int:id>/existence')
-api.add_resource(CreateStudentResource, '/students')
