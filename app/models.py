@@ -38,7 +38,7 @@ class StudentCourse(db.Model):
     __table_args__ = (db.UniqueConstraint('id_student', 'id_course', name='_student_course_uc'),)
 
     def __repr__(self):
-        return f"Student :{self.id_sc}, {self.id_student}, {self.id_course}"
+        return f"Student&Course :{self.id_sc}, {self.id_student}, {self.id_course}"
 
 
 def create_tables():
