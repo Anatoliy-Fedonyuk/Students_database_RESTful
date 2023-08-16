@@ -1,6 +1,6 @@
-from random import randint
-import psycopg2
-from tabulate import tabulate
+# from random import randint
+# import psycopg2
+# from tabulate import tabulate
 
 host = "127.0.0.1"
 user = "postgres"

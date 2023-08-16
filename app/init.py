@@ -1,6 +1,16 @@
 from flask import Flask
-# from flask_restful import Api
+from flask_restful import Api
 from importlib import import_module
+
+from models import db
+from views.students import StudentsListResource, StudentResource, StudentExistenceResource, CreateStudentResource
+
+
+def register_students_resources(api):
+    api.add_resource(StudentsListResource, '/students')
+    api.add_resource(StudentResource, '/students/<int:id>')
+    api.add_resource(StudentExistenceResource, '/students/<int:id>/existence')
+    api.add_resource(CreateStudentResource, '/students')
 
 
 def create_app(config_name):
@@ -9,17 +19,14 @@ def create_app(config_name):
     config_module = import_module(f'config.{config_name}')
     app.config.from_object(config_module)
 
-    # api = Api(app, prefix='/api/v1')
-    #
-    # from views.students import StudentsListResource, StudentResource, StudentExistenceResource, CreateStudentResource
-    #
-    # api.add_resource(StudentsListResource, '/students')
-    # api.add_resource(StudentResource, '/students/<int:id>')
-    # api.add_resource(StudentExistenceResource, '/students/<int:id>/existence')
-    # api.add_resource(CreateStudentResource, '/students')
+    api = Api(app, prefix='/api/v1')
+    register_students_resources(api)
 
     return app
 
 
+app = create_app('development')
+db.init_app(app)
+
 if __name__ == "__main__":
-    create_app('development')
+    app.run(debug=False)

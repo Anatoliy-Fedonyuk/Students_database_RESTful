@@ -1,10 +1,8 @@
 from flask import request, jsonify
-from flask_restful import Api, Resource
+from flask_restful import Resource
 from random import randint
 
 from app.models import db, Students
-
-api = Api(prefix='/api/v1')
 
 
 class StudentsListResource(Resource):
@@ -67,9 +65,3 @@ class CreateStudentResource(Resource):
         db.session.add(new_student)
         db.session.commit()
         return {'message': 'Student created successfully'}, 201
-
-
-api.add_resource(StudentsListResource, '/students')
-api.add_resource(StudentResource, '/students/<int:id>')
-api.add_resource(StudentExistenceResource, '/students/<int:id>/existence')
-api.add_resource(CreateStudentResource, '/students')

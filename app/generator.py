@@ -11,7 +11,7 @@ def generate_groups():
         groups = Groups(name=name)
         db.session.add(groups)
     db.session.commit()
-    print("[INFO] Table 'groups' generated successfully")
+    print("[INFO] --Table 'groups' generated successfully--")
 
 
 def generate_students():
@@ -23,7 +23,7 @@ def generate_students():
         students = Students(first_name=first_name, last_name=last_name, age=age, group_id=group_id)
         db.session.add(students)
     db.session.commit()
-    print("[INFO] Table 'students' generated successfully")
+    print("[INFO] --Table 'students' generated successfully--")
 
 
 def generate_courses():
@@ -45,7 +45,7 @@ def generate_courses():
         courses = Courses(course=course, description=description)
         db.session.add(courses)
     db.session.commit()
-    print("[INFO] Table 'courses' generated successfully")
+    print("[INFO] --Table 'courses' generated successfully--")
 
 
 def generate_student_course():
@@ -59,7 +59,7 @@ def generate_student_course():
             student_course = StudentCourse(id_student=student.id, id_course=course.id_course)
             db.session.add(student_course)
     db.session.commit()
-    print("[INFO] Table 'student_course' generated successfully")
+    print("[INFO] --Table 'student_course' generated successfully--")
 
 # if __name__ == "__main__":
 #     with app.app_context():

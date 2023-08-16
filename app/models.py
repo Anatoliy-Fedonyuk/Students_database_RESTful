@@ -43,15 +43,15 @@ class StudentCourse(db.Model):
 
 def create_tables():
     with db.session.begin():
-        print("[INFO] PostgreSQL connection opened")
+        print("[INFO] --PostgreSQL connection opened--")
         db.create_all()
-    print("[INFO] Tables created successfully")
+    print("[INFO] --Tables created successfully--")
 
 
 def main_models():
     try:
         create_tables()
     except Exception as ex:
-        print("[ERROR] Error while working with PostgreSQL:", ex)
+        print("[ERROR] Error while working with PostgreSQL :", ex)
     finally:
         db.session.close()
