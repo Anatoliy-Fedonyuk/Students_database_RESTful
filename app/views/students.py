@@ -18,11 +18,9 @@ class StudentResource(Resource):
     def get(self, id):
         student = Students.query.get(id)
         if student:
-            data = {'id': student.id, 'first_name': student.first_name, 'last_name': student.last_name,
-                    'age': student.age, 'group_id': student.group_id}
-            ordered_data = {"id": data["id"], "first_name": data["first_name"], "last_name": data["last_name"],
-                            "age": data["age"], "group_id": data["group_id"]}
-            return jsonify(ordered_data)
+            return jsonify({'id': student.id, 'first_name': student.first_name,
+                            'last_name': student.last_name, 'age': student.age,
+                            'group_id': student.group_id})
         else:
             return {'error': 'Student not found'}, 404
 
