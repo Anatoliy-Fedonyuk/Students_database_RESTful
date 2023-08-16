@@ -1,8 +1,14 @@
 from flask import request, jsonify
-from flask_restful import Resource, Api
+from flask_restful import Resource
 from random import randint
 
-from app.models import db, Students
+
+def import_students():
+    from app.models import db, Students
+    return db, Students
+
+
+db, Students = import_students()
 
 
 class StudentsListResource(Resource):

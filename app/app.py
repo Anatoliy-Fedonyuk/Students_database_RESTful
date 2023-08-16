@@ -1,16 +1,15 @@
 from sqlalchemy import inspect, func
 
-from app.config_db import main_config
-from app.generator import generate_groups, generate_students, generate_courses, generate_student_course
-from app.init import create_app
-from app.models import db, main_models
+from config_db import main_config
+from generator import generate_groups, generate_students, generate_courses, generate_student_course
+from init import create_app
+from models import db, main_models
 # from flask_migrate import Migrate
 
 
 app = create_app('development')
 db.init_app(app)
 # migrate = Migrate(app, db)
-
 
 
 def check_tables():

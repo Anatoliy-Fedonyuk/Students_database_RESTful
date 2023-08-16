@@ -11,7 +11,15 @@ def create_app(config_name):
 
     api = Api(app, prefix='/api/v1')
 
-    from app.views.students import StudentsListResource, StudentResource, StudentExistenceResource, CreateStudentResource
+    # from views.students import StudentsListResource, StudentResource, StudentExistenceResource, CreateStudentResource
+    def import_students_resources():
+        from views.students import StudentsListResource, StudentResource, StudentExistenceResource, \
+            CreateStudentResource
+        return StudentsListResource, StudentResource, StudentExistenceResource, CreateStudentResource
+
+    StudentsListResource, StudentResource, StudentExistenceResource, CreateStudentResource = import_students_resources()
+
+    # Здесь продолжайте использовать эти классы как обычно
 
     api.add_resource(StudentsListResource, '/students')
     api.add_resource(StudentResource, '/students/<int:id>')

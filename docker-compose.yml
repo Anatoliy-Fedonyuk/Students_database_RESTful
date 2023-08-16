@@ -20,8 +20,9 @@ services:
       - POSTGRES_USER=test
       - POSTGRES_PASSWORD=test
       - POSTGRES_DB=test
+    command: -p 5452
     ports:
-      - '5452:5432'
+      - '5452:5452'
 #    volumes:
 #      - test_postgres_data:/var/lib/postgresql/data/
 
