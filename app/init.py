@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from importlib import import_module
 
-from models import db
+from models import db, Students, Groups, Courses, StudentCourse
 from views.students import StudentsListResource, StudentResource, StudentExistenceResource, CreateStudentResource
 
 
@@ -19,14 +19,14 @@ def create_app(config_name):
     config_module = import_module(f'config.{config_name}')
     app.config.from_object(config_module)
 
-    api = Api(app, prefix='/api/v1')
-    register_students_resources(api)
-
     return app
 
 
 app = create_app('development')
 db.init_app(app)
+api = Api(app, prefix='/api/v1')
+register_students_resources(api)
+
 
 if __name__ == "__main__":
     app.run(debug=False)
