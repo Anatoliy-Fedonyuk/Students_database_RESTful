@@ -2,12 +2,22 @@ from flask import request, jsonify
 from flask_restful import Resource
 from random import randint
 
-from app.generator import db, Students
+from app.generator import db, Students, StudentCourse
 
 
 class StudentsListResource(Resource):
     def get(self):
+        sort_param = request.args.get('sort', 'asc')
+
         students = Students.query.all()
+
+        if sort_param == 'desc':
+            students.sort(key=lambda student: student.id, reverse=True)
+        elif sort_param == 'age':
+            students.sort(key=lambda student: student.age)
+        elif sort_param == 'group':
+            students.sort(key=lambda student: student.group_id)
+
         students_data = [{'id': student.id, 'first_name': student.first_name,
                           'last_name': student.last_name, 'age': student.age,
                           'group_id': student.group_id} for student in students]
@@ -27,18 +37,14 @@ class StudentResource(Resource):
     def delete(self, id):
         student = Students.query.get(id)
         if student:
+            # Deleting related entries in student_course
+            student_courses = StudentCourse.query.filter_by(id_student=student.id).all()
+            for student_course in student_courses:
+                db.session.delete(student_course)
+            # Deleting a student by id
             db.session.delete(student)
             db.session.commit()
             return {'message': 'Student deleted successfully'}
-        else:
-            return {'error': 'Student not found'}, 404
-
-
-class StudentExistenceResource(Resource):
-    def get(self, id):
-        student = Students.query.get(id)
-        if student:
-            return {'message': 'Student exists'}
         else:
             return {'error': 'Student not found'}, 404
 
