@@ -30,16 +30,16 @@ def generate_courses():
     course_names = ["Math", "Biology", "Chemistry", "Physics", "History",
                     "Literature", "Programming", "Art", "Music", "Economics"]
 
-    descriptions = ["Study of exact fundamental natural science",
-                    "Study of living organisms and their interactions",
-                    "Study of matter and its properties",
-                    "Study of matter, energy, and the forces of nature",
-                    "Study of past events and human societies",
-                    "Study of written and oral works of imagination",
-                    "Study of algorithms, data structures, and problem-solving",
-                    "Study of visual arts and creative expression",
-                    "Study of sound, rhythm, and musical composition",
-                    "Study of production, distribution, and consumption"]
+    descriptions = ["Study of exact fundamental natural science!",
+                    "Study of living organisms and their interactions!",
+                    "Study of matter and its properties!",
+                    "Study of matter, energy, and the forces of nature!",
+                    "Study of past events and human societies!",
+                    "Study of written and oral works of imagination!",
+                    "Study of algorithms, data structures, and problem-solving!",
+                    "Study of visual arts and creative expression!",
+                    "Study of sound, rhythm, and musical composition!",
+                    "Study of production, distribution, and consumption!"]
 
     for course, description in zip(course_names, descriptions):
         courses = Courses(course=course, description=description)
