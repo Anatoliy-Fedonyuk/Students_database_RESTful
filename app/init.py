@@ -4,12 +4,16 @@ from importlib import import_module
 
 from models import db
 from views.students import StudentsListResource, StudentResource, CreateStudentResource
-
+from views.groups import AllGroupsResource
 
 def register_students_resources(api):
     api.add_resource(StudentsListResource, '/students/')
     api.add_resource(StudentResource, '/students/<int:id>')
     api.add_resource(CreateStudentResource, '/students/')
+
+def register_groups_resources(api):
+    api.add_resource(AllGroupsResource, '/groups/students')
+
 
 
 def create_app(config_name):
@@ -25,6 +29,7 @@ app = create_app('development')
 db.init_app(app)
 api = Api(app, prefix='/api/v1')
 register_students_resources(api)
+register_groups_resources(api)
 
 
 if __name__ == "__main__":
