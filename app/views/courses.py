@@ -15,7 +15,7 @@ class CoursesAllResource(Resource):
         return jsonify(courses_data)
 
 
-class CourseResource(Resource):
+class CourseUpdateResource(Resource):
     def put(self, id):
         course = Courses.query.get(id)
         if course:
@@ -24,7 +24,7 @@ class CourseResource(Resource):
                 course.course = data.get('course', course.course)
                 course.description = data.get('description', course.description)
                 db.session.commit()
-                return {'message': f'Course {id} updated successfully'}
+                return {'message': f'Course {id} updated successfully'}, 201
             else:
                 return {'error': 'Invalid data provided'}, 400
         else:

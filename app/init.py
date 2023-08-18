@@ -5,7 +5,9 @@ from importlib import import_module
 from models import db
 from views.students import StudentsListResource, StudentResource, CreateStudentResource
 from views.groups import AllGroupsResource, GroupsOnRequestResource
-from views.courses import CoursesAllResource, CourseResource
+from views.courses import CoursesAllResource, CourseUpdateResource
+from views.student_course import (StudentsInCourseResource, AddStudentToCourseResource,
+                                  RemoveStudentFromCourseResource, OneStudentCoursesResource)
 
 
 def register_students_resources(api):
@@ -21,7 +23,14 @@ def register_groups_resources(api):
 
 def register_courses_resources(api):
     api.add_resource(CoursesAllResource, '/courses/')
-    api.add_resource(CourseResource, '/courses/<int:id>')
+    api.add_resource(CourseUpdateResource, '/courses/<int:id>')
+
+
+def register_student_course_resources(api):
+    api.add_resource(StudentsInCourseResource, '/courses/<string:course>/students/')
+    api.add_resource(AddStudentToCourseResource, '/students/<int:id>/courses/<string:course>')
+    api.add_resource(OneStudentCoursesResource, '/students/<int:id>/courses/')
+    api.add_resource(RemoveStudentFromCourseResource, '/students/<int:id>/courses/<string:course>')
 
 
 def create_app(config_name):
@@ -40,6 +49,7 @@ api = Api(app, prefix='/api/v1')
 register_students_resources(api)
 register_groups_resources(api)
 register_courses_resources(api)
+register_student_course_resources(api)
 
 if __name__ == "__main__":
     app.run(debug=False)

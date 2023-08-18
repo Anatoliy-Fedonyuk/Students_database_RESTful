@@ -44,7 +44,7 @@ class StudentResource(Resource):
             # Deleting a student by id
             db.session.delete(student)
             db.session.commit()
-            return {'message': 'Student deleted successfully'}
+            return {'message': 'Student deleted successfully'}, 204
         else:
             return {'error': 'Student not found'}, 404
 
