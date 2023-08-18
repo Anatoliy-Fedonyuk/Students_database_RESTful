@@ -26,7 +26,7 @@ class StudentsListResource(Resource):
 
 class StudentResource(Resource):
     def get(self, id):
-        student = Students.query.get
+        student = Students.query.get(id)
         if student:
             return jsonify({'id': student.id, 'first_name': student.first_name,
                             'last_name': student.last_name, 'age': student.age,
@@ -35,7 +35,7 @@ class StudentResource(Resource):
             return {'error': 'Student not found'}, 404
 
     def delete(self, id):
-        student = Students.query.get
+        student = Students.query.get(id)
         if student:
             # Deleting related entries in student_course
             student_courses = StudentCourse.query.filter_by(id_student=student.id).all()
@@ -55,9 +55,9 @@ class CreateStudentResource(Resource):
         if not data:
             return {'error': 'No input data provided'}, 400
 
-        first_name = data.get
-        last_name = data.get
-        age = data.get
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        age = data.get('age')
 
         if not first_name or not last_name or not age:
             return {'error': 'Missing required fields'}, 400
@@ -66,7 +66,7 @@ class CreateStudentResource(Resource):
         if student:
             return {'error': 'Student already exists'}, 400
 
-        group_id = randint(1, 10)  # Выбираем случайный номер группы
+        group_id = randint(1, 10)
         new_student = Students(first_name=first_name, last_name=last_name, age=age, group_id=group_id)
         db.session.add(new_student)
         db.session.commit()

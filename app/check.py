@@ -23,6 +23,5 @@ def check_tables():
             print("[INFO] --The ORM-models PostgreSQL already exist!--")
 
 
-
 if __name__ == "__main__":
     check_tables()
