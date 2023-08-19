@@ -44,7 +44,7 @@ class StudentResource(Resource):
             # Deleting a student by id
             db.session.delete(student)
             db.session.commit()
-            return {'message': 'Student deleted successfully'}, 204
+            return {'message': 'Student deleted successfully'}, 200
         else:
             return {'error': 'Student not found'}, 404
 
@@ -58,15 +58,17 @@ class CreateStudentResource(Resource):
         first_name = data.get('first_name')
         last_name = data.get('last_name')
         age = data.get('age')
+        group_id = data.get('group_id')
 
         if not first_name or not last_name or not age:
             return {'error': 'Missing required fields'}, 400
+        if not group_id:
+            group_id = randint(1, 10)
 
         student = Students.query.filter_by(first_name=first_name, last_name=last_name, age=age).first()
         if student:
             return {'error': 'Student already exists'}, 400
 
-        group_id = randint(1, 10)
         new_student = Students(first_name=first_name, last_name=last_name, age=age, group_id=group_id)
         db.session.add(new_student)
         db.session.commit()

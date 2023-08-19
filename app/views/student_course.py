@@ -3,23 +3,38 @@ from flask_restful import Resource
 
 from app.generator import db, Students, Courses, StudentCourse
 
+
 class StudentsInCourseResource(Resource):
     def get(self, course):
-        students = (db.session.query(Students)
-                    .join(StudentCourse, Students.id == StudentCourse.id_student)
-                    .join(Courses, StudentCourse.id_course == Courses.id_course)
+        students = (db.session.query(Courses.course, Students.first_name, Students.last_name, Students.id)
+                    .outerjoin(StudentCourse, StudentCourse.id_course == Courses.id_course)
+                    .outerjoin(Students, Students.id == StudentCourse.id_student)
                     .filter(Courses.course == course)
                     .all())
+        print(students)
 
-        result = [{'id': student.id, 'first_name': student.first_name,
-                   'last_name': student.last_name, 'age': student.age,
-                   'group_id': student.group_id} for student in students]
+        result = [{'course': course.course, 'first_name': student.first_name, 'last_name': student.last_name,
+                   'id': student.id} for student in students]
+        print(result)
 
         return jsonify(result)
 
+
 class OneStudentCoursesResource(Resource):
-    def get(self):
-        pass
+    def get(self, id):
+        courses = (db.session.query(Students.first_name, Students.last_name, Courses.course)
+                   .outerjoin(StudentCourse, StudentCourse.id_student == Students.id)
+                   .outerjoin(Courses, Courses.id_course == StudentCourse.id_course)
+                   .filter(Students.id == id)
+                   .all())
+
+        print(courses)
+        res_query = [{'id': course.id, 'first_name': course.first_name,
+                      'last_name': course.last_name, 'course': course.course} for course in courses]
+        print(res_query)
+
+        return jsonify(res_query)
+
 
 class AddStudentToCourseResource(Resource):
     def post(self):
@@ -41,6 +56,7 @@ class AddStudentToCourseResource(Resource):
         db.session.commit()
 
         return {'message': 'Student added to the course successfully'}, 201
+
 
 class RemoveStudentFromCourseResource(Resource):
     def delete(self):
