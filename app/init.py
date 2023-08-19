@@ -28,9 +28,9 @@ def register_courses_resources(api):
 
 def register_student_course_resources(api):
     api.add_resource(StudentsInCourseResource, '/courses/<string:course>/students/')
-    api.add_resource(AddStudentToCourseResource, '/students/<int:id>/courses/<string:course>')
     api.add_resource(OneStudentCoursesResource, '/students/<int:id>/courses/')
-    api.add_resource(RemoveStudentFromCourseResource, '/students/<int:id>/courses/<string:course>')
+    api.add_resource(AddStudentToCourseResource, '/students/<int:id_student>/courses/<int:id_course>')
+    api.add_resource(RemoveStudentFromCourseResource, '/students/<int:id_student>/courses/<int:id_course>')
 
 
 def create_app(config_name):

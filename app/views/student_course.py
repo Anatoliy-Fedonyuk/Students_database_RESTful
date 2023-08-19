@@ -6,73 +6,72 @@ from app.generator import db, Students, Courses, StudentCourse
 
 class StudentsInCourseResource(Resource):
     def get(self, course):
-        students = (db.session.query(Courses.course, Students.first_name, Students.last_name, Students.id)
-                    .outerjoin(StudentCourse, StudentCourse.id_course == Courses.id_course)
+        course_exist = Courses.query.filter_by(course=course).first()
+        if not course_exist:
+            return {'error': 'There course not found'}, 404
+
+        students = (db.session.query(Courses.course, Students.first_name, Students.last_name)
+                    .outerjoin(StudentCourse, Courses.id_course == StudentCourse.id_course)
                     .outerjoin(Students, Students.id == StudentCourse.id_student)
                     .filter(Courses.course == course)
                     .all())
-        print(students)
 
-        result = [{'course': course.course, 'first_name': student.first_name, 'last_name': student.last_name,
-                   'id': student.id} for student in students]
-        print(result)
-
+        result = [{'course': course, 'first_name': first_name,
+                   'last_name': last_name} for course, first_name, last_name in students]
         return jsonify(result)
 
 
 class OneStudentCoursesResource(Resource):
     def get(self, id):
-        courses = (db.session.query(Students.first_name, Students.last_name, Courses.course)
-                   .outerjoin(StudentCourse, StudentCourse.id_student == Students.id)
-                   .outerjoin(Courses, Courses.id_course == StudentCourse.id_course)
-                   .filter(Students.id == id)
-                   .all())
+        student = Students.query.get(id)
+        if student:
+            courses = (db.session.query(Students.id, Students.first_name, Students.last_name, Courses.course)
+                       .outerjoin(StudentCourse, StudentCourse.id_student == Students.id)
+                       .outerjoin(Courses, Courses.id_course == StudentCourse.id_course)
+                       .filter(Students.id == id)
+                       .all())
 
-        print(courses)
-        res_query = [{'id': course.id, 'first_name': course.first_name,
-                      'last_name': course.last_name, 'course': course.course} for course in courses]
-        print(res_query)
-
-        return jsonify(res_query)
+            res_query = [{'id': student.id, 'first_name': student.first_name,
+                          'last_name': student.last_name, 'course': course.course} for course in courses]
+            return jsonify(res_query)
+        else:
+            return {'error': 'Student not found'}, 404
 
 
 class AddStudentToCourseResource(Resource):
-    def post(self):
+    def post(self, id_student, id_course):
         data = request.get_json()
-        if not data or 'student_id' not in data or 'course_id' not in data:
+        if not data or 'id_student' not in data or 'id_course' not in data:
             return {'error': 'Invalid input data'}, 400
 
-        student_id = data['student_id']
-        course_id = data['course_id']
+        id_student = data['id_student']
+        id_course = data['id_course']
 
-        student = Students.query.get(student_id)
-        course = Courses.query.get(course_id)
+        student = Students.query.get(id_student)
+        course = Courses.query.get(id_course)
 
         if not student or not course:
             return {'error': 'Student or course not found'}, 404
 
-        new_student_course = StudentCourse(id_student=student_id, id_course=course_id)
+        new_student_course = StudentCourse(id_student=id_student, id_course=id_course)
         db.session.add(new_student_course)
         db.session.commit()
-
-        return {'message': 'Student added to the course successfully'}, 201
+        return {'message': f'Student {id_student} added to the course {id_course} successfully'}, 201
 
 
 class RemoveStudentFromCourseResource(Resource):
-    def delete(self):
-        data = request.get_json()
-        if not data or 'student_id' not in data or 'course_id' not in data:
-            return {'error': 'Invalid input data'}, 400
+    def delete(self, id_student, id_course):
+        student = Students.query.get(id_student)
+        course_exist = Courses.query.get(id_course)
+        print(student)
+        print(course_exist)
+        if not student or not course_exist:
+            return {'error': 'Student or course not found'}, 404
 
-        student_id = data['student_id']
-        course_id = data['course_id']
-
-        student_course = StudentCourse.query.filter_by(id_student=student_id, id_course=course_id).first()
-
+        student_course = StudentCourse.query.filter_by(id_student=id_student, id_course=id_course).first()
         if not student_course:
             return {'error': 'Student-course association not found'}, 404
 
         db.session.delete(student_course)
         db.session.commit()
-
-        return {'message': 'Student removed from the course successfully'}, 204
+        return {'message': 'Student removed from the course successfully'}, 200
