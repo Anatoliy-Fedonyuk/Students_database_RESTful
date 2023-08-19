@@ -23,7 +23,7 @@ def register_groups_resources(api):
 
 def register_courses_resources(api):
     api.add_resource(CoursesAllResource, '/courses/')
-    api.add_resource(CourseUpdateResource, '/courses/<int:id>')
+    api.add_resource(CourseUpdateResource, '/courses/<int:id_course>')
 
 
 def register_student_course_resources(api):

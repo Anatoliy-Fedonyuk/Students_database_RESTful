@@ -21,6 +21,7 @@ class AllGroupsResource(Resource):
 
 class GroupsOnRequestResource(Resource):
     def get(self, num):
+        # Verification variable "num" ???
         groups = (db.session.query(Groups.name, func.count(Students.id).label('student_count'))
                   .outerjoin(Students, Groups.group_id == Students.group_id)
                   .group_by(Groups.name)

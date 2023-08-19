@@ -32,7 +32,7 @@ class StudentResource(Resource):
                             'last_name': student.last_name, 'age': student.age,
                             'group_id': student.group_id})
         else:
-            return {'error': 'Student not found'}, 404
+            return {'error': f'Student with id={id} not found'}, 404
 
     def delete(self, id):
         student = Students.query.get(id)
@@ -44,9 +44,9 @@ class StudentResource(Resource):
             # Deleting a student by id
             db.session.delete(student)
             db.session.commit()
-            return {'message': 'Student deleted successfully'}, 200
+            return {'message': f'Student {id} deleted successfully'}, 200
         else:
-            return {'error': 'Student not found'}, 404
+            return {'error': f'Student {id} not found'}, 404
 
 
 class CreateStudentResource(Resource):
@@ -67,9 +67,9 @@ class CreateStudentResource(Resource):
 
         student = Students.query.filter_by(first_name=first_name, last_name=last_name, age=age).first()
         if student:
-            return {'error': 'Student already exists'}, 400
+            return {'error': f'Student {first_name} {last_name} already exists'}, 400
 
         new_student = Students(first_name=first_name, last_name=last_name, age=age, group_id=group_id)
         db.session.add(new_student)
         db.session.commit()
-        return {'message': 'Student created successfully'}, 201
+        return {'message': f'Student {first_name} {last_name} created successfully'}, 201

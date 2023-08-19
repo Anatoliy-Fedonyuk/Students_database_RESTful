@@ -12,6 +12,7 @@ class CoursesAllResource(Resource):
 
         courses_data = [{'id': course.id_course, 'course': course.course, 'description': course.description}
                         for course in courses]
+
         return jsonify(courses_data)
 
 
@@ -24,8 +25,8 @@ class CourseUpdateResource(Resource):
                 course.course = data.get('course', course.course)
                 course.description = data.get('description', course.description)
                 db.session.commit()
-                return {'message': f'Course {id} updated successfully'}, 201
+                return {'message': f'Course with id={id} updated successfully'}, 201
             else:
                 return {'error': 'Invalid data provided'}, 400
         else:
-            return {'error': 'Course not found'}, 404
+            return {'error': f'Course with id={id} not found'}, 404

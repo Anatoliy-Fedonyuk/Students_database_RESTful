@@ -7,7 +7,6 @@ from app.generator import db, Students, Courses, StudentCourse
 class StudentsInCourseResource(Resource):
     def get(self, course):
         course_exist = Courses.query.filter_by(course=course).first()
-        print(course_exist)
         if not course_exist:
             return {'error': f'There course-{course} not found'}, 404
 
