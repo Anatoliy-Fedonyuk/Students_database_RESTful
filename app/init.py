@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from importlib import import_module
+# from flask_migrate import Migrate
 
 from models import db
 from views.students import StudentsListResource, StudentResource, CreateStudentResource
@@ -44,6 +45,7 @@ def create_app(config_name):
 
 app = create_app('development')
 db.init_app(app)
+# migrate = Migrate(app, db)
 api = Api(app, prefix='/api/v1')
 
 register_students_resources(api)

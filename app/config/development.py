@@ -1,4 +1,4 @@
-# FLASK_APP = 'init'
+# FLASK_APP = app:'init'
 FLASK_ENV = 'development'
 DEBUG = True
 SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@127.0.0.1/postgres'
