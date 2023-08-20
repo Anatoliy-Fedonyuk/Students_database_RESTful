@@ -1,5 +1,6 @@
 """---This module defines the Students resources for the API.---"""
-from flask import request, jsonify
+
+from flask import request, jsonify, Response
 from flask_restful import Resource
 from pydantic import BaseModel, PositiveInt, Field, ValidationError
 from random import randint
@@ -16,7 +17,7 @@ class StudentsListResource(Resource):
         per_page: PositiveInt = Field(10, description="Items per page")
         sort: str = Field('asc', description="Sorting order(asc, desc, age or group)")
 
-    def get(self):
+    def get(self: QueryParams) -> dict | tuple[dict, int]:
         """-Get a paginated List of students.-"""
         try:
             params = self.QueryParams(**request.args)
@@ -30,8 +31,10 @@ class StudentsListResource(Resource):
             students = students.order_by(Students.age)
         elif params.sort == 'group':
             students = students.order_by(Students.group_id)
-        else:
+        elif params.sort == 'asc':
             students = students.order_by(Students.id)
+        else:
+            return {'error': 'Invalid parameter <sort> (asc, desc, age or group)'}, 400
 
         students_paging = students.paginate(page=params.page, per_page=params.per_page)
 
@@ -49,8 +52,10 @@ class StudentsListResource(Resource):
 class StudentResource(Resource):
     """--Resource for retrieving and deleting a Student by ID.--"""
 
-    def get(self, id):
+    def get(self, id: int) -> Response | tuple[dict, int]:
         """-Get student by ID.-"""
+        if id < 1 or id > 1000:
+            return {'error': 'Invalid <id> number (1-1000)'}, 400
 
         student = Students.query.get(id)
         if student:
@@ -60,8 +65,11 @@ class StudentResource(Resource):
         else:
             return {'error': f'Student with id={id} not found'}, 404
 
-    def delete(self, id):
+    def delete(self, id: int) -> tuple[dict, int]:
         """-Delete student by ID (DELETE).-"""
+        if id < 1 or id > 1000:
+            return {'error': 'Invalid <id> number (1-1000)'}, 400
+
         student = Students.query.get(id)
         if student:
             # Deleting related entries in student_course
@@ -71,6 +79,7 @@ class StudentResource(Resource):
             # Deleting a student by id
             db.session.delete(student)
             db.session.commit()
+
             return {'message': f'Student {id} deleted successfully'}, 200
         else:
             return {'error': f'Student {id} not found'}, 404
@@ -83,10 +92,10 @@ class CreateStudentResource(Resource):
         """--Validation of Body parameters.--"""
         first_name: str = Field(..., description="First name of the student")
         last_name: str = Field(..., description="Last name of the student")
-        age: int = Field(..., ge=15, le=60,description="Age of the student (15-60)")
-        group_id: int = Field(None, ge=1, le=10,description="Group ID of the student (1-10)")
+        age: int = Field(..., ge=15, le=60, description="Age of the student (15-60)")
+        group_id: int = Field(None, ge=1, le=10, description="Group ID of the student (1-10)")
 
-    def post(self):
+    def post(self: RequestBody) -> tuple[dict, int]:
         """-Create a new student (POST).-"""
         try:
             data = self.RequestBody(**request.get_json())

@@ -1,4 +1,6 @@
-from flask import jsonify
+"""---This module defines the Groups resources for the API.---"""
+
+from flask import jsonify, Response
 from flask_restful import Resource
 from sqlalchemy import func
 
@@ -6,7 +8,9 @@ from app.generator import db, Groups, Students
 
 
 class AllGroupsResource(Resource):
-    def get(self):
+    """--Resource for retrieving all groups and their student counts.--"""
+    def get(self) -> Response:
+        """-Get a list of all groups and their student counts.-"""
         groups = (db.session.query(Groups.group_id, Groups.name, func.count(Students.id).label('student_count'))
                   .outerjoin(Students, Groups.group_id == Students.group_id)
                   .group_by(Groups.group_id)
@@ -20,8 +24,12 @@ class AllGroupsResource(Resource):
 
 
 class GroupsOnRequestResource(Resource):
-    def get(self, num):
-        # Verification variable "num" ???
+    """--Resource for retrieving groups with no more than a given number of students.--"""
+    def get(self, num: int) -> Response | tuple[dict, int]:
+        """-Get a list of groups with no more than the specified number of students.-"""
+        if num > 30 or num < 10:
+            return {'error': f'Invalid number of student {num} in group(10-30)'}, 400
+
         groups = (db.session.query(Groups.name, func.count(Students.id).label('student_count'))
                   .outerjoin(Students, Groups.group_id == Students.group_id)
                   .group_by(Groups.name)
