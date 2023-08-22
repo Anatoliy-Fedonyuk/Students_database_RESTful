@@ -9,6 +9,7 @@ from app.generator import db, Groups, Students
 
 class AllGroupsResource(Resource):
     """--Resource for retrieving all groups and their student counts.--"""
+
     def get(self) -> Response:
         """-Get a list of all groups and their student counts.-"""
         groups = (db.session.query(Groups.group_id, Groups.name, func.count(Students.id).label('student_count'))
@@ -25,6 +26,7 @@ class AllGroupsResource(Resource):
 
 class GroupsOnRequestResource(Resource):
     """--Resource for retrieving groups with no more than a given number of students.--"""
+
     def get(self, num: int) -> Response | tuple[dict, int]:
         """-Get a list of groups with no more than the specified number of students.-"""
         if num > 30 or num < 10:

@@ -1,13 +1,16 @@
 """---This module defines the StudentCourses resources for the API.---"""
 
-from flask import jsonify, request
+from flask import jsonify, request, Response
 from flask_restful import Resource
 
 from app.generator import db, Students, Courses, StudentCourse
 
 
 class StudentsInCourseResource(Resource):
-    def get(self, course):
+    """Resource for retrieving students in a specific course."""
+
+    def get(self, course: str) -> Response | tuple[dict, int]:
+        """Get a list of students in a specific course."""
         course_exist = Courses.query.filter_by(course=course).first()
         if not course_exist:
             return {'error': f'There course-{course} not found'}, 404
@@ -24,7 +27,10 @@ class StudentsInCourseResource(Resource):
 
 
 class OneStudentCoursesResource(Resource):
-    def get(self, id):
+    """Resource for retrieving courses of a specific student."""
+
+    def get(self, id: int) -> Response | tuple[dict, int]:
+        """Get a list of courses for a specific student."""
         student = Students.query.get(id)
         if student:
             courses = (db.session.query(Students.id, Students.first_name, Students.last_name, Courses.course)
@@ -35,12 +41,14 @@ class OneStudentCoursesResource(Resource):
 
             res_query = [{'id': student.id, 'first_name': student.first_name,
                           'last_name': student.last_name, 'course': course.course} for course in courses]
+
             return jsonify(res_query)
         else:
-            return {'error': f'Student {id} not found'}, 404
+            return {'error': f'Student with {id} not found'}, 404
 
 
 class AddStudentToCourseResource(Resource):
+
     def post(self, id_student, id_course):
         data = request.get_json()
         if not data or 'id_student' not in data or 'id_course' not in data:
