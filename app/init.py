@@ -11,23 +11,17 @@ from views.student_course import (StudentsInCourseResource, AddStudentToCourseRe
                                   RemoveStudentFromCourseResource, OneStudentCoursesResource)
 
 
-def register_students_resources(api):
+def register_resources(api):
     api.add_resource(StudentsListResource, '/students/')
     api.add_resource(StudentResource, '/students/<int:id>')
     api.add_resource(CreateStudentResource, '/students/')
 
-
-def register_groups_resources(api):
     api.add_resource(AllGroupsResource, '/groups/students')
     api.add_resource(GroupsOnRequestResource, '/groups/<int:num>/students')
 
-
-def register_courses_resources(api):
     api.add_resource(CoursesAllResource, '/courses/')
     api.add_resource(CourseUpdateResource, '/courses/<int:id>')
 
-
-def register_student_course_resources(api):
     api.add_resource(StudentsInCourseResource, '/courses/<string:course>/students/')
     api.add_resource(OneStudentCoursesResource, '/students/<int:id>/courses/')
     api.add_resource(AddStudentToCourseResource, '/students/<int:id_student>/courses/<int:id_course>')
@@ -47,11 +41,7 @@ app = create_app('development')
 db.init_app(app)
 # migrate = Migrate(app, db)
 api = Api(app, prefix='/api/v1')
-
-register_students_resources(api)
-register_groups_resources(api)
-register_courses_resources(api)
-register_student_course_resources(api)
+register_resources(api)
 
 if __name__ == "__main__":
     app.run(debug=False)

@@ -31,6 +31,7 @@ class OneStudentCoursesResource(Resource):
 
     def get(self, id: int) -> Response | tuple[dict, int]:
         """Get a list of courses for a specific student."""
+
         student = Students.query.get(id)
         if student:
             courses = (db.session.query(Students.id, Students.first_name, Students.last_name, Courses.course)
@@ -48,14 +49,14 @@ class OneStudentCoursesResource(Resource):
 
 
 class AddStudentToCourseResource(Resource):
+    """Resource for adding a student to a course."""
 
-    def post(self, id_student, id_course):
-        data = request.get_json()
-        if not data or 'id_student' not in data or 'id_course' not in data:
-            return {'error': 'Invalid input data'}, 400
-
-        id_student = data.get('id_student')
-        id_course = data.get('id_course')
+    def post(self, id_student: int, id_course: int) -> tuple[dict, int]:
+        """Add a student to a course (POST)."""
+        if id_course > 10 or id_course < 1:
+            return {'error': f'Invalid  {id_course=} (1-10)'}, 400
+        if id_student < 1 or id_student > 1000:
+            return {'error': f'Invalid {id_student=} (1-1000)'}, 400
 
         student = Students.query.get(id_student)
         course = Courses.query.get(id_course)
@@ -74,11 +75,18 @@ class AddStudentToCourseResource(Resource):
 
 
 class RemoveStudentFromCourseResource(Resource):
-    def delete(self, id_student, id_course):
+    """Resource for removing a student from a course."""
+
+    def delete(self, id_student: int, id_course: int) -> tuple[dict, int]:
+        """Remove a student from a course (DELETE)."""
+        if id_course > 10 or id_course < 1:
+            return {'error': f'Invalid  {id_course=} (1-10)'}, 400
+        if id_student < 1 or id_student > 1000:
+            return {'error': f'Invalid {id_student=} (1-1000)'}, 400
+
         student = Students.query.get(id_student)
         course_exist = Courses.query.get(id_course)
-        print(student)
-        print(course_exist)
+
         if not student or not course_exist:
             return {'error': f'Student {id_student} or course {id_course} not found'}, 404
 
