@@ -3,9 +3,9 @@ import psycopg2
 from tabulate import tabulate
 
 host = "127.0.0.1"
-user = "postgres"
-password = "postgres"
-db_name = "postgres"
+user = "fedonyuk"
+password = "74fedonyuk74"
+db_name = "postgres01"
 port = "5432"
 
 

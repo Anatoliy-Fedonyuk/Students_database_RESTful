@@ -1,4 +1,3 @@
-
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -33,13 +32,12 @@ class Courses(db.Model):
 
 
 class StudentCourse(db.Model):
-    id_sc = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    id_student = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
-    id_course = db.Column(db.Integer, db.ForeignKey('courses.id_course'), nullable=False)
+    id_student = db.Column(db.Integer, db.ForeignKey('students.id'), primary_key=True, nullable=False)
+    id_course = db.Column(db.Integer, db.ForeignKey('courses.id_course'), primary_key=True, nullable=False)
     __table_args__ = (db.UniqueConstraint('id_student', 'id_course', name='_student_course_uc'),)
 
     def __repr__(self):
-        return f"Student&Course :{self.id_sc}, {self.id_student}, {self.id_course}"
+        return f"Student&Course : {self.id_student}, {self.id_course}"
 
 
 def create_tables():
