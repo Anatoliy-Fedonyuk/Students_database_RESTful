@@ -6,7 +6,7 @@ from models import db, Groups, Students, Courses, StudentCourse
 faker = Faker()
 
 
-def generate_groups():
+def generate_groups() -> str:
     """Generate data for Groups model."""
     for _ in range(10):
         name = faker.bothify(text='??-##').upper()
@@ -17,7 +17,7 @@ def generate_groups():
     return "[INFO] --Data for 'groups' generated successfully--"
 
 
-def generate_students():
+def generate_students() -> str:
     """Generate data for Students model."""
     for _ in range(200):
         first_name = faker.unique.first_name()
