@@ -1,3 +1,4 @@
+"""The module generates valid data to populate an empty database"""
 from faker import Faker
 
 from models import db, Groups, Students, Courses, StudentCourse
@@ -6,27 +7,32 @@ faker = Faker()
 
 
 def generate_groups():
+    """Generate data for Groups model."""
     for _ in range(10):
         name = faker.bothify(text='??-##').upper()
         groups = Groups(name=name)
+
         db.session.add(groups)
     db.session.commit()
-    print("[INFO] --Table 'groups' generated successfully--")
+    return "[INFO] --Data for 'groups' generated successfully--"
 
 
 def generate_students():
+    """Generate data for Students model."""
     for _ in range(200):
         first_name = faker.unique.first_name()
         last_name = faker.unique.last_name()
         age = faker.random.randint(15, 60)
         group_id = faker.random.randint(1, 10)  # Выбираем случайную группу
         students = Students(first_name=first_name, last_name=last_name, age=age, group_id=group_id)
+
         db.session.add(students)
     db.session.commit()
-    print("[INFO] --Table 'students' generated successfully--")
+    return "[INFO] --Data for 'students' generated successfully--"
 
 
-def generate_courses():
+def generate_courses() -> str:
+    """Generate data for Courses model."""
     course_names = ["Math", "Biology", "Chemistry", "Physics", "History",
                     "Literature", "Programming", "Art", "Music", "Economics"]
 
@@ -44,26 +50,23 @@ def generate_courses():
     for course, description in zip(course_names, descriptions):
         courses = Courses(course=course, description=description)
         db.session.add(courses)
+
     db.session.commit()
-    print("[INFO] --Table 'courses' generated successfully--")
+    return "[INFO] --Data for 'courses' generated successfully--"
 
 
-def generate_student_course():
+def generate_student_course() -> str:
+    """Generate data for generating data for an associative model StudentCourse."""
     students = Students.query.all()
     courses = Courses.query.all()
 
     for student in students:
         num_courses = faker.random.randint(1, 3)  # Случайное количество курсов от 1 до 3
         random_courses = faker.random.sample(courses, num_courses)
+
         for course in random_courses:
             student_course = StudentCourse(id_student=student.id, id_course=course.id_course)
             db.session.add(student_course)
-    db.session.commit()
-    print("[INFO] --Table 'student_course' generated successfully--")
 
-# if __name__ == "__main__":
-#     with app.app_context():
-#         generate_groups()
-#         generate_students()
-#         generate_courses()
-#         generate_student_course()
+    db.session.commit()
+    return "[INFO] --Data for 'student_course' generated successfully--"

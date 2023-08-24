@@ -5,8 +5,7 @@ from flask_restful import Resource
 
 from app.generator import db, Students, Courses, StudentCourse
 
-MIN = 1
-MAX = 10
+MIN, MAX = 1, 10
 
 
 class StudentsInCourseResource(Resource):
@@ -62,8 +61,7 @@ def validate_student_and_course(id_student: int, id_course: int):
     if not student or not course:
         return {'error': f'Student {id_student} or course {id_course} not found'}, 404
 
-    student_course = StudentCourse.query.filter_by(id_student=id_student, id_course=id_course).first()
-    return student_course
+    return StudentCourse.query.filter_by(id_student=id_student, id_course=id_course).first()
 
 
 class StudentCourseResource(Resource):
@@ -71,17 +69,7 @@ class StudentCourseResource(Resource):
 
     def post(self, id_student: int, id_course: int) -> tuple[dict, int]:
         """Add a student to a course (POST)."""
-        # if id_course > MAX or id_course < MIN:
-        #     return {'error': f'Invalid  {id_course=} (1-10)'}, 400
-        #
-        # student = Students.query.get(id_student)
-        # course = Courses.query.get(id_course)
-        #
-        # if not student or not course:
-        #     return {'error': f'Student {id_student} or course {id_course} not found'}, 404
-
         student_course = validate_student_and_course(id_student, id_course)
-        print(student_course)
         if student_course:
             return {'error': f'Student-course {id_student}-{id_course} association already exist'}, 400
 
@@ -90,23 +78,9 @@ class StudentCourseResource(Resource):
         db.session.commit()
         return {'message': f'Student {id_student} added to the course {id_course} successfully'}, 201
 
-
-# class RemoveStudentFromCourseResource(Resource):
-#     """Resource for removing a student from a course."""
-
     def delete(self, id_student: int, id_course: int) -> tuple[dict, int]:
         """Remove a student from a course (DELETE)."""
-        # if id_course > MAX or id_course < MIN:
-        #     return {'error': f'Invalid  {id_course=} (1-10)'}, 400
-        #
-        # student = Students.query.get(id_student)
-        # course_exist = Courses.query.get(id_course)
-        #
-        # if not student or not course_exist:
-        #     return {'error': f'Student {id_student} or course {id_course} not found'}, 404
-
         student_course = validate_student_and_course(id_student, id_course)
-        print(student_course)
         if not student_course:
             return {'error': f'Student-course {id_student}-{id_course}  association not found'}, 404
 

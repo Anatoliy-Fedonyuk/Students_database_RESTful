@@ -40,17 +40,18 @@ class StudentCourse(db.Model):
         return f"Student&Course : {self.id_student}, {self.id_course}"
 
 
-def create_tables():
+def create_tables() -> str:
     with db.session.begin():
         print("[INFO] --PostgreSQL connection opened--")
         db.create_all()
-    print("[INFO] --Tables created successfully--")
+    return "[INFO] --Tables created correct--"
 
 
-def main_models():
+def main_models() -> str:
     try:
-        create_tables()
+        print(create_tables())
     except Exception as ex:
         print("[ERROR] Error while working with PostgreSQL :", ex)
     finally:
         db.session.close()
+    return "[INFO] --Models SQLAlchemy created successfully--"

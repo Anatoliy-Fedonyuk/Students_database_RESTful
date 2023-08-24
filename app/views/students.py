@@ -7,10 +7,11 @@ from random import randint
 
 from app.generator import db, Students, StudentCourse
 
-SORT_MAP = {"asc": Students.id, "desc": Students.id.desc(),
-            "age": Students.age, "group": Students.group_id}
-MIN = 1
-MAX = 10
+SORT_MAP = {"asc": Students.id,
+            "desc": Students.id.desc(),
+            "age": Students.age,
+            "group": Students.group_id}
+MIN, MAX = 1, 10
 
 
 class StudentsListResource(Resource):

@@ -9,6 +9,7 @@ from app.generator import db, Groups, Students
 MIN_GROUP = 10
 MAX_GROUP = 30
 
+
 class AllGroupsResource(Resource):
     """--Resource for retrieving all groups and their student counts.--"""
 
