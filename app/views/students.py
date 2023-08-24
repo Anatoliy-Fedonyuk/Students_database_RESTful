@@ -7,6 +7,8 @@ from random import randint
 
 from app.generator import db, Students, StudentCourse
 
+SORT_MAP = {"asc": Students.id, "desc": Students.id.desc(),
+            "age": Students.age, "group": Students.group_id}
 MIN = 1
 MAX = 10
 
@@ -27,27 +29,10 @@ class StudentsListResource(Resource):
         except ValidationError as e:
             return {'error': e.errors()}, 400
 
-        SORT_MAP = {"asc": Students.id,
-                    "desc": Students.id.desc(),
-                    "age": Students.age,
-                    "group": Students.group_id}
-
         if params.sort in SORT_MAP.keys():
             students = Students.query.order_by(SORT_MAP.get(params.sort))
         else:
             return {'error': 'Invalid parameter <sort> (asc, desc, age or group)'}, 400
-
-        # students = Students.query
-        # if params.sort == 'desc':
-        #     students = students.order_by(Students.id.desc())
-        # elif params.sort == 'age':
-        #     students = students.order_by(Students.age)
-        # elif params.sort == 'group':
-        #     students = students.order_by(Students.group_id)
-        # elif params.sort == 'asc':
-        #     students = students.order_by(Students.id)
-        # else:
-        #     return {'error': 'Invalid parameter <sort> (asc, desc, age or group)'}, 400
 
         students_paging = students.paginate(page=params.page, per_page=params.per_page)
 
@@ -109,10 +94,10 @@ class CreateStudentResource(Resource):
         except ValidationError as e:
             return {'error': e.errors()}, 400
 
-        if data.group_id < MIN or data.group_id > MAX:
-            return {'error': 'Student must have an existing group id 1-10)'}, 404
         if not data.group_id:
             data.group_id = randint(1, 10)
+        if data.group_id < MIN or data.group_id > MAX:
+            return {'error': 'Student must have an existing group id 1-10)'}, 404
 
         student = Students.query.filter_by(first_name=data.first_name,
                                            last_name=data.last_name,

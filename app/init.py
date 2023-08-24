@@ -7,8 +7,7 @@ from models import db
 from views.students import StudentsListResource, StudentResource, CreateStudentResource
 from views.groups import AllGroupsResource, GroupsOnRequestResource
 from views.courses import CoursesAllResource, CourseUpdateResource
-from views.student_course import (StudentsInCourseResource, AddStudentToCourseResource,
-                                  RemoveStudentFromCourseResource, OneStudentCoursesResource)
+from views.student_course import StudentsInCourseResource, StudentCourseResource, OneStudentCoursesResource
 
 
 def register_resources(api):
@@ -24,8 +23,7 @@ def register_resources(api):
 
     api.add_resource(StudentsInCourseResource, '/courses/<string:course>/students/')
     api.add_resource(OneStudentCoursesResource, '/students/<int:id>/courses/')
-    api.add_resource(AddStudentToCourseResource, '/students/<int:id_student>/courses/<int:id_course>')
-    api.add_resource(RemoveStudentFromCourseResource, '/students/<int:id_student>/courses/<int:id_course>')
+    api.add_resource(StudentCourseResource, '/students/<int:id_student>/courses/<int:id_course>')
 
 
 def create_app(config_name):

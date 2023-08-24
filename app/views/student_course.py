@@ -51,21 +51,37 @@ class OneStudentCoursesResource(Resource):
             return {'error': f'Student with {id} not found'}, 404
 
 
-class AddStudentToCourseResource(Resource):
-    """Resource for adding a student to a course."""
+def validate_student_and_course(id_student: int, id_course: int):
+    """Course and student validation. """
+    if id_course > MAX or id_course < MIN:
+        return {'error': f'Invalid  {id_course=} (1-10)'}, 400
+
+    student = Students.query.get(id_student)
+    course = Courses.query.get(id_course)
+
+    if not student or not course:
+        return {'error': f'Student {id_student} or course {id_course} not found'}, 404
+
+    student_course = StudentCourse.query.filter_by(id_student=id_student, id_course=id_course).first()
+    return student_course
+
+
+class StudentCourseResource(Resource):
+    """Resource for managing students in a course."""
 
     def post(self, id_student: int, id_course: int) -> tuple[dict, int]:
         """Add a student to a course (POST)."""
-        if id_course > MAX or id_course < MIN:
-            return {'error': f'Invalid  {id_course=} (1-10)'}, 400
+        # if id_course > MAX or id_course < MIN:
+        #     return {'error': f'Invalid  {id_course=} (1-10)'}, 400
+        #
+        # student = Students.query.get(id_student)
+        # course = Courses.query.get(id_course)
+        #
+        # if not student or not course:
+        #     return {'error': f'Student {id_student} or course {id_course} not found'}, 404
 
-        student = Students.query.get(id_student)
-        course = Courses.query.get(id_course)
-
-        if not student or not course:
-            return {'error': f'Student {id_student} or course {id_course} not found'}, 404
-
-        student_course = StudentCourse.query.filter_by(id_student=id_student, id_course=id_course).first()
+        student_course = validate_student_and_course(id_student, id_course)
+        print(student_course)
         if student_course:
             return {'error': f'Student-course {id_student}-{id_course} association already exist'}, 400
 
@@ -80,16 +96,17 @@ class RemoveStudentFromCourseResource(Resource):
 
     def delete(self, id_student: int, id_course: int) -> tuple[dict, int]:
         """Remove a student from a course (DELETE)."""
-        if id_course > MAX or id_course < MIN:
-            return {'error': f'Invalid  {id_course=} (1-10)'}, 400
+        # if id_course > MAX or id_course < MIN:
+        #     return {'error': f'Invalid  {id_course=} (1-10)'}, 400
+        #
+        # student = Students.query.get(id_student)
+        # course_exist = Courses.query.get(id_course)
+        #
+        # if not student or not course_exist:
+        #     return {'error': f'Student {id_student} or course {id_course} not found'}, 404
 
-        student = Students.query.get(id_student)
-        course_exist = Courses.query.get(id_course)
-
-        if not student or not course_exist:
-            return {'error': f'Student {id_student} or course {id_course} not found'}, 404
-
-        student_course = StudentCourse.query.filter_by(id_student=id_student, id_course=id_course).first()
+        student_course = validate_student_and_course(id_student, id_course)
+        print(student_course)
         if not student_course:
             return {'error': f'Student-course {id_student}-{id_course}  association not found'}, 404
 
