@@ -5,6 +5,9 @@ from flask_restful import Resource
 
 from app.generator import db, Students, Courses, StudentCourse
 
+MIN = 1
+MAX = 10
+
 
 class StudentsInCourseResource(Resource):
     """Resource for retrieving students in a specific course."""
@@ -53,10 +56,8 @@ class AddStudentToCourseResource(Resource):
 
     def post(self, id_student: int, id_course: int) -> tuple[dict, int]:
         """Add a student to a course (POST)."""
-        if id_course > 10 or id_course < 1:
+        if id_course > MAX or id_course < MIN:
             return {'error': f'Invalid  {id_course=} (1-10)'}, 400
-        if id_student < 1 or id_student > 1000:
-            return {'error': f'Invalid {id_student=} (1-1000)'}, 400
 
         student = Students.query.get(id_student)
         course = Courses.query.get(id_course)
@@ -79,10 +80,8 @@ class RemoveStudentFromCourseResource(Resource):
 
     def delete(self, id_student: int, id_course: int) -> tuple[dict, int]:
         """Remove a student from a course (DELETE)."""
-        if id_course > 10 or id_course < 1:
+        if id_course > MAX or id_course < MIN:
             return {'error': f'Invalid  {id_course=} (1-10)'}, 400
-        if id_student < 1 or id_student > 1000:
-            return {'error': f'Invalid {id_student=} (1-1000)'}, 400
 
         student = Students.query.get(id_student)
         course_exist = Courses.query.get(id_course)

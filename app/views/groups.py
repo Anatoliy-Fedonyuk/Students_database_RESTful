@@ -6,6 +6,8 @@ from sqlalchemy import func
 
 from app.generator import db, Groups, Students
 
+MIN_GROUP = 10
+MAX_GROUP = 30
 
 class AllGroupsResource(Resource):
     """--Resource for retrieving all groups and their student counts.--"""
@@ -29,7 +31,7 @@ class GroupsOnRequestResource(Resource):
 
     def get(self, num: int) -> Response | tuple[dict, int]:
         """-Get a list of groups with no more than the specified number of students.-"""
-        if num > 30 or num < 10:
+        if num > MAX_GROUP or num < MIN_GROUP:
             return {'error': f'Invalid number of student {num} in group(10-30)'}, 400
 
         groups = (db.session.query(Groups.name, func.count(Students.id).label('student_count'))
