@@ -91,8 +91,8 @@ class StudentCourseResource(Resource):
         return {'message': f'Student {id_student} added to the course {id_course} successfully'}, 201
 
 
-class RemoveStudentFromCourseResource(Resource):
-    """Resource for removing a student from a course."""
+# class RemoveStudentFromCourseResource(Resource):
+#     """Resource for removing a student from a course."""
 
     def delete(self, id_student: int, id_course: int) -> tuple[dict, int]:
         """Remove a student from a course (DELETE)."""
