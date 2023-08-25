@@ -1,0 +1,128 @@
+/courses/{course}/students/:
+  get:
+    summary: Get a list of students in a specific course
+    parameters:
+      - name: course
+        in: path
+        description: Course name to retrieve students from
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            example:
+              - course: Math
+                first_name: John
+                last_name: Doe
+              - course: Math
+                first_name: Jane
+                last_name: Smith
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  course:
+                    type: string
+                    description: Name of the course
+                  first_name:
+                    type: string
+                    description: First name of the student
+                  last_name:
+                    type: string
+                    description: Last name of the student
+
+/students/{id}/courses/:
+  get:
+    summary: Get a list of courses for a specific student
+    parameters:
+      - name: id
+        in: path
+        description: Student ID to retrieve courses for
+        required: true
+        schema:
+          type: integer
+          format: int64
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            example:
+              - id: 1
+                first_name: John
+                last_name: Doe
+                course: Math
+              - id: 1
+                first_name: John
+                last_name: Doe
+                course: Biology
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Student ID
+                  first_name:
+                    type: string
+                    description: First name of the student
+                  last_name:
+                    type: string
+                    description: Last name of the student
+                  course:
+                    type: string
+                    description: Name of the course
+
+/students/{id_student}/courses/{id_course}:
+  post:
+    summary: Add a student to a course
+    parameters:
+      - name: id_student
+        in: path
+        description: Student ID to associate with the course
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: id_course
+        in: path
+        description: Course ID to associate the student with
+        required: true
+        schema:
+          type: integer
+          format: int64
+    responses:
+      '201':
+        description: Student added to the course successfully
+      '400':
+        description: Student-course association already exists or invalid data provided
+      '404':
+        description: Student or course not found
+
+  delete:
+    summary: Remove a student from a course
+    parameters:
+      - name: id_student
+        in: path
+        description: Student ID to remove from the course
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: id_course
+        in: path
+        description: Course ID to remove the student from
+        required: true
+        schema:
+          type: integer
+          format: int64
+    responses:
+      '200':
+        description: Student removed from the course successfully
+      '404':
+        description: Student-course association not found

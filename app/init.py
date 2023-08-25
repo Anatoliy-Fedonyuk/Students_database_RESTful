@@ -1,5 +1,5 @@
 """The main module of our FLASK RESTFUL API application"""
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_restful import Api
 from importlib import import_module
 # from flask_migrate import Migrate
@@ -43,6 +43,12 @@ def create_app(config_name: str) -> Flask:
     return app
 
 
+app = create_app('development')
+# Redirect to API documentation for developers
+@app.route('/')
+def index():
+    return redirect(url_for('apidocs', _external=True))
+
+
 if __name__ == "__main__":
-    app = create_app('development')
     app.run(debug=False)
