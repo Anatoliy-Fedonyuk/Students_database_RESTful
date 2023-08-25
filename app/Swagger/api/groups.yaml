@@ -1,0 +1,71 @@
+/groups/students:
+  get:
+    summary: Get a list of all groups and their student counts
+    tags:
+      - Groups
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            example:
+              - id: 1
+                group_name: Group A
+                student_count: 20
+              - id: 2
+                group_name: Group B
+                student_count: 15
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: Group ID
+                group_name:
+                  type: string
+                  description: Group name
+                student_count:
+                  type: integer
+                  description: Number of students in the group
+    operationId: getAllGroups
+
+/groups/{num}/students:
+  get:
+    summary: Get a list of groups with no more than a given number of students
+    tags:
+      - Groups
+    parameters:
+      - name: num
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 10
+          maximum: 30
+        description: Maximum number of students in a group
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            example:
+              - group_name: Group A
+                student_count: 8
+              - group_name: Group B
+                student_count: 6
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                group_name:
+                  type: string
+                  description: Group name
+                student_count:
+                  type: integer
+                  description: Number of students in the group
+      '400':
+        description: Invalid input
+    operationId: getGroupsWithMaxStudents
