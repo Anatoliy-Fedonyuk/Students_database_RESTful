@@ -56,7 +56,7 @@ def generate_courses() -> str:
 
 
 def generate_student_course() -> str:
-    """Generate data for generating data for an associative model StudentCourse."""
+    """Generate data for an associative model StudentCourse."""
     students = Students.query.all()
     courses = Courses.query.all()
 

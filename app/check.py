@@ -8,6 +8,17 @@ from models import db, main_models
 from generator import generate_groups, generate_students, generate_courses, generate_student_course
 
 
+def generate_data() -> str:
+    try:
+        print(generate_groups())
+        print(generate_students())
+        print(generate_courses())
+        print(generate_student_course())
+        return "[INFO] --Data generated successfully--"
+    except Exception as ex:
+        print(f"[ERROR] Error while generating data: {ex}")
+
+
 def check_tables() -> str:
     """In this function, all tasks of the module are performed"""
     with app.app_context():
@@ -15,10 +26,8 @@ def check_tables() -> str:
         tables_exist = all(ins.has_table(tab) for tab in ['groups', 'students', 'courses', 'student_course'])
         if not tables_exist:
             print(main_models())
-            print(generate_groups())
-            print(generate_students())
-            print(generate_courses())
-            print(generate_student_course())
+            print(generate_data())
+            print("PostgreSQL version:", db.session.query(func.version()).scalar())
             return "[INFO] --PostgreSQL connection closed--"
         else:
             print("PostgreSQL version:", db.session.query(func.version()).scalar())
