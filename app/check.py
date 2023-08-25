@@ -3,12 +3,15 @@
 
 from sqlalchemy import inspect, func
 
-from init import app
+from init import create_app
 from models import db, main_models
 from generator import generate_groups, generate_students, generate_courses, generate_student_course
 
+app = create_app('development')
+
 
 def generate_data() -> str:
+    """Generate valid data to populate an empty database"""
     try:
         print(generate_groups())
         print(generate_students())

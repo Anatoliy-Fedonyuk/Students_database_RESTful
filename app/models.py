@@ -1,4 +1,5 @@
 """Models SQLAlchemy for PostgreSQL database create on this module"""
+
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -66,4 +67,3 @@ def main_models() -> str:
     finally:
         db.session.close()
     return "[INFO] --Models SQLAlchemy created successfully--"
-

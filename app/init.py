@@ -1,3 +1,4 @@
+"""The main module of our FLASK RESTFUL API application"""
 from flask import Flask
 from flask_restful import Api
 from importlib import import_module
@@ -10,7 +11,8 @@ from views.courses import CoursesAllResource, CourseUpdateResource
 from views.student_course import StudentsInCourseResource, StudentCourseResource, OneStudentCoursesResource
 
 
-def register_resources(api):
+def register_resources(api: Api) -> None:
+    """Register resources with the given Api."""
     api.add_resource(StudentsListResource, '/students/')
     api.add_resource(StudentResource, '/students/<int:id>')
     api.add_resource(CreateStudentResource, '/students/')
@@ -26,20 +28,21 @@ def register_resources(api):
     api.add_resource(StudentCourseResource, '/students/<int:id_student>/courses/<int:id_course>')
 
 
-def create_app(config_name):
+def create_app(config_name: str) -> Flask:
+    """Create a Flask app using the provided configuration name."""
     app = Flask(__name__)
 
     config_module = import_module(f'config.{config_name}')
     app.config.from_object(config_module)
 
+    db.init_app(app)
+    # migrate = Migrate(app, db)
+    api = Api(app, prefix='/api/v1')
+    register_resources(api)
+
     return app
 
 
-app = create_app('development')
-db.init_app(app)
-# migrate = Migrate(app, db)
-api = Api(app, prefix='/api/v1')
-register_resources(api)
-
 if __name__ == "__main__":
+    app = create_app('development')
     app.run(debug=False)

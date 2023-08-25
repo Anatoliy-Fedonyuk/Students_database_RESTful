@@ -61,7 +61,7 @@ def generate_student_course() -> str:
     courses = Courses.query.all()
 
     for student in students:
-        num_courses = faker.random.randint(1, 3)  # Случайное количество курсов от 1 до 3
+        num_courses = faker.random.randint(1, 3)  # Random number of courses from 1 to 3
         random_courses = faker.random.sample(courses, num_courses)
 
         for course in random_courses:
