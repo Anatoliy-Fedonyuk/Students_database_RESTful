@@ -2,6 +2,7 @@
 from flask import Flask, redirect, url_for
 from flask_restful import Api
 from importlib import import_module
+from flasgger import Swagger
 # from flask_migrate import Migrate
 
 from models import db
@@ -44,10 +45,19 @@ def create_app(config_name: str) -> Flask:
 
 
 app = create_app('development')
-# Redirect to API documentation for developers
+swagger = Swagger(app, template_file='swagger/swagger.yaml')
+
+
 @app.route('/')
 def index():
-    return redirect(url_for('apidocs', _external=True))
+    """Redirect to API documentation for developers."""
+    return redirect(url_for('flasgger.apidocs', _external=True))
+
+
+@app.errorhandler(404)
+def handle_not_found_error(error):
+    """Handle 404 Not Found error"""
+    return redirect('/apidocs/'), 404
 
 
 if __name__ == "__main__":
