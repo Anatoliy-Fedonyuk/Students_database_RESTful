@@ -56,7 +56,7 @@ def index():
 
 @app.errorhandler(404)
 def handle_not_found_error(error):
-    """Handle 404 Not Found error"""
+    """Handle 404 Not Found error."""
     return redirect('/apidocs/'), 404
 
 

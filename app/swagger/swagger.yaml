@@ -3,26 +3,25 @@ info:
   title: SQL - Flask Restful API Documentation
   description: API documentation for application SQL
   version: 1.0.0
-basePath: /api/v1/
 paths:
   /students/:
-    $ref: ./api/students.yaml
+    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/students.yaml'
   /students/{id}:
-    $ref: ./api/students.yaml
+    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/students.yaml'
   /groups/students:
-    $ref: ./api/groups.yaml
+    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/groups.yaml'
   /groups/{num}/students:
-    $ref: ./api/groups.yaml
+    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/groups.yaml'
   /courses/:
-    $ref: ./api/courses.yaml
+    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/courses.yaml'
   /courses/{id}:
-    $ref: ./api/courses.yaml
+    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/courses.yaml'
   /courses/{course}/students/:
-    $ref: ./api/student_course.yaml
+    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/student_course.yaml'
   /students/{id}/courses/:
-    $ref: ./api/student_course.yaml
+    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/student_course.yaml'
   /students/{id_student}/courses/{id_course}:
-    $ref: ./api/student_course.yaml
+    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/student_course.yaml'
 tags:
   - name: Students
     description: Operations related to students
