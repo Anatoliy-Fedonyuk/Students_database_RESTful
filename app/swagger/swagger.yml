@@ -139,6 +139,43 @@ paths:
           description: Invalid input
       operationId: getGroupsWithMaxStudents
 
+  /courses/:
+    get:
+      summary: Get a list of all courses
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Course'
+      operationId: getAllCourses
+
+  /courses/{id}:
+    put:
+      summary: Update a course by ID
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          format: int64
+          required: true
+          description: Course ID to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/UpdateCourseRequestBody'
+      responses:
+        '201':
+          description: Course updated successfully
+        '400':
+          description: Invalid data provided
+        '404':
+          description: Course with specified ID not found
+      operationId: updateCourseByID
+
 definitions:
   Student:
     type: object
@@ -175,5 +212,33 @@ definitions:
       student_count:
         type: integer
         description: Number of students in the group
+
+  Course:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Course ID
+      course:
+        type: string
+        description: Name of the course
+      description:
+        type: string
+        description: Description of the course
+
+  UpdateCourseRequestBody:
+    type: object
+    properties:
+      id_course:
+        type: integer
+        minimum: 1
+        maximum: 10
+        description: Choice Course ID (1-10)
+      course:
+        type: string
+        description: Name of the course
+      description:
+        type: string
+        description: Description of the course
 
 # ... (Other definitions and paths can be added similarly)
