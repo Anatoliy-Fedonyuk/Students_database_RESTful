@@ -1,4 +1,5 @@
-"""The main module of our FLASK RESTFUL API application"""
+"""The main module of our FLASK RESTFUL API application - <SQL>"""
+
 from flask import Flask, redirect, url_for
 from flask_restful import Api
 from importlib import import_module
@@ -52,12 +53,6 @@ swagger = Swagger(app, template_file='swagger/swagger.yml')
 def index():
     """Redirect to API documentation for developers."""
     return redirect(url_for('flasgger.apidocs', _external=True))
-
-
-@app.errorhandler(404)
-def handle_not_found_error(error):
-    """Handle 404 Not Found error."""
-    return redirect('/apidocs/'), 404
 
 
 if __name__ == "__main__":
