@@ -142,6 +142,8 @@ paths:
   /courses/:
     get:
       summary: Get a list of all courses
+      tags:
+        - Courses
       responses:
         '200':
           description: Successful response
@@ -154,6 +156,8 @@ paths:
   /courses/{id}:
     put:
       summary: Update a course by ID
+      tags:
+        - Courses
       parameters:
         - name: id
           in: path
@@ -161,12 +165,11 @@ paths:
           format: int64
           required: true
           description: Course ID to update
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/definitions/UpdateCourseRequestBody'
+        - in: body
+          name: course
+          required: true
+          schema:
+            $ref: '#/definitions/CourseUpdateInput'
       responses:
         '201':
           description: Course updated successfully
@@ -174,7 +177,104 @@ paths:
           description: Invalid data provided
         '404':
           description: Course with specified ID not found
+      consumes:
+        - application/json
+      produces:
+        - application/json
       operationId: updateCourseByID
+
+  /courses/{course}/students/:
+    get:
+      summary: Get a list of students in a specific course
+      tags:
+        - Student-Course
+      parameters:
+        - name: course
+          in: path
+          type: string
+          required: true
+          description: Course name to retrieve students from
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/StudentInCourse'
+      operationId: getStudentsInCourse
+
+  /students/{id}/courses/:
+    get:
+      summary: Get a list of courses for a specific student
+      tags:
+        - Student-Course
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          format: int64
+          required: true
+          description: Student ID to retrieve courses for
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CourseForStudent'
+      operationId: getCoursesForStudent
+
+  /students/{id_student}/courses/{id_course}:
+    post:
+      summary: Add a student to a course
+      tags:
+        - Student-Course
+      parameters:
+        - name: id_student
+          in: path
+          type: integer
+          format: int64
+          required: true
+          description: Student ID to associate with the course
+        - name: id_course
+          in: path
+          type: integer
+          format: int64
+          required: true
+          description: Course ID to associate the student with
+      responses:
+        '201':
+          description: Student added to the course successfully
+        '400':
+          description: Student-course association already exists or invalid data provided
+        '404':
+          description: Student or course not found
+      operationId: addStudentToCourse
+
+    delete:
+      summary: Remove a student from a course
+      tags:
+        - Student-Course
+      parameters:
+        - name: id_student
+          in: path
+          type: integer
+          format: int64
+          required: true
+          description: Student ID to remove from the course
+        - name: id_course
+          in: path
+          type: integer
+          format: int64
+          required: true
+          description: Course ID to remove the student from
+      responses:
+        '200':
+          description: Student removed from the course successfully
+        '404':
+          description: Student-course association not found
+      operationId: removeStudentFromCourse
+
 
 definitions:
   Student:
@@ -226,14 +326,12 @@ definitions:
         type: string
         description: Description of the course
 
-  UpdateCourseRequestBody:
+  CourseUpdateInput:
     type: object
     properties:
       id_course:
         type: integer
-        minimum: 1
-        maximum: 10
-        description: Choice Course ID (1-10)
+        description: Course ID
       course:
         type: string
         description: Name of the course
@@ -241,4 +339,31 @@ definitions:
         type: string
         description: Description of the course
 
-# ... (Other definitions and paths can be added similarly)
+  StudentInCourse:
+    type: object
+    properties:
+      course:
+        type: string
+        description: Name of the course
+      first_name:
+        type: string
+        description: First name of the student
+      last_name:
+        type: string
+        description: Last name of the student
+
+  CourseForStudent:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Student ID
+      first_name:
+        type: string
+        description: First name of the student
+      last_name:
+        type: string
+        description: Last name of the student
+      course:
+        type: string
+        description: Name of the course
