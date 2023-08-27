@@ -1,33 +1,399 @@
 openapi: 3.0.0
 info:
-  title: SQL - Flask Restful API Documentation
-  description: API documentation for application SQL
-  version: 1.0.0
+  title: SQL - Flask Restful API
+  version: 1.0
+servers:
+  - url: http://localhost:5000/api/v1/
+    description: Dev server
 paths:
   /students/:
-    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/students.yaml'
+    get:
+      summary: Get a paginated List of students
+      tags:
+        - Students
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+          description: Page number
+        - name: per_page
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+          description: Items per page
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+          enum: [ asc, desc, age, group ]
+          description: Sorting order (asc, desc, age or group)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                students:
+                  - id: 1
+                    first_name: John
+                    last_name: Doe
+                    age: 25
+                    group_id: 3
+                  - id: 2
+                    first_name: Jane
+                    last_name: Smith
+                    age: 22
+                    group_id: 5
+                total_pages: 10
+                current_page: 1
+                per_page: 10
+                total_items: 100
+            schema:
+              $ref: '#/components/schemas/StudentsListResponse'
+      operationId: getPaginatedStudents
+    post:
+      summary: Create a new student
+      tags:
+        - Students
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStudentRequestBody'
+      responses:
+        '201':
+          description: Student created successfully
+          content:
+            application/json:
+              example:
+                message: Student John Doe created successfully
+        '400':
+          description: Invalid input
+      operationId: createStudent
+
   /students/{id}:
-    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/students.yaml'
+    get:
+      summary: Get student by ID
+      tags:
+        - Students
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: Student ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 1
+                first_name: John
+                last_name: Doe
+                age: 25
+                group_id: 3
+            schema:
+              $ref: '#/components/schemas/Student'
+        '404':
+          description: Student not found
+      operationId: getStudentByID
+    delete:
+      summary: Delete student by ID
+      tags:
+        - Students
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: Student ID
+      responses:
+        '200':
+          description: Student deleted successfully
+          content:
+            application/json:
+              example:
+                message: Student 1 deleted successfully
+        '404':
+          description: Student not found
+      operationId: deleteStudent
+
   /groups/students:
-    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/groups.yaml'
+    get:
+      summary: Get a list of all groups and their student counts
+      tags:
+        - Groups
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - id: 1
+                  group_name: Group A
+                  student_count: 20
+                - id: 2
+                  group_name: Group B
+                  student_count: 15
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Group ID
+                  group_name:
+                    type: string
+                    description: Group name
+                  student_count:
+                    type: integer
+                    description: Number of students in the group
+      operationId: getAllGroups
+
   /groups/{num}/students:
-    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/groups.yaml'
+    get:
+      summary: Get a list of groups with no more than a given number of students
+      tags:
+        - Groups
+      parameters:
+        - name: num
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 10
+            maximum: 30
+          description: Maximum number of students in a group
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - group_name: Group A
+                  student_count: 8
+                - group_name: Group B
+                  student_count: 6
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  group_name:
+                    type: string
+                    description: Group name
+                  student_count:
+                    type: integer
+                    description: Number of students in the group
+        '400':
+          description: Invalid input
+      operationId: getGroupsWithMaxStudents
+
   /courses/:
-    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/courses.yaml'
+    get:
+      summary: Get a list of all courses
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - id: 1
+                  course: Math
+                  description: Study of exact fundamental natural science!
+                - id: 2
+                  course: Biology
+                  description: Study of living organisms and their interactions!
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Course ID
+                    course:
+                      type: string
+                      description: Name of the course
+                    description:
+                      type: string
+                      description: Description of the course
+
   /courses/{id}:
-    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/courses.yaml'
+    put:
+      summary: Update a course by ID
+      parameters:
+        - name: id
+          in: path
+          description: Course ID to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_course:
+                  type: integer
+                  minimum: 1
+                  maximum: 10
+                  description: Choice Course ID (1-10)
+                course:
+                  type: string
+                  description: Name of the course
+                description:
+                  type: string
+                  description: Description of the course
+      responses:
+        '201':
+          description: Course updated successfully
+        '400':
+          description: Invalid data provided
+        '404':
+          description: Course with specified ID not found
+
   /courses/{course}/students/:
-    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/student_course.yaml'
+    get:
+      summary: Get a list of students in a specific course
+      parameters:
+        - name: course
+          in: path
+          description: Course name to retrieve students from
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - course: Math
+                  first_name: John
+                  last_name: Doe
+                - course: Math
+                  first_name: Jane
+                  last_name: Smith
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    course:
+                      type: string
+                      description: Name of the course
+                    first_name:
+                      type: string
+                      description: First name of the student
+                    last_name:
+                      type: string
+                      description: Last name of the student
+
   /students/{id}/courses/:
-    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/student_course.yaml'
+    get:
+      summary: Get a list of courses for a specific student
+      parameters:
+        - name: id
+          in: path
+          description: Student ID to retrieve courses for
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                - id: 1
+                  first_name: John
+                  last_name: Doe
+                  course: Math
+                - id: 1
+                  first_name: John
+                  last_name: Doe
+                  course: Biology
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Student ID
+                    first_name:
+                      type: string
+                      description: First name of the student
+                    last_name:
+                      type: string
+                      description: Last name of the student
+                    course:
+                      type: string
+                      description: Name of the course
+
   /students/{id_student}/courses/{id_course}:
-    $ref: 'C:/Users/HP/Desktop/Projects Fox/Task 10 - SQL/app/swagger/api/student_course.yaml'
-tags:
-  - name: Students
-    description: Operations related to students
-  - name: Groups
-    description: Operations related to groups
-  - name: Courses
-    description: Operations related to courses
-  - name: StudentCourse
-    description: Operations related to student-course associations
+    post:
+      summary: Add a student to a course
+      parameters:
+        - name: id_student
+          in: path
+          description: Student ID to associate with the course
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: id_course
+          in: path
+          description: Course ID to associate the student with
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '201':
+          description: Student added to the course successfully
+        '400':
+          description: Student-course association already exists or invalid data provided
+        '404':
+          description: Student or course not found
+
+    delete:
+      summary: Remove a student from a course
+      parameters:
+        - name: id_student
+          in: path
+          description: Student ID to remove from the course
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: id_course
+          in: path
+          description: Course ID to remove the student from
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Student removed from the course successfully
+        '404':
+          description: Student-course association not found

@@ -100,9 +100,8 @@ class CreateStudentResource(Resource):
         if data.group_id < MIN or data.group_id > MAX:
             return {'error': 'Student must have an existing group id 1-10)'}, 404
 
-        student = Students.query.filter_by(first_name=data.first_name,
-                                           last_name=data.last_name,
-                                           age=data.age).first()
+        student = Students.query.filter_by(first_name=data.first_name, last_name=data.last_name).first()
+
         if student:
             return {'error': f'Student {data.first_name} {data.last_name} already exists'}, 400
 

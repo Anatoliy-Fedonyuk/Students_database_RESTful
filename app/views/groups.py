@@ -1,5 +1,4 @@
 """---This module defines the Groups resources for the API.---"""
-
 from flask import jsonify, Response
 from flask_restful import Resource
 from sqlalchemy import func
