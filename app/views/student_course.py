@@ -1,5 +1,4 @@
 """---This module defines the StudentCourses resources for the API.---"""
-
 from flask import jsonify, request, Response
 from flask_restful import Resource
 

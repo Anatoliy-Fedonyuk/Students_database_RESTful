@@ -54,10 +54,10 @@ def index():
     return redirect(url_for('flasgger.apidocs', _external=True))
 
 
-# @app.errorhandler(404)
-# def handle_not_found_error(error):
-#     """Handle 404 Not Found error."""
-#     return redirect('/apidocs/'), 404
+@app.errorhandler(404)
+def handle_not_found_error(error):
+    """Handle 404 Not Found error."""
+    return redirect('/apidocs/'), 404
 
 
 if __name__ == "__main__":
