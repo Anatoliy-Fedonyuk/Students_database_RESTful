@@ -1,23 +1,36 @@
 import pytest
 from flask import url_for, Flask
 
-from app.init import create_app, db
+from app.init import create_app
+from app.models import db
 from app.check import check_tables
 
 
 @pytest.fixture(scope='module')
 def app():
-    app = create_app('testing')  # Используй тестовую конфигурацию
+    app = create_app('testing')
     with app.app_context():
-        check_tables()  # Заполнение БД данными
         yield app
-        db.session.remove()
-        db.drop_all()
 
 
 @pytest.fixture(scope='module')
 def client(app):
-    return app.test_client()
+    with app.test_client() as client:
+        yield client
+
+
+@pytest.fixture(scope='module')
+def db(app):
+    with app.app_context():
+        db.create_all()
+        yield db
+        db.drop_all()
+
+
+def test_check_tables(app, client, db):
+    with app.app_context():
+        result = check_tables()
+        assert "ORM-models PostgreSQL already exist" in result
 
 
 def test_create_app(app):
