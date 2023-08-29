@@ -7,8 +7,6 @@ from init import create_app
 from models import db, main_models
 from generator import generate_groups, generate_students, generate_courses, generate_student_course
 
-app = create_app('development')
-
 
 def generate_data() -> str:
     """Generate valid data to populate an empty database"""
@@ -38,4 +36,6 @@ def check_tables() -> str:
 
 
 if __name__ == "__main__":
+    app = create_app('testing')
+    # app = create_app('development')
     print(check_tables())
