@@ -33,7 +33,7 @@ def register_resources(api: Api) -> None:
     api.add_resource(StudentCourseResource, '/students/<int:id_student>/courses/<int:id_course>')
 
 
-def create_app(config_name: str) -> Flask:
+def create_app(config_name: str) -> tuple:
     """Create a Flask app using the provided configuration name."""
     app = Flask(__name__)
 
@@ -45,7 +45,7 @@ def create_app(config_name: str) -> Flask:
     api = Api(app, prefix='/api/v1')
     register_resources(api)
 
-    return app
+    return app, db
 
 
 app = create_app('development')

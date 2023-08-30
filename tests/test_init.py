@@ -1,21 +1,19 @@
 import unittest
 from app.init import create_app
 
+app, db = create_app('testing')
+
 
 class TestInit(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.app = create_app('testing')
-        cls.client = cls.app.test_client()
-        with cls.app.app_context():
-            from app.models import db
+        cls.client = app.test_client()
+        with app.app_context():
             db.create_all()
 
     @classmethod
     def tearDownClass(cls):
-        with cls.app.app_context():
-            db.init_app(app)
-            # from app.models import db
+        with app.app_context():
             db.drop_all()
 
     def test_index_redirect(self):
