@@ -1,5 +1,6 @@
 """The main module of our FLASK RESTFUL API application - <SQL>"""
-
+import sys
+import os
 from flask import Flask, redirect, url_for
 from flask_restful import Api
 from importlib import import_module
@@ -11,6 +12,8 @@ from views.students import StudentsListResource, StudentResource, CreateStudentR
 from views.groups import AllGroupsResource, GroupsOnRequestResource
 from views.courses import CoursesAllResource, CourseUpdateResource
 from views.student_course import StudentsInCourseResource, StudentCourseResource, OneStudentCoursesResource
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 
 def register_resources(api: Api) -> None:

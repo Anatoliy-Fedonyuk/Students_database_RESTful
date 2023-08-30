@@ -14,7 +14,8 @@ class TestInit(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         with cls.app.app_context():
-            from app.models import db
+            db.init_app(app)
+            # from app.models import db
             db.drop_all()
 
     def test_index_redirect(self):

@@ -1,9 +1,9 @@
 import pytest
 from flask import url_for, Flask
 
-from app.init import create_app
+from app.init import create_app, db
 # from app.models import db
-from app.check import check_tables, db
+from app.check import check_tables
 
 
 @pytest.fixture(scope='module')
