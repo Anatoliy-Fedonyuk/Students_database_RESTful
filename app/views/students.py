@@ -23,7 +23,7 @@ class StudentsListResource(Resource):
         per_page: PositiveInt = Field(10, description="Items per page")
         sort: str = Field('asc', description="Sorting order(asc, desc, age or group)")
 
-    def get(self: QueryParams) -> dict | tuple[dict, int]:
+    def get(self) -> dict | tuple[dict, int]:
         """-Get a paginated List of students.-"""
         try:
             params = self.QueryParams(**request.args)

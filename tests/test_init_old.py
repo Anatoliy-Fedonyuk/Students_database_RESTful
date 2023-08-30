@@ -1,7 +1,7 @@
 import pytest
 from flask import url_for, Flask
 
-from app.init import create_app, db
+from app.main import create_app, db
 # from app.models import db
 from app.check import check_tables
 

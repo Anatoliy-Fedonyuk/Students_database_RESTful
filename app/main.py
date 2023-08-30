@@ -1,19 +1,16 @@
 """The main module of our FLASK RESTFUL API application - <SQL>"""
-import sys
-import os
+
 from flask import Flask, redirect, url_for
 from flask_restful import Api
 from importlib import import_module
 from flasgger import Swagger
 # from flask_migrate import Migrate
 
-from models import db
-from views.students import StudentsListResource, StudentResource, CreateStudentResource
-from views.groups import AllGroupsResource, GroupsOnRequestResource
-from views.courses import CoursesAllResource, CourseUpdateResource
-from views.student_course import StudentsInCourseResource, StudentCourseResource, OneStudentCoursesResource
-
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from app.models import db
+from app.views.students import StudentsListResource, StudentResource, CreateStudentResource
+from app.views.groups import AllGroupsResource, GroupsOnRequestResource
+from app.views.courses import CoursesAllResource, CourseUpdateResource
+from app.views.student_course import StudentsInCourseResource, StudentCourseResource, OneStudentCoursesResource
 
 
 def register_resources(api: Api) -> None:
@@ -33,7 +30,7 @@ def register_resources(api: Api) -> None:
     api.add_resource(StudentCourseResource, '/students/<int:id_student>/courses/<int:id_course>')
 
 
-def create_app(config_name: str) -> tuple:
+def create_app(config_name: str) -> Flask:
     """Create a Flask app using the provided configuration name."""
     app = Flask(__name__)
 
@@ -43,20 +40,17 @@ def create_app(config_name: str) -> tuple:
     db.init_app(app)
     # migrate = Migrate(app, db)
     api = Api(app, prefix='/api/v1')
+    swagger = Swagger(app, template_file='swagger/swagger.yml')
     register_resources(api)
 
-    return app, db
+    @app.route('/')
+    def index():
+        """Redirect to API documentation for developers."""
+        return redirect(url_for('flasgger.apidocs', _external=True))
 
-
-app = create_app('development')
-swagger = Swagger(app, template_file='swagger/swagger.yml')
-
-
-@app.route('/')
-def index():
-    """Redirect to API documentation for developers."""
-    return redirect(url_for('flasgger.apidocs', _external=True))
+    return app
 
 
 if __name__ == "__main__":
+    app = create_app('development')
     app.run()
