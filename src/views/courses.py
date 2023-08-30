@@ -4,7 +4,7 @@ from flask import jsonify, request, Response
 from flask_restful import Resource
 from pydantic import BaseModel, Field
 
-from app.generator import db, Courses
+from src.generator import db, Courses
 
 
 class CoursesAllResource(Resource):

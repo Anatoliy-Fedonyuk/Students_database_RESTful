@@ -3,7 +3,7 @@ from flask import jsonify, Response
 from flask_restful import Resource
 from sqlalchemy import func
 
-from app.generator import db, Groups, Students
+from src.generator import db, Groups, Students
 
 MIN_GROUP = 10
 MAX_GROUP = 30

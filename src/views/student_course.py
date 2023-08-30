@@ -3,7 +3,7 @@
 from flask import jsonify, Response
 from flask_restful import Resource
 
-from app.generator import db, Students, Courses, StudentCourse
+from src.generator import db, Students, Courses, StudentCourse
 
 MIN, MAX = 1, 10
 

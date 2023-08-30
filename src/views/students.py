@@ -5,7 +5,7 @@ from flask_restful import Resource
 from pydantic import BaseModel, PositiveInt, Field, ValidationError
 from random import randint
 
-from app.generator import db, Students, StudentCourse
+from src.generator import db, Students, StudentCourse
 
 SORT_MAP = {"asc": Students.id,
             "desc": Students.id.desc(),

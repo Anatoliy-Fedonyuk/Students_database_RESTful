@@ -3,9 +3,9 @@
 
 from sqlalchemy import inspect, func
 
-from app.main import create_app
-from app.models import db, main_models
-from app.generator import generate_groups, generate_students, generate_courses, generate_student_course
+from src.main import create_app
+from src.models import db, main_models
+from src.generator import generate_groups, generate_students, generate_courses, generate_student_course
 
 
 def generate_data() -> str:
@@ -37,5 +37,5 @@ def check_tables() -> str:
 
 if __name__ == "__main__":
     app, db = create_app('testing')
-    # app = create_app('development')
+    # src = create_app('development')
     print(check_tables())

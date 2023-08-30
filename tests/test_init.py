@@ -1,6 +1,6 @@
 import unittest
-from app.main import create_app
-# from app.models import db
+from src.main import create_app
+# from src.models import db
 
 app, db = create_app('testing')
 

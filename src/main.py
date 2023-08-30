@@ -6,11 +6,11 @@ from importlib import import_module
 from flasgger import Swagger
 # from flask_migrate import Migrate
 
-from app.models import db
-from app.views.students import StudentsListResource, StudentResource, CreateStudentResource
-from app.views.groups import AllGroupsResource, GroupsOnRequestResource
-from app.views.courses import CoursesAllResource, CourseUpdateResource
-from app.views.student_course import StudentsInCourseResource, StudentCourseResource, OneStudentCoursesResource
+from src.models import db
+from src.views.students import StudentsListResource, StudentResource, CreateStudentResource
+from src.views.groups import AllGroupsResource, GroupsOnRequestResource
+from src.views.courses import CoursesAllResource, CourseUpdateResource
+from src.views.student_course import StudentsInCourseResource, StudentCourseResource, OneStudentCoursesResource
 
 
 def register_resources(api: Api) -> None:
@@ -31,16 +31,16 @@ def register_resources(api: Api) -> None:
 
 
 def create_app(config_name: str) -> Flask:
-    """Create a Flask app using the provided configuration name."""
+    """Create a Flask src using the provided configuration name."""
     app = Flask(__name__)
 
     config_module = import_module(f'config.{config_name}')
     app.config.from_object(config_module)
 
     db.init_app(app)
-    # migrate = Migrate(app, db)
+    # migrate = Migrate(src, db)
     api = Api(app, prefix='/api/v1')
-    swagger = Swagger(app, template_file='swagger/swagger.yml')
+    Swagger(app, template_file='swagger/swagger.yml')
     register_resources(api)
 
     @app.route('/')

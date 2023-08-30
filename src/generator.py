@@ -1,7 +1,7 @@
 """The module generates valid data to populate an empty database"""
 from faker import Faker
 
-from app.models import db, Groups, Students, Courses, StudentCourse
+from src.models import db, Groups, Students, Courses, StudentCourse
 
 faker = Faker()
 
