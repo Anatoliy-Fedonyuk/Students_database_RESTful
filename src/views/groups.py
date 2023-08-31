@@ -17,9 +17,8 @@ class AllGroupsResource(Resource):
         groups = (db.session.query(Groups.group_id, Groups.name, func.count(Students.id).label('student_count'))
                   .outerjoin(Students, Groups.group_id == Students.group_id)
                   .group_by(Groups.group_id)
+                  .order_by(Groups.group_id)
                   .all())
-
-        groups.sort(key=lambda group: group.group_id)
 
         result = [{'id': id, 'group_name': name, 'student_count': count} for id, name, count in groups]
 
@@ -38,12 +37,11 @@ class GroupsOnRequestResource(Resource):
                   .outerjoin(Students, Groups.group_id == Students.group_id)
                   .group_by(Groups.name)
                   .having(func.count(Students.id) <= num)
+                  .order_by('student_count')
                   .all())
 
         if not groups:
             return {'error': f'Groups with no more than {num} students do not exist'}, 400
-
-        groups.sort(key=lambda group: group.student_count)
 
         result = [{'group_name': name, 'student_count': count} for name, count in groups]
 
