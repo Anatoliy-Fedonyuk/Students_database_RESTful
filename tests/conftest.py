@@ -14,6 +14,7 @@ def app():
         yield app
         db.session.remove()
         db.drop_all()
+        print("[INFO] --SQLAlchemy session remove and DB dropped--")
 
 
 @pytest.fixture(scope='session')
