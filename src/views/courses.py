@@ -12,9 +12,7 @@ class CoursesAllResource(Resource):
 
     def get(self) -> Response:
         """Get a list of all courses."""
-        courses = Courses.query.all()
-
-        courses.sort(key=lambda course: course.id_course)
+        courses = Courses.query.order_by(Courses.id_course).all()
 
         courses_data = [{'id': course.id_course, 'course': course.course, 'description': course.description}
                         for course in courses]
