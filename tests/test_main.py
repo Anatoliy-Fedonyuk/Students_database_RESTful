@@ -16,14 +16,14 @@ def app():
         db.drop_all()
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def client(app):
     return app.test_client()
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def api(app):
-    return app.extensions['restful'].api
+    return app.extensions["flask_restful"].api
 
 
 def test_create_app(app):
@@ -33,16 +33,20 @@ def test_create_app(app):
 
 def test_register_resources(app):
     with app.app_context():
-        api = app.extensions['restful'].api
-        assert api.resources['/students/']
-        # assert api.resources['/students/<int:id>']
-        # assert api.resources['/groups/students']
-        # assert api.resources['/groups/<int:num>/students']
-        # assert api.resources['/courses/']
-        # assert api.resources['/courses/<int:id>']
-        # assert api.resources['/courses/<string:course>/students/']
-        # assert api.resources['/students/<int:id>/courses/']
-        # assert api.resources['/students/<int:id_student>/courses/<int:id_course>']
+        rules = [str(rule) for rule in app.url_map.iter_rules()]
+        print(rules)
+        expected_rules = ['/',
+                          '/api/v1/courses/',
+                          '/api/v1/courses/<int:id>',
+                          '/api/v1/courses/<string:course>/students/',
+                          '/api/v1/groups/<int:num>/students',
+                          '/api/v1/groups/students',
+                          '/api/v1/students/',
+                          '/api/v1/students/',
+                          '/api/v1/students/<int:id>',
+                          '/api/v1/students/<int:id>/courses/',
+                          '/api/v1/students/<int:id_student>/courses/<int:id_course>']
+        assert all(rule in rules for rule in expected_rules)
 
 
 def test_index_redirect(client):
