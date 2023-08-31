@@ -21,11 +21,6 @@ def client(app):
     return app.test_client()
 
 
-@pytest.fixture(scope='session')
-def api(app):
-    return app.extensions["flask_restful"].api
-
-
 def test_create_app(app):
     assert isinstance(app, Flask)
     assert app.config['TESTING'] == True
@@ -34,7 +29,6 @@ def test_create_app(app):
 def test_register_resources(app):
     with app.app_context():
         rules = [str(rule) for rule in app.url_map.iter_rules()]
-        print(rules)
         expected_rules = ['/',
                           '/api/v1/courses/',
                           '/api/v1/courses/<int:id>',
