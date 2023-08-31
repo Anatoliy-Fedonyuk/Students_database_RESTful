@@ -31,7 +31,7 @@ class CourseUpdateResource(Resource):
         course: str = Field(..., description="Name of the course")
         description: str = Field(..., description="Description of the course")
 
-    def put(self: RequestBody, id: int) -> tuple[dict, int]:
+    def put(self, id: int) -> tuple[dict, int]:
         """Update a course by ID (PUT)."""
         course = Courses.query.get(id)
         if course:

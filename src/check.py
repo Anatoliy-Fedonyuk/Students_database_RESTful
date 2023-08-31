@@ -36,6 +36,6 @@ def check_tables() -> str:
 
 
 if __name__ == "__main__":
-    app = create_app('testing')
-    # src = create_app('development')
+    # app = create_app('testing')
+    src = create_app('development')
     print(check_tables())
