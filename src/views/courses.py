@@ -1,8 +1,8 @@
 """---This module defines the Courses resources for the API.---"""
-
+import pydantic_core
 from flask import jsonify, request, Response
 from flask_restful import Resource
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 from src.generator import db, Courses
 
@@ -25,7 +25,7 @@ class CourseUpdateResource(Resource):
 
     class RequestBody(BaseModel):
         """Validation of Body parameters."""
-        id_course: int = Field(None, ge=1, le=10, description="Choice Course ID (1-10)")
+        id_course: int = Field(..., ge=1, le=10, description="Choice Course ID (1-10)")
         course: str = Field(..., description="Name of the course")
         description: str = Field(..., description="Description of the course")
 
@@ -33,19 +33,19 @@ class CourseUpdateResource(Resource):
         """Update a course by ID (PUT)."""
         course = Courses.query.get(id)
         if course:
-            data = self.RequestBody(**request.get_json())
+            try:
+                data = self.RequestBody(**request.get_json())
+            except ValidationError as e:
+                return {'error': e.errors()}, 400
 
             if id != data.id_course:
                 return {'error': 'Invalid data provided, <id> should by equals <id_course>'}, 400
 
-            if data:
-                course.id_course = data.id_course
-                course.course = data.course
-                course.description = data.description
-                db.session.commit()
-                return {'message': f'Course with id={id} updated successfully'}, 201
-            else:
-                return {'error': 'Invalid data provided'}, 400
+            course.id_course = data.id_course
+            course.course = data.course
+            course.description = data.description
+            db.session.commit()
+            return {'message': f'Course with id={id} updated successfully'}, 201
 
         else:
             return {'error': f'Course with id={id} not found'}, 404
