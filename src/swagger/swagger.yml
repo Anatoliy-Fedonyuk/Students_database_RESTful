@@ -26,8 +26,8 @@ paths:
         - name: sort
           in: query
           type: string
-          enum: [asc, desc, age, group]
-          description: Sorting order (asc, desc, age or group)
+          enum: [asc, desc]
+          description: Sorting order (asc, desc)
       responses:
         '200':
           description: Successful response

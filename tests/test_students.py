@@ -4,7 +4,7 @@ import pytest
 PAGE_DEF = 1
 PER_PAGE_DEF = 10
 PER_PAGE_CUST = 20
-PAGE_CUST = 2
+PAGE_CUST = 5
 
 
 def test_students_list_resource_default(client):

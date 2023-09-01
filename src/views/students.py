@@ -8,9 +8,7 @@ from random import randint
 from src.generator import db, Students, StudentCourse
 
 SORT_MAP = {"asc": Students.id,
-            "desc": Students.id.desc(),
-            "age": Students.age,
-            "group": Students.group_id}
+            "desc": Students.id.desc()}
 MIN, MAX = 1, 10
 
 
@@ -21,9 +19,9 @@ class StudentsListResource(Resource):
         """--Validation of Query parameters.--"""
         page: PositiveInt = Field(1, description="Page number")
         per_page: PositiveInt = Field(10, description="Items per page")
-        sort: str = Field('asc', description="Sorting order(asc, desc, age or group)")
+        sort: str = Field('asc', description="Sorting order(asc, desc)")
 
-    def get(self) -> dict | tuple[dict, int]:
+    def get(self) -> Response | tuple[dict, int]:
         """-Get a paginated List of students.-"""
         try:
             params = self.QueryParams(**request.args)
@@ -33,19 +31,17 @@ class StudentsListResource(Resource):
         if params.sort in SORT_MAP.keys():
             students = Students.query.order_by(SORT_MAP.get(params.sort))
         else:
-            return {'error': 'Invalid parameter <sort> (asc, desc, age or group)'}, 400
+            return {'error': 'Invalid parameter <sort> (asc, desc)'}, 400
 
         students_paging = students.paginate(page=params.page, per_page=params.per_page)
 
         students_data = [{'id': student.id, 'first_name': student.first_name,
                           'last_name': student.last_name, 'age': student.age,
                           'group_id': student.group_id} for student in students_paging.items]
-
-        return {'students': students_data,
-                'total_pages': students_paging.pages,
-                'current_page': students_paging.page,
-                'per_page': students_paging.per_page,
-                'total_items': students_paging.total}
+        result = [{'students': students_data, 'total_pages': students_paging.pages,
+                   'current_page': students_paging.page, 'per_page': students_paging.per_page,
+                   'total_items': students_paging.total}]
+        return jsonify(result)
 
 
 class StudentResource(Resource):
@@ -109,5 +105,4 @@ class CreateStudentResource(Resource):
                                age=data.age, group_id=data.group_id)
         db.session.add(new_student)
         db.session.commit()
-
         return {'message': f'Student {data.first_name} {data.last_name} created successfully'}, 201
