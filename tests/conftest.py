@@ -1,5 +1,5 @@
 import pytest
-from flask import url_for, Flask
+from flask import Flask
 
 from src.main import create_app, db
 from src.check import generate_data
@@ -14,7 +14,7 @@ def app():
         yield app
         db.session.remove()
         db.drop_all()
-        print("[INFO] --SQLAlchemy session remove and DB dropped--")
+        print('\n', "[INFO] --- SQLAlchemy session remove and DB dropped ---")
 
 
 @pytest.fixture(scope='session')

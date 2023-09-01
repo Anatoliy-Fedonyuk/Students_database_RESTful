@@ -21,7 +21,6 @@ class AllGroupsResource(Resource):
                   .all())
 
         result = [{'id': id, 'group_name': name, 'student_count': count} for id, name, count in groups]
-
         return jsonify(result)
 
 
@@ -44,5 +43,4 @@ class GroupsOnRequestResource(Resource):
             return {'error': f'Groups with no more than {num} students do not exist'}, 400
 
         result = [{'group_name': name, 'student_count': count} for name, count in groups]
-
         return jsonify(result)

@@ -1,5 +1,4 @@
 """---This module defines the Students resources for the API.---"""
-
 from flask import request, jsonify, Response
 from flask_restful import Resource
 from pydantic import BaseModel, PositiveInt, Field, ValidationError
@@ -94,10 +93,9 @@ class CreateStudentResource(Resource):
         if not data.group_id:
             data.group_id = randint(1, 10)
         if data.group_id < MIN or data.group_id > MAX:
-            return {'error': 'Student must have an existing group id 1-10)'}, 404
+            return {'error': 'Student must have an existing group id (1-10)'}, 404
 
         student = Students.query.filter_by(first_name=data.first_name, last_name=data.last_name).first()
-
         if student:
             return {'error': f'Student {data.first_name} {data.last_name} already exists'}, 400
 
