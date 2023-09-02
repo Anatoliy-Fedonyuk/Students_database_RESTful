@@ -1,12 +1,10 @@
 """---This module defines the StudentCourses resources for the API.---"""
-
 from flask import jsonify, Response
 from flask_restful import Resource
 
 from src.generator import db, Students, Courses, StudentCourse
 
-MIN, MAX = 1, 10
-
+ERROR_NOT_FOUND = 'Error_not_found_flag'
 
 class StudentsInCourseResource(Resource):
     """Resource for retrieving students in a specific course."""
@@ -33,7 +31,6 @@ class OneStudentCoursesResource(Resource):
 
     def get(self, id: int) -> Response | tuple[dict, int]:
         """Get a list of courses for a specific student."""
-
         student = Students.query.get(id)
         if student:
             courses = (db.session.query(Students.id, Students.first_name, Students.last_name, Courses.course)
@@ -44,7 +41,6 @@ class OneStudentCoursesResource(Resource):
 
             res_query = [{'id': student.id, 'first_name': student.first_name,
                           'last_name': student.last_name, 'course': course.course} for course in courses]
-
             return jsonify(res_query)
         else:
             return {'error': f'Student with {id} not found'}, 404
@@ -52,14 +48,11 @@ class OneStudentCoursesResource(Resource):
 
 def validate_student_and_course(id_student: int, id_course: int):
     """Course and student validation. """
-    if id_course > MAX or id_course < MIN:
-        return {'error': f'Invalid  {id_course=} (1-10)'}, 400
-
     student = Students.query.get(id_student)
     course = Courses.query.get(id_course)
 
     if not student or not course:
-        return {'error': f'Student {id_student} or course {id_course} not found'}, 404
+        return ERROR_NOT_FOUND
 
     return StudentCourse.query.filter_by(id_student=id_student, id_course=id_course).first()
 
@@ -70,20 +63,26 @@ class StudentCourseResource(Resource):
     def post(self, id_student: int, id_course: int) -> tuple[dict, int]:
         """Add a student to a course (POST)."""
         student_course = validate_student_and_course(id_student, id_course)
-        if student_course:
-            return {'error': f'Student-course {id_student}-{id_course} association already exist'}, 400
+        if not student_course:
+            new_student_course = StudentCourse(id_student=id_student, id_course=id_course)
+            db.session.add(new_student_course)
+            db.session.commit()
+            return {'message': f'Student {id_student} added to the course {id_course} successfully'}, 201
 
-        new_student_course = StudentCourse(id_student=id_student, id_course=id_course)
-        db.session.add(new_student_course)
-        db.session.commit()
-        return {'message': f'Student {id_student} added to the course {id_course} successfully'}, 201
+        if student_course == ERROR_NOT_FOUND:
+            return {'error': f'Student {id_student} or course {id_course} not found'}, 404
+        else:
+            return {'error': f'Student-course {id_student}-{id_course} association already exist'}, 400
 
     def delete(self, id_student: int, id_course: int) -> tuple[dict, int]:
         """Remove a student from a course (DELETE)."""
         student_course = validate_student_and_course(id_student, id_course)
+
         if not student_course:
             return {'error': f'Student-course {id_student}-{id_course}  association not found'}, 404
-
-        db.session.delete(student_course)
-        db.session.commit()
-        return {'message': f'Student {id_student} removed from the course {id_course} successfully'}, 200
+        elif student_course == ERROR_NOT_FOUND:
+            return {'error': f'Student {id_student} or course {id_course} not found'}, 404
+        else:
+            db.session.delete(student_course)
+            db.session.commit()
+            return {'message': f'Student {id_student} removed from the course {id_course} successfully'}, 200

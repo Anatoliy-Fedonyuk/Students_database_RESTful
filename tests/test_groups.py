@@ -16,7 +16,6 @@ def test_all_groups_resource(client):
     assert all((key in expected_keys for key in group) for group in data)
 
 
-
 def test_groups_on_request_resource_valid_num(client):
     response = client.get('/api/v1/groups/25/students')
     assert response.status_code == 200
