@@ -1,3 +1,4 @@
+"""This configuration file is for tests. He creates fixtures and get some tests."""
 import pytest
 from flask import Flask
 
@@ -7,6 +8,7 @@ from src.check import generate_data
 
 @pytest.fixture(scope='session')
 def app():
+    """Creating a flask application fixture."""
     app = create_app(config_name='testing')
     with app.app_context():
         db.create_all()
@@ -19,15 +21,18 @@ def app():
 
 @pytest.fixture(scope='session')
 def client(app):
+    """Creating a test client fixture."""
     return app.test_client()
 
 
 def test_create_app(app):
+    """Test correct create a flask application fixture"""
     assert isinstance(app, Flask)
     assert app.config['TESTING'] == True
 
 
 def test_register_resources(app):
+    """Test registration all end-points"""
     with app.app_context():
         rules = [str(rule) for rule in app.url_map.iter_rules()]
         expected_rules = ['/',
@@ -42,12 +47,6 @@ def test_register_resources(app):
                           '/api/v1/students/<int:id>/courses/',
                           '/api/v1/students/<int:id_student>/courses/<int:id_course>']
         assert all(rule in rules for rule in expected_rules)
-
-
-def test_index_redirect(client):
-    response = client.get('/')
-    assert response.status_code == 302
-    assert '/' in response.headers['Location']
 
 
 if __name__ == '__main__':

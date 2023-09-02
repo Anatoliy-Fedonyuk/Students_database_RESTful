@@ -7,6 +7,7 @@ COURSE_NOT_EXIST = 9999
 
 
 def test_courses_all_resource(client):
+    """Test GET a list of all courses."""
     response = client.get('/api/v1/courses/')
     assert response.status_code == 200
     assert response.headers['Content-Type'] == 'application/json'
@@ -18,7 +19,8 @@ def test_courses_all_resource(client):
 
 
 def test_course_update_resource_valid_input(client):
-    course_id = 1
+    """Test update a course by ID (PUT)."""
+    course_id = COURSE_ID
     new_course_data = {'id_course': course_id,
                        'course': 'Updated Course Name',
                        'description': 'Updated Course Description'}
@@ -32,6 +34,7 @@ def test_course_update_resource_valid_input(client):
 
 
 def test_course_update_resource_invalid_input(client):
+    """Test update a course by ID (PUT). Conflict input"""
     course_id = COURSE_ID
     invalid_course_data = {'id_course': 2,  # Non-matching course ID
                            'course': 'Updated Course Name',
@@ -46,6 +49,7 @@ def test_course_update_resource_invalid_input(client):
 
 
 def test_course_update_resource_nonexistent_course(client):
+    """Test update a course by ID (PUT). Invalid course"""
     course_id = COURSE_NOT_EXIST  # Nonexistent course ID
     new_course_data = {'id_course': course_id,
                        'course': 'Updated Course Name',
@@ -57,6 +61,20 @@ def test_course_update_resource_nonexistent_course(client):
     data = response.get_json()
     assert 'error' in data
     assert data['error'] == f'Course with id={course_id} not found'
+
+
+def test_course_update_resource_validation_error(client):
+    """Test update a course by ID (PUT). Validation error"""
+    course_id = COURSE_ID
+    new_course_data = {'id_course': course_id,
+                       'course': 1234,
+                       'description': True}
+
+    response = client.put(f'/api/v1/courses/{course_id}', json=new_course_data)
+    assert response.status_code == 400
+    assert response.headers['Content-Type'] == 'application/json'
+    data = response.get_json()
+    assert 'error' in data
 
 
 if __name__ == '__main__':
