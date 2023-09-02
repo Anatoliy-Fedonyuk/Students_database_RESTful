@@ -1,6 +1,8 @@
 """In this module, we test endpoints and exceptions from the view <student_course.py>"""
 import pytest
 
+from src.models import StudentCourse
+
 COURSE_EXIST = "Music"  # We assume that such Course exists.
 COURSE_NOT_EXIST = "NonExistentCourse"
 STUDENT_EXIST = 1  # We assume that such ID exists.
@@ -58,8 +60,12 @@ def test_one_student_courses_nonexistent(client):
 
 
 def test_student_course_create_success(client):
-    """Student enrollment test (valid data)"""
-    id_student, id_course = STUDENT_EXIST, ID_COURSE    # If isn`t association of this student with this course.
+    """Student enrollment to a course test (valid data)"""
+    id_student, id_course = STUDENT_EXIST, ID_COURSE
+    #  Before creating a test, we check the existence of the association
+    student_course = StudentCourse.query.filter_by(id_student=id_student, id_course=id_course).first()
+    if student_course:
+        pytest.skip(f"[INFO]Test skipped, because Student-course {id_student}-{id_course} association already exists")
     response = client.post(f'/api/v1/students/{id_student}/courses/{id_course}')
     assert response.status_code == 201
     assert response.headers['Content-Type'] == 'application/json'
@@ -70,7 +76,7 @@ def test_student_course_create_success(client):
 
 
 def test_student_course_create_conflict(client):
-    """Student enrollment test (conflict data)"""
+    """Student enrollment to a course test (conflict data)"""
     id_student, id_course = STUDENT_EXIST, ID_COURSE
     response = client.post(f'/api/v1/students/{id_student}/courses/{id_course}')
     assert response.status_code == 400
@@ -82,7 +88,7 @@ def test_student_course_create_conflict(client):
 
 
 def test_student_course_create_invalid_student(client):
-    """Student enrollment test (invalid student)"""
+    """Student enrollment to a course test (invalid student)"""
     id_student, id_course = STUDENT_NOT_EXIST, ID_COURSE
     response = client.post(f'/api/v1/students/{id_student}/courses/{id_course}')
     assert response.status_code == 404
