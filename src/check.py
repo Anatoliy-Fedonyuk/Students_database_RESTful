@@ -1,6 +1,5 @@
 """This module is for checking whether it is a new empty database, if so,
  then we create all models for the database and generate data for their correct filling."""
-
 from sqlalchemy import inspect, func
 
 from src.main import create_app
