@@ -4,6 +4,7 @@ from flask import Flask, redirect, url_for
 from flask_restful import Api
 from importlib import import_module
 from flasgger import Swagger
+from flask_limiter import Limiter
 # from flask_migrate import Migrate
 
 from src.models import db
@@ -37,6 +38,8 @@ def create_app(config_name: str) -> Flask:
     config_module = import_module(f'config.{config_name}')
     app.config.from_object(config_module)
 
+    Limiter(app)
+
     db.init_app(app)
     # migrate = Migrate(src, db)
     api = Api(app, prefix='/api/v1')
@@ -52,5 +55,5 @@ def create_app(config_name: str) -> Flask:
 
 
 if __name__ == "__main__":
-    app = create_app('development')
+    app = create_app('production')
     app.run()
