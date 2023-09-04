@@ -1,5 +1,4 @@
 """---This module defines the Courses resources for the API.---"""
-import pydantic_core
 from flask import jsonify, request, Response
 from flask_restful import Resource
 from pydantic import BaseModel, Field, ValidationError
@@ -26,7 +25,7 @@ class CourseUpdateResource(Resource):
     class RequestBody(BaseModel):
         """Validation of Body parameters."""
         id_course: int = Field(..., ge=1, le=10, description="Choice Course ID (1-10)")
-        course: str = Field(..., description="Name of the course")
+        course: str = Field(..., pattern=r'^[A-Z]{1}[a-z]+$', description="Name of the course")
         description: str = Field(..., description="Description of the course")
 
     def put(self, id: int) -> tuple[dict, int]:

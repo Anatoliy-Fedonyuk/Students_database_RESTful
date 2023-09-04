@@ -23,10 +23,10 @@ class StudentsListResource(Resource):
 
         @field_validator('sort')
         @classmethod
-        def validate_sort(cls, value):
+        def validate_sort(cls, value: str) -> str:
             if value not in SORT_MAP:
                 raise PydanticCustomError('answer_error',
-                f'{value}- not allowed value!', {'Validation Error': 'Not allowed value'})
+                                          f'{value}- not allowed value!', {'Validation Error': 'Not allowed value'})
             return value
 
     def get(self) -> Response | tuple[dict, int]:
@@ -67,6 +67,7 @@ class StudentResource(Resource):
     def delete(self, id: int) -> tuple[dict, int]:
         """-Delete student by ID (DELETE).-"""
         student = Students.query.get(id)
+
         if student:
             # Deleting related entries in student_course
             student_courses = StudentCourse.query.filter_by(id_student=student.id).all()
@@ -75,7 +76,6 @@ class StudentResource(Resource):
             # Deleting a student by id
             db.session.delete(student)
             db.session.commit()
-
             return {'message': f'Student {id} deleted successfully'}, 200
         else:
             return {'error': f'Student {id} not found'}, 404
@@ -86,8 +86,8 @@ class CreateStudentResource(Resource):
 
     class RequestBody(BaseModel):
         """--Validation of Body parameters.--"""
-        first_name: str = Field(..., description="First name of the student")
-        last_name: str = Field(..., description="Last name of the student")
+        first_name: str = Field(..., pattern=r'^[A-Z]{1}[a-z]+$', description="First name of the student")
+        last_name: str = Field(..., pattern=r'^[A-Z]{1}[a-z]+$', description="Last name of the student")
         age: int = Field(..., ge=15, le=60, description="Age of the student (15-60)")
         group_id: int = Field(None, ge=1, le=10, description="Group ID of the student (1-10)")
 
@@ -100,8 +100,6 @@ class CreateStudentResource(Resource):
 
         if not data.group_id:
             data.group_id = randint(1, 10)
-        if data.group_id < MIN or data.group_id > MAX:
-            return {'error': 'Student must have an existing group id (1-10)'}, 404
 
         student = Students.query.filter_by(first_name=data.first_name, last_name=data.last_name).first()
         if student:
