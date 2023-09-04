@@ -1,13 +1,14 @@
 """---This module defines the Students resources for the API.---"""
 from flask import request, jsonify, Response
 from flask_restful import Resource
-from pydantic import BaseModel, PositiveInt, Field, ValidationError
+from pydantic import BaseModel, PositiveInt, Field, ValidationError, field_validator, validator, model_validator
 from random import randint
+from pydantic_core import PydanticCustomError
 
 from src.generator import db, Students, StudentCourse
 
-SORT_MAP = {"asc": Students.id,
-            "desc": Students.id.desc()}
+SORT_MAP = {'asc': Students.id,
+            'desc': Students.id.desc()}
 MIN, MAX = 1, 10
 
 
@@ -17,8 +18,16 @@ class StudentsListResource(Resource):
     class QueryParams(BaseModel):
         """--Validation of Query parameters.--"""
         page: PositiveInt = Field(1, description="Page number")
-        per_page: PositiveInt = Field(10, description="Items per page")
+        per_page: PositiveInt = Field(10, ge=10, le=50, description="Items per page")
         sort: str = Field('asc', description="Sorting order(asc, desc)")
+
+        @field_validator('sort')
+        @classmethod
+        def validate_sort(cls, value):
+            if value not in SORT_MAP:
+                raise PydanticCustomError('answer_error',
+                f'{value}- not allowed value!', {'Validation Error': 'Not allowed value'})
+            return value
 
     def get(self) -> Response | tuple[dict, int]:
         """-Get a paginated List of students.-"""
@@ -27,19 +36,17 @@ class StudentsListResource(Resource):
         except ValidationError as e:
             return {'error': e.errors()}, 400
 
-        if params.sort in SORT_MAP.keys():
-            students = Students.query.order_by(SORT_MAP.get(params.sort))
-        else:
-            return {'error': 'Invalid parameter <sort> (asc, desc)'}, 400
-
+        students = Students.query.order_by(SORT_MAP.get(params.sort))
         students_paging = students.paginate(page=params.page, per_page=params.per_page)
 
         students_data = [{'id': student.id, 'first_name': student.first_name,
                           'last_name': student.last_name, 'age': student.age,
                           'group_id': student.group_id} for student in students_paging.items]
+
         result = [{'students': students_data, 'total_pages': students_paging.pages,
                    'current_page': students_paging.page, 'per_page': students_paging.per_page,
                    'total_items': students_paging.total}]
+
         return jsonify(result)
 
 
@@ -49,6 +56,7 @@ class StudentResource(Resource):
     def get(self, id: int) -> Response | tuple[dict, int]:
         """-Get student by ID.-"""
         student = Students.query.get(id)
+
         if student:
             return jsonify({'id': student.id, 'first_name': student.first_name,
                             'last_name': student.last_name, 'age': student.age,
