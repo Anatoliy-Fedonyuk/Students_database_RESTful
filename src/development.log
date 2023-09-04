@@ -1,2 +1,10 @@
 2023-09-04 20:07:46,003 - __main__ - DEBUG - This is the DEBUG log message
 2023-09-04 20:07:48,141 - __main__ - DEBUG - This is the DEBUG log message
+2023-09-04 20:11:52,595 - __main__ - DEBUG - This is the DEBUG log message
+2023-09-04 20:11:52,595 - __main__ - INFO - This is the INFO log message
+2023-09-04 20:11:54,761 - __main__ - DEBUG - This is the DEBUG log message
+2023-09-04 20:11:54,761 - __main__ - INFO - This is the INFO log message
+2023-09-04 20:37:46,609 - __main__ - DEBUG - This is the DEBUG log message
+2023-09-04 20:37:46,609 - __main__ - INFO - This is the INFO log message
+2023-09-04 20:37:46,807 - __main__ - DEBUG - This is the DEBUG log message
+2023-09-04 20:37:46,808 - __main__ - INFO - This is the INFO log message

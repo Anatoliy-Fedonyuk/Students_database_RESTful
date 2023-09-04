@@ -25,8 +25,8 @@ class StudentsListResource(Resource):
         @classmethod
         def validate_sort(cls, value: str) -> str:
             if value not in SORT_MAP:
-                raise PydanticCustomError('answer_error',
-                                          f'{value}- not allowed value!', {'Validation Error': 'Not allowed value'})
+                raise PydanticCustomError('answer_error', f'{value}- not allowed value!',
+                                          {'Validation Error': 'Not allowed value'})
             return value
 
     def get(self) -> Response | tuple[dict, int]:

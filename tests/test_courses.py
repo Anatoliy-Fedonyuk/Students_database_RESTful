@@ -22,7 +22,7 @@ def test_course_update_resource_valid_input(client):
     """Test update a course by ID (PUT)."""
     course_id = COURSE_ID
     new_course_data = {'id_course': course_id,
-                       'course': 'Updated Course Name',
+                       'course': 'Course-update',
                        'description': 'Updated Course Description'}
 
     response = client.put(f'/api/v1/courses/{course_id}', json=new_course_data)
@@ -37,7 +37,7 @@ def test_course_update_resource_invalid_input(client):
     """Test update a course by ID (PUT). Conflict input"""
     course_id = COURSE_ID
     invalid_course_data = {'id_course': 2,  # Non-matching course ID
-                           'course': 'Updated Course Name',
+                           'course': 'Course-update',
                            'description': 'Updated Course Description'}
 
     response = client.put(f'/api/v1/courses/{course_id}', json=invalid_course_data)

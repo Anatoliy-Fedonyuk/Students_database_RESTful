@@ -55,7 +55,7 @@ def test_students_list_resource_invalid_sort(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'error' in data
-    assert data['error'] == 'Invalid parameter <sort> (asc, desc)'
+    assert data['error'][0]['ctx'] == {'Validation Error': 'Not allowed value'}
 
 
 def test_students_list_resource_invalid_params(client):

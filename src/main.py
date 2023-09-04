@@ -48,9 +48,6 @@ def create_app(config_name: str) -> Flask:
 
     configure_logging(app)
 
-    logger = logging.getLogger(__name__)
-    logger.debug("This is the DEBUG log message")
-
     @app.route('/')
     def index():
         """Redirect to API documentation for developers."""
@@ -84,3 +81,6 @@ if __name__ == "__main__":
     # app = create_app('production')
     app = create_app('development')
     app.run()
+    # logger = logging.getLogger(__name__)
+    # logger.debug("This is the DEBUG log message")
+    # logger.info("This is the INFO log message")
