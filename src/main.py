@@ -49,7 +49,7 @@ def create_app(config_name: str) -> Flask:
     configure_logging(app)
 
     logger = logging.getLogger(__name__)
-    logger.debug("Это сообщение лога DEBUG")
+    logger.debug("This is the DEBUG log message")
 
     @app.route('/')
     def index():
