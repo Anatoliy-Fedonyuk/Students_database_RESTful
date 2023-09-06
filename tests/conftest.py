@@ -1,6 +1,7 @@
 """This configuration file is for tests. He creates fixtures and get some tests."""
 import pytest
 from flask import Flask
+from loguru import logger
 
 from src.main import create_app, db
 from src.check import generate_data
@@ -16,7 +17,7 @@ def app():
         yield app
         db.session.remove()
         db.drop_all()
-        print('\n', "[INFO] --- SQLAlchemy session remove and DB dropped ---")
+        logger.debug("---TEST SQLAlchemy session remove and DB dropped---")
 
 
 @pytest.fixture(scope='session')

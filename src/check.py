@@ -1,13 +1,11 @@
 """This module is for checking whether it is a new empty database, if so,
  then we create all models for the database and generate data for their correct filling."""
-import logging
 from sqlalchemy import inspect, func
+from loguru import logger
 
 from src.main import create_app
 from src.models import db, main_models
 from src.generator import generate_groups, generate_students, generate_courses, generate_student_course
-
-logger = logging.getLogger(__name__)
 
 
 def generate_data() -> None:
@@ -17,7 +15,7 @@ def generate_data() -> None:
         generate_students()
         generate_courses()
         generate_student_course()
-        logger.info("--Data generated successfully--")
+        logger.info("--Data for PostgreSQL successfully generated--")
         return None
     except Exception as ex:
         logger.error(f"Error while generating data: {ex}")

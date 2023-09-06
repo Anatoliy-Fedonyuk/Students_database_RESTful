@@ -1,6 +1,7 @@
 """---This module defines the StudentCourses resources for the API.---"""
 from flask import jsonify, Response
 from flask_restful import Resource
+from loguru import logger
 
 from src.generator import db, Students, Courses, StudentCourse
 

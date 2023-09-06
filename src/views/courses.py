@@ -2,6 +2,7 @@
 from flask import jsonify, request, Response
 from flask_restful import Resource
 from pydantic import BaseModel, Field, ValidationError
+from loguru import logger
 
 from src.generator import db, Courses
 

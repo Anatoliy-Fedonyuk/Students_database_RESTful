@@ -1,11 +1,10 @@
 """The module generates valid data to populate an empty database"""
-import logging
 from faker import Faker
+from loguru import logger
 
 from src.models import db, Groups, Students, Courses, StudentCourse
 
 faker = Faker()
-logger = logging.getLogger(__name__)
 
 
 def generate_groups() -> None:

@@ -4,7 +4,7 @@ from flask_restful import Api
 from importlib import import_module
 from flasgger import Swagger
 from flask_limiter import Limiter
-import logging
+from loguru import logger
 # from flask_migrate import Migrate
 
 from src.models import db
@@ -29,6 +29,8 @@ def register_resources(api: Api) -> None:
     api.add_resource(StudentsInCourseResource, '/courses/<string:course>/students/')
     api.add_resource(OneStudentCoursesResource, '/students/<int:id>/courses/')
     api.add_resource(StudentCourseResource, '/students/<int:id_student>/courses/<int:id_course>')
+    #
+    logger.info("--Registration of all URLs as API resources completed--")
 
 
 def create_app(config_name: str) -> Flask:
@@ -39,6 +41,9 @@ def create_app(config_name: str) -> Flask:
     app.config.from_object(config_module)
 
     Limiter(app)
+    logger.add('api_logs.json', colorize=True, format='{time} {level} {message}',
+               level='DEBUG', rotation='10 days', retention="30 days", serialize=True)
+    logger.info(f"Creating a Flask app in the 'app factory' using configuration: {config_name}!")
 
     db.init_app(app)
     # migrate = Migrate(src, db)
@@ -46,41 +51,16 @@ def create_app(config_name: str) -> Flask:
     Swagger(app, template_file='swagger/swagger.yml')
     register_resources(api)
 
-    configure_logging(app)
-
     @app.route('/')
     def index():
         """Redirect to API documentation for developers."""
+        logger.info("--Redirecting from '/' to API documentation for developers--")
         return redirect(url_for('flasgger.apidocs', _external=True))
 
     return app
-
-
-def configure_logging(app):
-    """Logging level setting and log file."""
-    log_level = app.config.get('LOG_LEVEL', 'INFO')
-    log_file = app.config.get('LOG_FILE', None)
-
-    logger = logging.getLogger(__name__)
-    logger.setLevel(log_level)
-
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(log_level)
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
-
-    if log_file:
-        file_handler = logging.FileHandler(log_file)
-        file_handler.setLevel(log_level)
-        file_handler.setFormatter(formatter)
-        logger.addHandler(file_handler)
 
 
 if __name__ == "__main__":
     # app = create_app('production')
     app = create_app('development')
     app.run()
-    # logger = logging.getLogger(__name__)
-    # logger.debug("This is the DEBUG log message")
-    # logger.info("This is the INFO log message")

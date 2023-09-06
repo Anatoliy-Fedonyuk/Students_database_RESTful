@@ -4,6 +4,7 @@ from flask_restful import Resource
 from pydantic import BaseModel, PositiveInt, Field, ValidationError, field_validator, validator, model_validator
 from random import randint
 from pydantic_core import PydanticCustomError
+from loguru import logger
 
 from src.generator import db, Students, StudentCourse
 

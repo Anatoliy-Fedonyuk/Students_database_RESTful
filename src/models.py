@@ -1,9 +1,7 @@
 """Models SQLAlchemy for PostgreSQL database create on this module"""
-import logging
+from loguru import logger
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
-
-logger = logging.getLogger(__name__)
 
 db = SQLAlchemy()
 
@@ -62,8 +60,7 @@ def create_tables() -> None:
         raise
 
 
-
-def main_models() -> str:
+def main_models() -> None:
     """Main function for creating SQLAlchemy models."""
     try:
         create_tables()
@@ -74,3 +71,4 @@ def main_models() -> str:
     finally:
         db.session.close()
         logger.info("--SQLAlchemy session closed--")
+        return None
