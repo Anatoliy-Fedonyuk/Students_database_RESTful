@@ -9,3 +9,8 @@ API_RATE_LIMIT_COUNT = 20
 # Enable loging
 LOG_LEVEL = 'INFO'
 LOG_FILE = 'production.log'
+# Using Redis as a caching system
+CACHE_TYPE = 'redis'  # Использование Redis как системы кэширования
+CACHE_REDIS_URL = 'redis://localhost:6379/0'  # URL для подключения к Redis
+CACHE_DEFAULT_TIMEOUT = 300  # Таймаут кэша по умолчанию (в секундах)
+CACHE_KEY_PREFIX = 'myapp'  # Префикс ключей кэша

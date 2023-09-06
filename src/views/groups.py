@@ -2,16 +2,20 @@
 from flask import jsonify, Response
 from flask_restful import Resource
 from sqlalchemy import func
+from flask_caching import Cache
 
 from src.generator import db, Groups, Students
 
 MIN_GROUP = 10
 MAX_GROUP = 30
 
+cache = Cache()
+
 
 class AllGroupsResource(Resource):
     """--Resource for retrieving all groups and their student counts.--"""
 
+    @cache.cached(timeout=60)
     def get(self) -> Response:
         """-Get a list of all groups and their student counts.-"""
         groups = (db.session.query(Groups.group_id, Groups.name, func.count(Students.id).label('student_count'))

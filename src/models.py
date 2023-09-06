@@ -1,7 +1,9 @@
 """Models SQLAlchemy for PostgreSQL database create on this module"""
-
+import logging
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
+
+logger = logging.getLogger(__name__)
 
 db = SQLAlchemy()
 
@@ -47,23 +49,28 @@ class StudentCourse(db.Model):
         return f"Student&Course : {self.id_student}, {self.id_course}"
 
 
-def create_tables() -> str:
+def create_tables() -> None:
     """Create all models/tables in the PostgreSQL database."""
     try:
         with db.session.begin():
-            print("[INFO] --PostgreSQL connection opened--")
+            logger.info("--PostgreSQL connection opened--")
             db.create_all()
-        return "[INFO] --Tables created correct--"
+            logger.info("--Tables created correct--")
+        return None
     except SQLAlchemyError as ex:
-        return f"[ERROR] Error while creating tables: {ex}"
+        logger.error(f"Error while creating tables: {ex}")
+        raise
+
 
 
 def main_models() -> str:
     """Main function for creating SQLAlchemy models."""
     try:
-        print(create_tables())
+        create_tables()
+        logger.info("--Models SQLAlchemy created successfully--")
     except Exception as ex:
-        print("[ERROR] Error while working with PostgreSQL :", ex)
+        logger.error(f"Error while working with PostgreSQL: {ex}")
+        raise
     finally:
         db.session.close()
-    return "[INFO] --Models SQLAlchemy created successfully--"
+        logger.info("--SQLAlchemy session closed--")
