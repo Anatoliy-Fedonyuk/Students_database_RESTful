@@ -26,7 +26,7 @@ class AllGroupsResource(Resource):
             return jsonify(result)
         except Exception as ex:
             logger.error(f"Error while retrieving all groups: {ex}")
-            abort(500, error='An error occurred while retrieving all groups')
+            return {'error': 'An error occurred while retrieving all groups'}, 500
 
 
 class GroupsOnRequestResource(Resource):
@@ -37,7 +37,7 @@ class GroupsOnRequestResource(Resource):
         try:
             if num > MAX_GROUP or num < MIN_GROUP:
                 logger.error(f'Invalid number of student {num} in group(10-30)')
-                abort(400, error=f'Invalid number of student {num} in group(10-30)')
+                return {'error': f'Invalid number of student {num} in group(10-30)'}, 400
 
             groups = (db.session.query(Groups.name, func.count(Students.id).label('student_count'))
                       .outerjoin(Students, Groups.group_id == Students.group_id)
@@ -48,10 +48,10 @@ class GroupsOnRequestResource(Resource):
 
             if not groups:
                 logger.error(f'Groups with no more than {num} students do not exist')
-                abort(400, error=f'Groups with no more than {num} students do not exist')
+                return {'error': f'Groups with no more than {num} students do not exist'}, 400
 
             result = [{'group_name': name, 'student_count': count} for name, count in groups]
             return jsonify(result)
         except Exception as ex:
             logger.error(f"Error while retrieving groups with a specified number of students: {ex}")
-            abort(500, error='An error occurred while retrieving groups..')
+            return {'error': 'An error occurred while retrieving groups..'}, 500

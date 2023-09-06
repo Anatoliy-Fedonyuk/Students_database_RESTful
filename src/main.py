@@ -16,20 +16,21 @@ from src.views.student_course import StudentsInCourseResource, StudentCourseReso
 
 def register_resources(api: Api) -> None:
     """Register resources with the given Api."""
+    # from students.py
     api.add_resource(StudentsListResource, '/students/')
     api.add_resource(StudentResource, '/students/<int:id>')
     api.add_resource(CreateStudentResource, '/students/')
-    #
+    # from groups.py
     api.add_resource(AllGroupsResource, '/groups/students')
     api.add_resource(GroupsOnRequestResource, '/groups/<int:num>/students')
-    #
+    # from courses.py
     api.add_resource(CoursesAllResource, '/courses/')
     api.add_resource(CourseUpdateResource, '/courses/<int:id>')
-    #
+    # from student-course.py
     api.add_resource(StudentsInCourseResource, '/courses/<string:course>/students/')
     api.add_resource(OneStudentCoursesResource, '/students/<int:id>/courses/')
     api.add_resource(StudentCourseResource, '/students/<int:id_student>/courses/<int:id_course>')
-    #
+
     logger.info("--Registration of all URLs as API resources completed--")
 
 
