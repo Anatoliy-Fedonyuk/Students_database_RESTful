@@ -1,0 +1,979 @@
+{
+  "text": "2023-09-06T20:18:07.547083+0200 INFO Creating a Flask app in the 'app factory' using configuration: testing!\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.255147",
+      "seconds": 1.255147
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "main.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"
+    },
+    "function": "create_app",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 46,
+    "message": "Creating a Flask app in the 'app factory' using configuration: testing!",
+    "module": "main",
+    "name": "src.main",
+    "process": {
+      "id": 14300,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 10640,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:18:07.547083+02:00",
+      "timestamp": 1694024287.547083
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:18:07.772082+0200 INFO --Registration of all URLs as API resources completed--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.480146",
+      "seconds": 1.480146
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "main.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"
+    },
+    "function": "register_resources",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 33,
+    "message": "--Registration of all URLs as API resources completed--",
+    "module": "main",
+    "name": "src.main",
+    "process": {
+      "id": 14300,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 10640,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:18:07.772082+02:00",
+      "timestamp": 1694024287.772082
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:18:08.067967+0200 INFO --Data for 'groups' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.776031",
+      "seconds": 1.776031
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_groups",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 19,
+    "message": "--Data for 'groups' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 14300,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 10640,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:18:08.067967+02:00",
+      "timestamp": 1694024288.067967
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:18:08.181114+0200 INFO --Data for 'students' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.889178",
+      "seconds": 1.889178
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_students",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 38,
+    "message": "--Data for 'students' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 14300,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 10640,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:18:08.181114+02:00",
+      "timestamp": 1694024288.181114
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:18:08.195087+0200 INFO --Data for 'courses' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.903151",
+      "seconds": 1.903151
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_courses",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 67,
+    "message": "--Data for 'courses' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 14300,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 10640,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:18:08.195087+02:00",
+      "timestamp": 1694024288.195087
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:18:08.268096+0200 INFO --Data for 'student_course' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.976160",
+      "seconds": 1.97616
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_student_course",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 88,
+    "message": "--Data for 'student_course' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 14300,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 10640,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:18:08.268096+02:00",
+      "timestamp": 1694024288.268096
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:18:08.269191+0200 INFO --Data for PostgreSQL successfully generated--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.977255",
+      "seconds": 1.977255
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "check.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\check.py"
+    },
+    "function": "generate_data",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 18,
+    "message": "--Data for PostgreSQL successfully generated--",
+    "module": "check",
+    "name": "src.check",
+    "process": {
+      "id": 14300,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 10640,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:18:08.269191+02:00",
+      "timestamp": 1694024288.269191
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:18:08.322733+0200 INFO \n ---TEST SQLAlchemy session remove and DB dropped---\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:02.030797",
+      "seconds": 2.030797
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "conftest.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\tests\\conftest.py"
+    },
+    "function": "app",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 20,
+    "message": "\n ---TEST SQLAlchemy session remove and DB dropped---",
+    "module": "conftest",
+    "name": "tests.conftest",
+    "process": {
+      "id": 14300,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 10640,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:18:08.322733+02:00",
+      "timestamp": 1694024288.322733
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:06.861198+0200 INFO Creating a Flask app in the 'app factory' using configuration: testing!\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.115490",
+      "seconds": 1.11549
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "main.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"
+    },
+    "function": "create_app",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 46,
+    "message": "Creating a Flask app in the 'app factory' using configuration: testing!",
+    "module": "main",
+    "name": "src.main",
+    "process": {
+      "id": 12784,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 6884,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:06.861198+02:00",
+      "timestamp": 1694024406.861198
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:07.003164+0200 INFO --Registration of all URLs as API resources completed--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.257456",
+      "seconds": 1.257456
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "main.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"
+    },
+    "function": "register_resources",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 33,
+    "message": "--Registration of all URLs as API resources completed--",
+    "module": "main",
+    "name": "src.main",
+    "process": {
+      "id": 12784,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 6884,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:07.003164+02:00",
+      "timestamp": 1694024407.003164
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:07.193489+0200 INFO --Data for 'groups' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.447781",
+      "seconds": 1.447781
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_groups",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 19,
+    "message": "--Data for 'groups' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 12784,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 6884,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:07.193489+02:00",
+      "timestamp": 1694024407.193489
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:07.393886+0200 INFO --Data for 'students' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.648178",
+      "seconds": 1.648178
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_students",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 38,
+    "message": "--Data for 'students' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 12784,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 6884,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:07.393886+02:00",
+      "timestamp": 1694024407.393886
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:07.411018+0200 INFO --Data for 'courses' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.665310",
+      "seconds": 1.66531
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_courses",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 67,
+    "message": "--Data for 'courses' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 12784,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 6884,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:07.411018+02:00",
+      "timestamp": 1694024407.411018
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:07.507828+0200 INFO --Data for 'student_course' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.762120",
+      "seconds": 1.76212
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_student_course",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 88,
+    "message": "--Data for 'student_course' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 12784,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 6884,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:07.507828+02:00",
+      "timestamp": 1694024407.507828
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:07.509669+0200 INFO --Data for PostgreSQL successfully generated--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.763961",
+      "seconds": 1.763961
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "check.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\check.py"
+    },
+    "function": "generate_data",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 18,
+    "message": "--Data for PostgreSQL successfully generated--",
+    "module": "check",
+    "name": "src.check",
+    "process": {
+      "id": 12784,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 6884,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:07.509669+02:00",
+      "timestamp": 1694024407.509669
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:07.625456+0200 INFO --Redirecting from '/' to API documentation for developers--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.879748",
+      "seconds": 1.879748
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "main.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"
+    },
+    "function": "index",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 57,
+    "message": "--Redirecting from '/' to API documentation for developers--",
+    "module": "main",
+    "name": "src.main",
+    "process": {
+      "id": 12784,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 6884,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:07.625456+02:00",
+      "timestamp": 1694024407.625456
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:08.743719+0200 INFO \n ---TEST SQLAlchemy session remove and DB dropped---\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:02.998011",
+      "seconds": 2.998011
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "conftest.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\tests\\conftest.py"
+    },
+    "function": "app",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 20,
+    "message": "\n ---TEST SQLAlchemy session remove and DB dropped---",
+    "module": "conftest",
+    "name": "tests.conftest",
+    "process": {
+      "id": 12784,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 6884,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:08.743719+02:00",
+      "timestamp": 1694024408.743719
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:49.856775+0200 INFO Creating a Flask app in the 'app factory' using configuration: testing!\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.255036",
+      "seconds": 1.255036
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "main.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"
+    },
+    "function": "create_app",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 46,
+    "message": "Creating a Flask app in the 'app factory' using configuration: testing!",
+    "module": "main",
+    "name": "src.main",
+    "process": {
+      "id": 5964,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 5828,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:49.856775+02:00",
+      "timestamp": 1694024449.856775
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:50.000738+0200 INFO --Registration of all URLs as API resources completed--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.398999",
+      "seconds": 1.398999
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "main.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"
+    },
+    "function": "register_resources",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 33,
+    "message": "--Registration of all URLs as API resources completed--",
+    "module": "main",
+    "name": "src.main",
+    "process": {
+      "id": 5964,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 5828,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:50.000738+02:00",
+      "timestamp": 1694024450.000738
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:50.181402+0200 INFO --Data for 'groups' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.579663",
+      "seconds": 1.579663
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_groups",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 19,
+    "message": "--Data for 'groups' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 5964,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 5828,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:50.181402+02:00",
+      "timestamp": 1694024450.181402
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:50.278234+0200 INFO --Data for 'students' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.676495",
+      "seconds": 1.676495
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_students",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 38,
+    "message": "--Data for 'students' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 5964,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 5828,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:50.278234+02:00",
+      "timestamp": 1694024450.278234
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:50.295448+0200 INFO --Data for 'courses' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.693709",
+      "seconds": 1.693709
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_courses",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 67,
+    "message": "--Data for 'courses' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 5964,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 5828,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:50.295448+02:00",
+      "timestamp": 1694024450.295448
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:50.360187+0200 INFO --Data for 'student_course' generated successfully--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.758448",
+      "seconds": 1.758448
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "generator.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"
+    },
+    "function": "generate_student_course",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 88,
+    "message": "--Data for 'student_course' generated successfully--",
+    "module": "generator",
+    "name": "src.generator",
+    "process": {
+      "id": 5964,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 5828,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:50.360187+02:00",
+      "timestamp": 1694024450.360187
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:50.361394+0200 INFO --Data for PostgreSQL successfully generated--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.759655",
+      "seconds": 1.759655
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "check.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\check.py"
+    },
+    "function": "generate_data",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 18,
+    "message": "--Data for PostgreSQL successfully generated--",
+    "module": "check",
+    "name": "src.check",
+    "process": {
+      "id": 5964,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 5828,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:50.361394+02:00",
+      "timestamp": 1694024450.361394
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:50.436305+0200 INFO --Redirecting from '/' to API documentation for developers--\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:01.834566",
+      "seconds": 1.834566
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "main.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"
+    },
+    "function": "index",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 57,
+    "message": "--Redirecting from '/' to API documentation for developers--",
+    "module": "main",
+    "name": "src.main",
+    "process": {
+      "id": 5964,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 5828,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:50.436305+02:00",
+      "timestamp": 1694024450.436305
+    }
+  }
+}
+{
+  "text": "2023-09-06T20:20:51.319507+0200 INFO \n ---TEST SQLAlchemy session remove and DB dropped---\n",
+  "record": {
+    "elapsed": {
+      "repr": "0:00:02.717768",
+      "seconds": 2.717768
+    },
+    "exception": null,
+    "extra": {},
+    "file": {
+      "name": "conftest.py",
+      "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\tests\\conftest.py"
+    },
+    "function": "app",
+    "level": {
+      "icon": "ℹ️",
+      "name": "INFO",
+      "no": 20
+    },
+    "line": 20,
+    "message": "\n ---TEST SQLAlchemy session remove and DB dropped---",
+    "module": "conftest",
+    "name": "tests.conftest",
+    "process": {
+      "id": 5964,
+      "name": "MainProcess"
+    },
+    "thread": {
+      "id": 5828,
+      "name": "MainThread"
+    },
+    "time": {
+      "repr": "2023-09-06 20:20:51.319507+02:00",
+      "timestamp": 1694024451.319507
+    }
+  }
+}
+{"text": "2023-09-06T20:24:13.061895+0200 INFO Creating a Flask app in the 'app factory' using configuration: testing!\n", "record": {"elapsed": {"repr": "0:00:01.187138", "seconds": 1.187138}, "exception": null, "extra": {}, "file": {"name": "main.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"}, "function": "create_app", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 46, "message": "Creating a Flask app in the 'app factory' using configuration: testing!", "module": "main", "name": "src.main", "process": {"id": 4892, "name": "MainProcess"}, "thread": {"id": 14916, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:24:13.061895+02:00", "timestamp": 1694024653.061895}}}
+{"text": "2023-09-06T20:24:13.206932+0200 INFO --Registration of all URLs as API resources completed--\n", "record": {"elapsed": {"repr": "0:00:01.332175", "seconds": 1.332175}, "exception": null, "extra": {}, "file": {"name": "main.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"}, "function": "register_resources", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 33, "message": "--Registration of all URLs as API resources completed--", "module": "main", "name": "src.main", "process": {"id": 4892, "name": "MainProcess"}, "thread": {"id": 14916, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:24:13.206932+02:00", "timestamp": 1694024653.206932}}}
+{"text": "2023-09-06T20:24:13.349520+0200 INFO --Data for 'groups' generated successfully--\n", "record": {"elapsed": {"repr": "0:00:01.474763", "seconds": 1.474763}, "exception": null, "extra": {}, "file": {"name": "generator.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"}, "function": "generate_groups", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 19, "message": "--Data for 'groups' generated successfully--", "module": "generator", "name": "src.generator", "process": {"id": 4892, "name": "MainProcess"}, "thread": {"id": 14916, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:24:13.349520+02:00", "timestamp": 1694024653.34952}}}
+{"text": "2023-09-06T20:24:13.447149+0200 INFO --Data for 'students' generated successfully--\n", "record": {"elapsed": {"repr": "0:00:01.572392", "seconds": 1.572392}, "exception": null, "extra": {}, "file": {"name": "generator.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"}, "function": "generate_students", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 38, "message": "--Data for 'students' generated successfully--", "module": "generator", "name": "src.generator", "process": {"id": 4892, "name": "MainProcess"}, "thread": {"id": 14916, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:24:13.447149+02:00", "timestamp": 1694024653.447149}}}
+{"text": "2023-09-06T20:24:13.459891+0200 INFO --Data for 'courses' generated successfully--\n", "record": {"elapsed": {"repr": "0:00:01.585134", "seconds": 1.585134}, "exception": null, "extra": {}, "file": {"name": "generator.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"}, "function": "generate_courses", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 67, "message": "--Data for 'courses' generated successfully--", "module": "generator", "name": "src.generator", "process": {"id": 4892, "name": "MainProcess"}, "thread": {"id": 14916, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:24:13.459891+02:00", "timestamp": 1694024653.459891}}}
+{"text": "2023-09-06T20:24:13.520641+0200 INFO --Data for 'student_course' generated successfully--\n", "record": {"elapsed": {"repr": "0:00:01.645884", "seconds": 1.645884}, "exception": null, "extra": {}, "file": {"name": "generator.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"}, "function": "generate_student_course", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 88, "message": "--Data for 'student_course' generated successfully--", "module": "generator", "name": "src.generator", "process": {"id": 4892, "name": "MainProcess"}, "thread": {"id": 14916, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:24:13.520641+02:00", "timestamp": 1694024653.520641}}}
+{"text": "2023-09-06T20:24:13.521629+0200 INFO --Data for PostgreSQL successfully generated--\n", "record": {"elapsed": {"repr": "0:00:01.646872", "seconds": 1.646872}, "exception": null, "extra": {}, "file": {"name": "check.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\check.py"}, "function": "generate_data", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 18, "message": "--Data for PostgreSQL successfully generated--", "module": "check", "name": "src.check", "process": {"id": 4892, "name": "MainProcess"}, "thread": {"id": 14916, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:24:13.521629+02:00", "timestamp": 1694024653.521629}}}
+{"text": "2023-09-06T20:24:13.591633+0200 INFO --Redirecting from '/' to API documentation for developers--\n", "record": {"elapsed": {"repr": "0:00:01.716876", "seconds": 1.716876}, "exception": null, "extra": {}, "file": {"name": "main.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"}, "function": "index", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 57, "message": "--Redirecting from '/' to API documentation for developers--", "module": "main", "name": "src.main", "process": {"id": 4892, "name": "MainProcess"}, "thread": {"id": 14916, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:24:13.591633+02:00", "timestamp": 1694024653.591633}}}
+{"text": "2023-09-06T20:24:14.012796+0200 INFO \n ---TEST SQLAlchemy session remove and DB dropped---\n", "record": {"elapsed": {"repr": "0:00:02.138039", "seconds": 2.138039}, "exception": null, "extra": {}, "file": {"name": "conftest.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\tests\\conftest.py"}, "function": "app", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 20, "message": "\n ---TEST SQLAlchemy session remove and DB dropped---", "module": "conftest", "name": "tests.conftest", "process": {"id": 4892, "name": "MainProcess"}, "thread": {"id": 14916, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:24:14.012796+02:00", "timestamp": 1694024654.012796}}}
+{"text": "2023-09-06T20:45:51.271647+0200 INFO Creating a Flask app in the 'app factory' using configuration: testing!\n", "record": {"elapsed": {"repr": "0:00:01.834180", "seconds": 1.83418}, "exception": null, "extra": {}, "file": {"name": "main.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"}, "function": "create_app", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 46, "message": "Creating a Flask app in the 'app factory' using configuration: testing!", "module": "main", "name": "src.main", "process": {"id": 14392, "name": "MainProcess"}, "thread": {"id": 12252, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:45:51.271647+02:00", "timestamp": 1694025951.271647}}}
+{"text": "2023-09-06T20:45:51.495166+0200 INFO --Registration of all URLs as API resources completed--\n", "record": {"elapsed": {"repr": "0:00:02.057699", "seconds": 2.057699}, "exception": null, "extra": {}, "file": {"name": "main.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\main.py"}, "function": "register_resources", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 33, "message": "--Registration of all URLs as API resources completed--", "module": "main", "name": "src.main", "process": {"id": 14392, "name": "MainProcess"}, "thread": {"id": 12252, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:45:51.495166+02:00", "timestamp": 1694025951.495166}}}
+{"text": "2023-09-06T20:45:51.652459+0200 INFO --Data for 'groups' generated successfully--\n", "record": {"elapsed": {"repr": "0:00:02.214992", "seconds": 2.214992}, "exception": null, "extra": {}, "file": {"name": "generator.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"}, "function": "generate_groups", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 19, "message": "--Data for 'groups' generated successfully--", "module": "generator", "name": "src.generator", "process": {"id": 14392, "name": "MainProcess"}, "thread": {"id": 12252, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:45:51.652459+02:00", "timestamp": 1694025951.652459}}}
+{"text": "2023-09-06T20:45:51.821450+0200 INFO --Data for 'students' generated successfully--\n", "record": {"elapsed": {"repr": "0:00:02.383983", "seconds": 2.383983}, "exception": null, "extra": {}, "file": {"name": "generator.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"}, "function": "generate_students", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 38, "message": "--Data for 'students' generated successfully--", "module": "generator", "name": "src.generator", "process": {"id": 14392, "name": "MainProcess"}, "thread": {"id": 12252, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:45:51.821450+02:00", "timestamp": 1694025951.82145}}}
+{"text": "2023-09-06T20:45:51.835260+0200 INFO --Data for 'courses' generated successfully--\n", "record": {"elapsed": {"repr": "0:00:02.397793", "seconds": 2.397793}, "exception": null, "extra": {}, "file": {"name": "generator.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"}, "function": "generate_courses", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 67, "message": "--Data for 'courses' generated successfully--", "module": "generator", "name": "src.generator", "process": {"id": 14392, "name": "MainProcess"}, "thread": {"id": 12252, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:45:51.835260+02:00", "timestamp": 1694025951.83526}}}
+{"text": "2023-09-06T20:45:51.928172+0200 INFO --Data for 'student_course' generated successfully--\n", "record": {"elapsed": {"repr": "0:00:02.490705", "seconds": 2.490705}, "exception": null, "extra": {}, "file": {"name": "generator.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\generator.py"}, "function": "generate_student_course", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 88, "message": "--Data for 'student_course' generated successfully--", "module": "generator", "name": "src.generator", "process": {"id": 14392, "name": "MainProcess"}, "thread": {"id": 12252, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:45:51.928172+02:00", "timestamp": 1694025951.928172}}}
+{"text": "2023-09-06T20:45:51.929918+0200 INFO --Data for PostgreSQL successfully generated--\n", "record": {"elapsed": {"repr": "0:00:02.492451", "seconds": 2.492451}, "exception": null, "extra": {}, "file": {"name": "check.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\src\\check.py"}, "function": "generate_data", "level": {"icon": "ℹ️", "name": "INFO", "no": 20}, "line": 18, "message": "--Data for PostgreSQL successfully generated--", "module": "check", "name": "src.check", "process": {"id": 14392, "name": "MainProcess"}, "thread": {"id": 12252, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:45:51.929918+02:00", "timestamp": 1694025951.929918}}}
+{"text": "2023-09-06T20:45:51.981237+0200 DEBUG ---TEST SQLAlchemy session remove and DB dropped---\n", "record": {"elapsed": {"repr": "0:00:02.543770", "seconds": 2.54377}, "exception": null, "extra": {}, "file": {"name": "conftest.py", "path": "C:\\Users\\HP\\Desktop\\Projects Fox\\Task 10 - SQL\\tests\\conftest.py"}, "function": "app", "level": {"icon": "🐞", "name": "DEBUG", "no": 10}, "line": 20, "message": "---TEST SQLAlchemy session remove and DB dropped---", "module": "conftest", "name": "tests.conftest", "process": {"id": 14392, "name": "MainProcess"}, "thread": {"id": 12252, "name": "MainThread"}, "time": {"repr": "2023-09-06 20:45:51.981237+02:00", "timestamp": 1694025951.981237}}}
