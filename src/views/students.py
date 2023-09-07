@@ -8,8 +8,7 @@ from loguru import logger
 
 from src.generator import db, Students, StudentCourse
 
-SORT_MAP = {'asc': Students.id,
-            'desc': Students.id.desc()}
+SORT_MAP = {'asc': Students.id, 'desc': Students.id.desc()}
 MIN, MAX = 1, 10
 
 
@@ -26,6 +25,7 @@ class StudentsListResource(Resource):
         @classmethod
         def validate_sort(cls, value: str) -> str:
             if value not in SORT_MAP:
+                logger.error(f"Validation error in QueryParams parameter <sort>: Not allowed value!")
                 raise PydanticCustomError('answer_error', f'{value}- not allowed value!',
                                           {'Validation Error': 'Not allowed value'})
             return value
@@ -35,19 +35,17 @@ class StudentsListResource(Resource):
         try:
             params = self.QueryParams(**request.args)
         except ValidationError as e:
+            logger.error(f"Validation error in StudentsListResource: {e}")
             return {'error': e.errors()}, 400
 
         students = Students.query.order_by(SORT_MAP.get(params.sort))
         students_paging = students.paginate(page=params.page, per_page=params.per_page)
-
         students_data = [{'id': student.id, 'first_name': student.first_name,
                           'last_name': student.last_name, 'age': student.age,
                           'group_id': student.group_id} for student in students_paging.items]
-
         result = [{'students': students_data, 'total_pages': students_paging.pages,
                    'current_page': students_paging.page, 'per_page': students_paging.per_page,
                    'total_items': students_paging.total}]
-
         return jsonify(result)
 
 
@@ -57,18 +55,17 @@ class StudentResource(Resource):
     def get(self, id: int) -> Response | tuple[dict, int]:
         """-Get student by ID.-"""
         student = Students.query.get(id)
-
         if student:
             return jsonify({'id': student.id, 'first_name': student.first_name,
                             'last_name': student.last_name, 'age': student.age,
                             'group_id': student.group_id})
         else:
-            return {'error': f'Student with id={id} not found'}, 404
+            logger.error(f"Student with id={id} not found!")
+            return {'error': f'Student with id={id} not found!'}, 404
 
     def delete(self, id: int) -> tuple[dict, int]:
         """-Delete student by ID (DELETE).-"""
         student = Students.query.get(id)
-
         if student:
             # Deleting related entries in student_course
             student_courses = StudentCourse.query.filter_by(id_student=student.id).all()
@@ -77,9 +74,11 @@ class StudentResource(Resource):
             # Deleting a student by id
             db.session.delete(student)
             db.session.commit()
-            return {'message': f'Student {id} deleted successfully'}, 200
+            logger.info(f"--Student {id} deleted successfully--")
+            return {'message': f'--Student {id} deleted successfully--'}, 200
         else:
-            return {'error': f'Student {id} not found'}, 404
+            logger.error(f"Student {id} not found!")
+            return {'error': f'Student {id} not found!'}, 404
 
 
 class CreateStudentResource(Resource):
@@ -97,6 +96,7 @@ class CreateStudentResource(Resource):
         try:
             data = self.RequestBody(**request.get_json())
         except ValidationError as e:
+            logger.error(f"Validation error in CreateStudentResource: {e}")
             return {'error': e.errors()}, 400
 
         if not data.group_id:
@@ -104,10 +104,12 @@ class CreateStudentResource(Resource):
 
         student = Students.query.filter_by(first_name=data.first_name, last_name=data.last_name).first()
         if student:
+            logger.error(f"Student {data.first_name} {data.last_name} already exists")
             return {'error': f'Student {data.first_name} {data.last_name} already exists'}, 400
 
         new_student = Students(first_name=data.first_name, last_name=data.last_name,
                                age=data.age, group_id=data.group_id)
         db.session.add(new_student)
         db.session.commit()
+        logger.info(f"Student {data.first_name} {data.last_name} created successfully")
         return {'message': f'Student {data.first_name} {data.last_name} created successfully'}, 201

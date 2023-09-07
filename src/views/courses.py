@@ -47,6 +47,7 @@ class CourseUpdateResource(Resource):
                 course.course = data.course
                 course.description = data.description
                 db.session.commit()
+
                 logger.info(f'Course with id={id} updated successfully')
                 return {'message': f'Course with id={id} updated successfully'}, 201
             else:
