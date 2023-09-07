@@ -62,10 +62,8 @@ def validate_student_and_course(id_student: int, id_course: int):
     """Course and student validation. """
     student = Students.query.get(id_student)
     course = Courses.query.get(id_course)
-
     if not student or not course:
         return ERROR_NOT_FOUND
-
     return StudentCourse.query.filter_by(id_student=id_student, id_course=id_course).first()
 
 
@@ -108,6 +106,6 @@ class StudentCourseResource(Resource):
                 db.session.commit()
                 logger.info(f'--Student {id_student} removed from the course {id_course} successfully--')
                 return {'message': f'--Student {id_student} removed from the course {id_course} successfully--'}, 200
-        except Exception as e:
-            logger.error(f"An error occurred while removing a student from a course: {e}")
+        except Exception as ex:
+            logger.error(f"An error occurred while removing a student from a course: {ex}")
             return {'error': 'An error occurred while removing a student from a course'}, 500
