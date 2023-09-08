@@ -47,7 +47,7 @@ def create_app(config_name: str) -> Flask:
     logger.info(f"Creating a Flask app in the 'app factory' using configuration: {config_name}!")
 
     db.init_app(app)
-    # migrate = Migrate(src, db)
+    # Migrate(db)
     api = Api(app, prefix='/api/v1')
     Swagger(app, template_file='swagger/swagger.yml')
     register_resources(api)
@@ -62,6 +62,6 @@ def create_app(config_name: str) -> Flask:
 
 
 if __name__ == "__main__":
-    # app = create_app('production')
-    app = create_app('development')
+    app = create_app('production')
+    # app = create_app('development')
     app.run()
