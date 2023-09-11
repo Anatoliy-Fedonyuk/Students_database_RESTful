@@ -110,6 +110,7 @@ class CreateStudentResource(Resource):
         except ValidationError as e:
             logger.error(f"Validation error in CreateStudentResource: {e}")
             return {'error': e.errors()}, 400
+
         try:
             if not data.group_id:
                 data.group_id = randint(1, 10)
