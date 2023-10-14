@@ -1,6 +1,6 @@
 # "SQL" - RESTful API application for work with PostgreSQL databases
 
-##    The application allows you to administer the personal data of students, their distribution into groups, as well
+## The application allows you to administer the personal data of students, their distribution into groups, as well
 ## as the selection, recording and removal of students to (from) active training courses of a small educational
 ## institution (for example, a college).
 
