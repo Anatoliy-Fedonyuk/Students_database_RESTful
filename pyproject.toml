@@ -15,5 +15,5 @@ classifiers = ["Programming Language :: Python :: 3",
     "Operating System :: OS Independent",]
 
 [project.urls]
-"Homepage" = "https://git.foxminded.ua/foxstudent105007/task-10-sql"
-"Bug Tracker" = "https://git.foxminded.ua/foxstudent105007/task-10-sql/-/issues"
+"Homepage" = "https://github.com/Anatoliy-Fedonyuk/Students_database_RESTful"
+"Bug Tracker" = "https://github.com/Anatoliy-Fedonyuk/Students_database_RESTful/issues"
