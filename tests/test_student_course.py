@@ -31,7 +31,7 @@ def test_students_in_course_nonexistent(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'error' in data
-    assert data['error'] == f'There course-{COURSE_NOT_EXIST} not found'
+    assert data['error'] == f'There course-{COURSE_NOT_EXIST} not found!'
 
 
 def test_one_student_courses_existing(client):
@@ -56,7 +56,7 @@ def test_one_student_courses_nonexistent(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'error' in data
-    assert data['error'] == f'Student with {id} not found'
+    assert data['error'] == f'Student with {id} not found!'
 
 
 def test_student_course_create_success(client):
@@ -72,7 +72,7 @@ def test_student_course_create_success(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'message' in data
-    assert data['message'] == f'Student {id_student} added to the course {id_course} successfully'
+    assert data['message'] == f'--Student {id_student} added to the course {id_course} successfully--'
 
 
 def test_student_course_create_conflict(client):
@@ -84,7 +84,7 @@ def test_student_course_create_conflict(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'error' in data
-    assert data['error'] == f'Student-course {id_student}-{id_course} association already exist'
+    assert data['error'] == f'Student-course {id_student}-{id_course} association already exist!'
 
 
 def test_student_course_create_invalid_student(client):
@@ -96,7 +96,7 @@ def test_student_course_create_invalid_student(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'error' in data
-    assert data['error'] == f'Student {id_student} or course {id_course} not found'
+    assert data['error'] == f'Student {id_student} or course {id_course} not found!'
 
 
 def test_student_course_delete_success(client):
@@ -108,7 +108,7 @@ def test_student_course_delete_success(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'message' in data
-    assert data['message'] == f'Student {id_student} removed from the course {id_course} successfully'
+    assert data['message'] == f'--Student {id_student} removed from the course {id_course} successfully--'
 
 
 def test_student_course_create_invalid_course(client):
@@ -120,7 +120,7 @@ def test_student_course_create_invalid_course(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'error' in data
-    assert data['error'] == f'Student {id_student} or course {id_course} not found'
+    assert data['error'] == f'Student {id_student} or course {id_course} not found!'
 
 
 def test_student_course_delete_not_found(client):
@@ -132,7 +132,7 @@ def test_student_course_delete_not_found(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'error' in data
-    assert data['error'] == f'Student-course {id_student}-{id_course}  association not found'
+    assert data['error'] == f'Student-course {id_student}-{id_course}  association not found!'
 
 
 if __name__ == '__main__':
