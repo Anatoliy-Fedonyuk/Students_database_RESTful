@@ -106,7 +106,7 @@ def test_create_student_resource_valid_data(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'message' in data
-    assert data['message'] == f'Student {new_st["first_name"]} {new_st["last_name"]} created successfully'
+    assert data['message'] == f'--Student {new_st["first_name"]} {new_st["last_name"]} created successfully--'
 
     """And Test POST if student already exists"""
     response = client.post('/api/v1/students/', json=new_st)
