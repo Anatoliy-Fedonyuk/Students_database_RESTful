@@ -91,7 +91,7 @@ def test_student_resource_invalid_id(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'error' in data
-    assert data['error'] == f'Student with id={student_id} not found'
+    assert data['error'] == f'Student with id={student_id} not found!'
 
 
 def test_create_student_resource_valid_data(client):
@@ -153,7 +153,7 @@ def test_student_delete_nonexistent(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'error' in data
-    assert data['error'] == f'Student {student_id} not found'
+    assert data['error'] == f'Student {student_id} not found!'
 
 
 if __name__ == '__main__':
