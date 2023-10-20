@@ -141,7 +141,7 @@ def test_student_delete_existing(client):
     data = response.get_json()
     assert isinstance(data, dict)
     assert 'message' in data
-    assert data['message'] == f'Student {student_id} deleted successfully'
+    assert data['message'] == f'--Student {student_id} deleted successfully--'
 
 
 def test_student_delete_nonexistent(client):
