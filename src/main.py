@@ -62,6 +62,8 @@ def create_app(config_name: str) -> Flask:
     return app
 
 
+
+
 if __name__ == "__main__":
     # app = create_app('production')
     app = create_app('development')
