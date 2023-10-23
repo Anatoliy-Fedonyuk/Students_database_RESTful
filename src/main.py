@@ -34,30 +34,24 @@ def register_resources(api: Api) -> None:
     logger.info("--Registration of all URLs as API resources completed--")
 
 
-
 def create_app(config_name: str) -> Flask:
     """Create a Flask src using the provided configuration name."""
     app = Flask(__name__)
 
-
     config_module = import_module(f'config.{config_name}')
     app.config.from_object(config_module)
-
 
     Limiter(app)
     logger.add('api_logs.json', colorize=True, format='{time} {level} {message}',
                level='DEBUG', rotation='10 days', retention="30 days", serialize=True)
     logger.info(f"Creating a Flask app in the 'app factory' using configuration: {config_name}!")
 
-
     db.init_app(app)
     # Migrate(db)
-
 
     api = Api(app, prefix='/api/v1')
     Swagger(app, template_file='swagger/swagger.yml')
     register_resources(api)
-
 
     @app.route('/')
     def index():
@@ -66,7 +60,6 @@ def create_app(config_name: str) -> Flask:
         return redirect(url_for('flasgger.apidocs', _external=True))
 
     return app
-
 
 
 if __name__ == "__main__":
