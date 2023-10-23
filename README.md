@@ -24,8 +24,8 @@
 
 #### Work with PostgreSQL DB was carried out entirely using ORM SQLalchemy and the following Models were created:
 
-- [ ] [GroupsModel]
-- [ ] [StudentsModel]
-- [ ] [CoursesModel]
-- [ ] [Associative model Student-Course]
+- [ ] GroupsModel
+- [ ] StudentsModel
+- [ ] CoursesModel
+- [ ] Associative model Student-Course
 
