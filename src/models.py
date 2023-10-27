@@ -71,4 +71,3 @@ def main_models() -> None:
     finally:
         db.session.close()
         logger.info("--SQLAlchemy session closed--")
-        return None
